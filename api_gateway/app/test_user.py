@@ -47,3 +47,18 @@ def test_duplicated_register_user():
     assert duplicated_response.status_code == 200
     assert len(duplicated_json_response['data']) > 0
     assert duplicated_json_response['status'] == 409
+
+def test_user_login():
+    headers = {
+        'Content-Type': 'application/json',
+    }
+    data = {
+        'username': 'test',
+        'password': 'test123',
+    }
+
+    response = client.post('/api/v1/login', headers=headers, json=data)
+    response_json = response.json()
+
+    assert response.status_code == 200
+    assert response_json['data'][0].get('access_token') is not None

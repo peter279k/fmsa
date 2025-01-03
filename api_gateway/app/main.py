@@ -1,3 +1,4 @@
+import json
 from typing import List
 
 from fastapi import APIRouter
@@ -15,6 +16,7 @@ from starlette.responses import Response
 from fastapi_gateway import route
 from .depends import check_api_key
 from .models import RegisterAccount
+from .models import LoginAccount
 from .modules import KeyCloakAdmin
 
 
@@ -46,13 +48,13 @@ async def get_fmsa_version():
     }
 
 @account_router.post('/login', tags=['FMSA acount managemnt'], description='Login the account')
-async def login_account(request: Request, payload: RegisterAccount):
+async def login_account(request: Request, payload: LoginAccount):
     dict_payload = payload.model_dump()
     username = dict_payload['username']
     password = dict_payload['password']
 
     keycloak_admin = KeyCloakAdmin()
-    user_login_response = keycloak_admin.user_login()
+    user_login_response = keycloak_admin.user_login(username, password)
 
     if user_login_response.status_code != status.HTTP_200_OK:
         return {
@@ -89,16 +91,17 @@ async def register_account(request: Request, payload: RegisterAccount):
     admin_access_token = admin_login_response_json['access_token']
 
 
+    if keycloak_admin.check_realm_is_existed(admin_access_token) is False:
+        keycloak_admin.create_realm(admin_access_token)
+
     if keycloak_admin.check_client_id_is_existed(admin_access_token) is False:
         keycloak_admin.create_client_id(admin_access_token)
 
-    if keycloak_admin.check_realm_is_existed(admin_access_token) is False:
-        keycloak_admin.create_realm(admin_access_token)
 
     create_user_response = keycloak_admin.create_user(username, password, first_name, last_name, email)
     try:
         create_user_response_json = create_user_response.json()
-    except JSONDecodeError:
+    except json.JSONDecodeError:
         create_user_response_json = {}  
 
     return {

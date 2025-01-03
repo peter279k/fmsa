@@ -1,5 +1,7 @@
 import os
+import json
 import httpx
+from urllib.parse import urlencode
 
 
 class KeyCloakAdmin:
@@ -8,20 +10,26 @@ class KeyCloakAdmin:
         self.keycloak_root = 'http://keycloak_adapter:8080'
         self.realm = 'fmsa'
         self.client_id = 'fmsa'
+        self.client_uuid = ''
         self.auth_headers = {
             'Authorization': '',
         }
 
     def user_login(self, username: str, password: str):
         req_url = f'{self.keycloak_root}/realms/{self.realm}/protocol/openid-connect/token'
+        headers = {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Accept': 'application/json',
+        }
         resp = httpx.post(
             req_url,
-            data={
+            headers=headers,
+            data=urlencode({
                 'client_id': self.client_id,
                 'username': username,
                 'password': password,
                 'grant_type': 'password',
-            }
+            })
         )
 
         return resp
@@ -75,13 +83,14 @@ class KeyCloakAdmin:
         is_existed = False
         for record in response.json():
             if record['clientId'] == self.client_id:
+                self.client_uuid = record['id']
                 is_existed = True
                 break
 
         return is_existed
 
     def create_realm(self, access_token: str):
-        self.uth_headers['Authorization'] = f'Bearer {access_token}'
+        self.auth_headers['Authorization'] = f'Bearer {access_token}'
         response = httpx.post(
             f'{self.keycloak_root}/admin/realms',
             headers=self.auth_headers,

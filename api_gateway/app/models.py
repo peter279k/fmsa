@@ -7,3 +7,8 @@ class RegisterAccount(BaseModel):
     first_name: str
     last_name: str
     email: str
+
+class LoginAccount(BaseModel):
+    username: str
+    password: str
+ 
