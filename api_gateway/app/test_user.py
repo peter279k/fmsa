@@ -18,6 +18,9 @@ def test_register_user():
     data = {
         'username': 'test',
         'password': 'test123',
+        'first_name': 'Test',
+        'last_name': 'Li',
+        'email': 'test@email.com',
     }
     response = client.post('/api/v1/register', headers=headers, json=data)
 
@@ -30,6 +33,9 @@ def test_duplicated_register_user():
     data = {
         'username': 'test_duplicated',
         'password': 'test123',
+        'first_name': 'Test',
+        'last_name': 'Li',
+        'email': 'test@email.com',
     }
     response = client.post('/api/v1/register', headers=headers, json=data)
 

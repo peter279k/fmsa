@@ -72,6 +72,9 @@ async def register_account(request: Request, payload: RegisterAccount):
     dict_payload = payload.model_dump()
     username = dict_payload['username']
     password = dict_payload['password']
+    first_name = dict_payload['first_name']
+    last_name = dict_payload['last_name']
+    email = dict_payload['email']
 
     keycloak_admin = KeyCloakAdmin()
     admin_login_response = keycloak_admin.admin_login()
@@ -92,7 +95,7 @@ async def register_account(request: Request, payload: RegisterAccount):
     if keycloak_admin.check_realm_is_existed(admin_access_token) is False:
         keycloak_admin.create_realm(admin_access_token)
 
-    create_user_response = keycloak_admin.create_user(username, password)
+    create_user_response = keycloak_admin.create_user(username, password, first_name, last_name, email)
     try:
         create_user_response_json = create_user_response.json()
     except JSONDecodeError:

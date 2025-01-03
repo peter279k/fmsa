@@ -12,7 +12,7 @@ class KeyCloakAdmin:
             'Authorization': '',
         }
 
-    def user_login(self, username, password):
+    def user_login(self, username: str, password: str):
         req_url = f'{self.keycloak_root}/realms/{self.realm}/protocol/openid-connect/token'
         resp = httpx.post(
             req_url,
@@ -108,9 +108,12 @@ class KeyCloakAdmin:
 
         return is_existed
 
-    def create_user(self, username: str, password: str):
+    def create_user(self, username: str, password: str, first_name: str, last_name: str, email: str):
         user_settings = {
             'username': username,
+            'firstName': first_name,
+            'lastName': last_name,
+            'email': email,
             'enabled': True,
             'credentials': [{
                 'type': 'password',
