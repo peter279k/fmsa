@@ -107,7 +107,7 @@ async def register_account(request: Request, payload: RegisterAccount):
     client_id = ''
     if keycloak_admin.check_client_id_is_existed(admin_access_token) is False:
         create_client_id_response = keycloak_admin.create_client_id(admin_access_token)
-        client_id = resp.headers['Location'].split('/')[-1]
+        client_id = create_client_id_response.headers['Location'].split('/')[-1]
 
 
     create_user_response = keycloak_admin.create_user(username, password, first_name, last_name, email)
