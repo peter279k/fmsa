@@ -17,7 +17,7 @@ from fastapi_gateway import route
 from .depends import check_api_key
 from .models import RegisterAccount
 from .models import LoginAccount
-from .modules import KeyCloakAdmin
+from .modules import KeyCloakAdmin, CacheAccessToken
 
 
 app = FastAPI(title='FMSA API Gateway')
@@ -63,6 +63,16 @@ async def login_account(request: Request, payload: LoginAccount):
             'message': 'Login KeyCloak account is failed.',
         }
 
+    cache_access_token = CacheAccessToken()
+    store_cached_result = cache_access_token.store_cache(username, user_login_response.json())
+
+    if store_cached_result is not True:
+        return {
+            'status': 500,
+            'data': [],
+            'message': f'Caching {username} credential is failed.',
+        }
+
     return {
         'status': user_login_response.status_code,
         'data': [user_login_response.json()],
@@ -84,7 +94,7 @@ async def register_account(request: Request, payload: RegisterAccount):
         return {
             'status': admin_login_response.status_code,
             'data': [admin_login_response.json()],
-            'message': 'Login KeyCloak admin account is failed.',
+            'message': 'Register KeyCloak admin account is failed.',
         }
 
     admin_login_response_json = admin_login_response.json()
@@ -94,19 +104,21 @@ async def register_account(request: Request, payload: RegisterAccount):
     if keycloak_admin.check_realm_is_existed(admin_access_token) is False:
         keycloak_admin.create_realm(admin_access_token)
 
+    client_id = ''
     if keycloak_admin.check_client_id_is_existed(admin_access_token) is False:
-        keycloak_admin.create_client_id(admin_access_token)
+        create_client_id_response = keycloak_admin.create_client_id(admin_access_token)
+        client_id = resp.headers['Location'].split('/')[-1]
 
 
     create_user_response = keycloak_admin.create_user(username, password, first_name, last_name, email)
     try:
         create_user_response_json = create_user_response.json()
     except json.JSONDecodeError:
-        create_user_response_json = {}  
+        create_user_response_json = {}
 
     return {
         'status': create_user_response.status_code,
-        'data': [create_user_response_json],
+        'data': [create_user_response_json, {'client_id': client_id}],
         'message': '',
     }
 

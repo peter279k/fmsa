@@ -25,6 +25,7 @@ def test_register_user():
     response = client.post('/api/v1/register', headers=headers, json=data)
 
     assert response.status_code == 200
+    assert len(response.json()['data']) == 2
 
 def test_duplicated_register_user():
     headers = {
