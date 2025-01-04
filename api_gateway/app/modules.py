@@ -131,7 +131,8 @@ class KeyCloakAdmin:
 
         return is_existed
 
-    def create_user(self, username: str, password: str, first_name: str, last_name: str, email: str):
+    def create_user(self, access_token: str, username: str, password: str, first_name: str, last_name: str, email: str):
+        self.auth_headers['Authorization'] = f'Bearer {access_token}'
         user_settings = {
             'username': username,
             'firstName': first_name,

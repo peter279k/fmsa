@@ -19,9 +19,9 @@ from .models import RegisterAccount
 from .models import LoginAccount
 from .modules import KeyCloakAdmin, CacheAccessToken
 
+from app.routers.api_gateway_router import api_gateway_router
 
 app = FastAPI(title='FMSA API Gateway')
-api_gateway_router = APIRouter(prefix='/api/v1')
 account_router = APIRouter(prefix='/api/v1')
 
 SERVICE_URLS = [
@@ -45,6 +45,35 @@ async def get_fmsa_version():
         'status': status.HTTP_200_OK,
         'data': [],
         'message': 'v1',
+    }
+
+@account_router.get('/initial', tags=['FMSA Wizard'])
+async def initial_configuration(request: Request):
+    keycloak_admin = KeyCloakAdmin()
+    admin_login_response = keycloak_admin.admin_login()
+    if admin_login_response.status_code != status.HTTP_200_OK:
+        return {
+            'status': admin_login_response.status_code,
+            'data': [admin_login_response.json()],
+            'message': 'Login KeyCloak admin account is failed.',
+        }
+
+    admin_login_response_json = admin_login_response.json()
+    admin_access_token = admin_login_response_json['access_token']
+
+
+    if keycloak_admin.check_realm_is_existed(admin_access_token) is False:
+        keycloak_admin.create_realm(admin_access_token)
+
+    client_id = ''
+    if keycloak_admin.check_client_id_is_existed(admin_access_token) is False:
+        create_client_id_response = keycloak_admin.create_client_id(admin_access_token)
+        client_id = create_client_id_response.headers['Location'].split('/')[-1]
+
+    return {
+        'status': 200,
+        'data': [{'client_id': client_id}],
+        'message': 'FMSA configuration is sucessful.',
     }
 
 @account_router.post('/login', tags=['FMSA acount managemnt'], description='Login the account')
@@ -94,23 +123,14 @@ async def register_account(request: Request, payload: RegisterAccount):
         return {
             'status': admin_login_response.status_code,
             'data': [admin_login_response.json()],
-            'message': 'Register KeyCloak admin account is failed.',
+            'message': 'Login KeyCloak admin account is failed.',
         }
 
     admin_login_response_json = admin_login_response.json()
     admin_access_token = admin_login_response_json['access_token']
 
 
-    if keycloak_admin.check_realm_is_existed(admin_access_token) is False:
-        keycloak_admin.create_realm(admin_access_token)
-
-    client_id = ''
-    if keycloak_admin.check_client_id_is_existed(admin_access_token) is False:
-        create_client_id_response = keycloak_admin.create_client_id(admin_access_token)
-        client_id = create_client_id_response.headers['Location'].split('/')[-1]
-
-
-    create_user_response = keycloak_admin.create_user(username, password, first_name, last_name, email)
+    create_user_response = keycloak_admin.create_user(admin_access_token, username, password, first_name, last_name, email)
     try:
         create_user_response_json = create_user_response.json()
     except json.JSONDecodeError:
@@ -118,7 +138,7 @@ async def register_account(request: Request, payload: RegisterAccount):
 
     return {
         'status': create_user_response.status_code,
-        'data': [create_user_response_json, {'client_id': client_id}],
+        'data': [create_user_response_json],
         'message': '',
     }
 

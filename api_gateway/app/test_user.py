@@ -1,4 +1,5 @@
 import os
+import pytest
 from .main import app
 from fastapi.testclient import TestClient
 
@@ -11,10 +12,18 @@ def test_get_fsma_version():
     assert response.status_code == 200
     assert response.json()['message'] == 'v1'
 
-def test_register_user():
+@pytest.mark.dependency()
+def test_initial_config_register_user():
+    initial_response = client.get('/api/v1/initial', headers={'Accept': 'application/json'})
+    initial_response_json = initial_response.json()
+    assert initial_response.status_code == 200
+    assert initial_response_json['status'] == 200
+    assert initial_response_json['message'] == 'FMSA configuration is sucessful.'
+
     headers = {
         'Content-Type': 'application/json',
     }
+
     data = {
         'username': 'test',
         'password': 'test123',
@@ -25,8 +34,9 @@ def test_register_user():
     response = client.post('/api/v1/register', headers=headers, json=data)
 
     assert response.status_code == 200
-    assert len(response.json()['data']) == 2
+    assert len(response.json()['data']) == 1 
 
+@pytest.mark.dependency(depends=['test_initial_config_register_user'])
 def test_duplicated_register_user():
     headers = {
         'Content-Type': 'application/json',
@@ -49,6 +59,7 @@ def test_duplicated_register_user():
     assert len(duplicated_json_response['data']) > 0
     assert duplicated_json_response['status'] == 409
 
+@pytest.mark.dependency(depends=['test_initial_config_register_user'])
 def test_user_login():
     headers = {
         'Content-Type': 'application/json',
