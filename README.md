@@ -6,8 +6,8 @@
 
 # Development server
 
-- purevoltage: 169.197.89.237 (worker-server, a KVM server)
-- colocrossing: 198.12.66.74 (vm-server, a dedicated server)
+- The worker server is deployed in the purevoltage (KVM-based VPS)
+- The FMSA is deployed in the colocrossing (A dedicated server)
 
 # References
 
