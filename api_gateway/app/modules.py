@@ -62,7 +62,7 @@ class KeyCloakAdmin:
             'client_id': 'admin-cli',
         }
 
-        return httpx.post(req_url, data=post_data, headers=headers)
+        return httpx.post(req_url, content=post_data, headers=headers)
 
     def create_client_id(self, access_token: str):
         self.auth_headers['Authorization'] = f'Bearer {access_token}'
