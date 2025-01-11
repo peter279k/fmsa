@@ -38,7 +38,7 @@ class KeyCloakAdmin:
         resp = httpx.post(
             req_url,
             headers=headers,
-            data=urlencode({
+            content=urlencode({
                 'client_id': self.client_id,
                 'username': username,
                 'password': password,
