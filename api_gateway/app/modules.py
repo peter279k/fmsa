@@ -55,12 +55,12 @@ class KeyCloakAdmin:
         headers = {
             'Content-Type': self.x_form_urlencoded,
         }
-        post_data = {
+        post_data = urlencode({
             'username': admin_username,
             'password': admin_password,
             'grant_type': 'password',
             'client_id': 'admin-cli',
-        }
+        })
 
         return httpx.post(req_url, content=post_data, headers=headers)
 
