@@ -36,7 +36,7 @@ def check_api_key(request: Request):
         if is_verified is False:
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
-                detail='You pass the invalid api key in the header!',
+                detail='You pass the invalid or expired api key in the header!',
             )
 
     raise HTTPException(
