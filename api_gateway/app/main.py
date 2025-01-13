@@ -19,10 +19,10 @@ from .models import RegisterAccount
 from .models import LoginAccount
 from .modules import KeyCloakAdmin, CacheAccessToken
 
-from app.routers.fhir_generator_router import fhir_generator_router
 
 app = FastAPI(title='FMSA API Gateway')
 account_router = APIRouter(prefix='/api/v1')
+fhir_generator_router = APIRouter(prefix='/api/v1/fhir_generator')
 
 SERVICE_URLS = [
     'http://api_gateway:8000/api/v1',
@@ -140,6 +140,22 @@ async def register_account(request: Request, payload: RegisterAccount):
         'data': [create_user_response_json],
         'message': '',
     }
+
+
+SERVICE_URL = 'http://fhir_generator:8000'
+
+@route(
+    request_method=fhir_generator_router.get,
+    service_url=SERVICE_URL,
+    gateway_path='/check_required_header',
+    service_path='/generate_care_plan',
+    status_code=status.HTTP_200_OK,
+    tags=['Generate Care Plan for fhir_generator'],
+)
+async def check_required_header(request: Request):
+    check_api_key(request)
+    pass
+
 
 
 app.include_router(account_router)
