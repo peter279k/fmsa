@@ -1,7 +1,7 @@
 import os
 import jwt
 import datetime
-from modules import CacheAccessToken
+from .modules import CacheAccessToken
 
 from starlette import status
 from starlette.requests import Request
