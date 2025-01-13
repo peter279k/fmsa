@@ -20,7 +20,7 @@ from app.depends import check_api_key
 
 fhir_generator_router = APIRouter(prefix='/api/v1/fhir_generator')
 
-SERVICE_URL = 'http://fhir_generator:8000/api/v1/fhir_generator'
+SERVICE_URL = 'http://fhir_generator:8000'
 
 @route(
     request_method=fhir_generator_router.get,
