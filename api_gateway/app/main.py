@@ -22,7 +22,7 @@ from .modules import KeyCloakAdmin, CacheAccessToken
 
 app = FastAPI(title='FMSA API Gateway')
 account_router = APIRouter(prefix='/api/v1')
-fhir_generator_router = APIRouter(prefix='/')
+fhir_generator_router = APIRouter(prefix='/api/v1')
 
 SERVICE_URLS = [
     'http://api_gateway:8000/api/v1',
@@ -147,12 +147,12 @@ SERVICE_URL = 'http://fhir_generator:8000'
 @route(
     request_method=fhir_generator_router.get,
     service_url=SERVICE_URL,
-    gateway_path='/api/v1/generate_care_plan',
+    gateway_path='/generate_care_plan',
     service_path='/api/v1/generate_care_plan',
     status_code=status.HTTP_200_OK,
     tags=['Generate Care Plan for fhir_generator'],
 )
-async def check_required_header(request: Request, response: Response):
+async def generate_care_plan(request: Request, response: Response):
     check_api_key(request)
     pass
 
