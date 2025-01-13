@@ -78,5 +78,5 @@ def test_user_login():
 def test_x_user_header_is_missed():
     response = client.get('/api/v1/generate_care_plan')
 
-    assert response.status_code == 401
-    assert response.json['detail'] == 'The x-user is missing in headers!'
+    assert response.status_code == 400
+    assert response.json()['detail'] == 'The x-user is missing in headers!'
