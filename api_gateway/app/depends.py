@@ -23,6 +23,12 @@ def check_api_key(request: Request):
         cache_access_token = CacheAccessToken()
         is_verified = False
         login_user_response = cache_access_token.redis.get(x_user)
+        if login_user_response is None:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail='You pass the x-user is not found in the header!',
+            )
+
         login_user_response = json.loads(login_user_response.decode('utf-8'))
         access_token = login_user_response['access_token']
         if access_token == key:
