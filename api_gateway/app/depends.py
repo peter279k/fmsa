@@ -1,5 +1,6 @@
 import os
 import jwt
+import json
 import datetime
 from .modules import CacheAccessToken
 
@@ -21,8 +22,10 @@ def check_api_key(request: Request):
         expired_seconds = int(os.getenv('TOKEN_EXPIRED_MINUTES')) * 60
         cache_access_token = CacheAccessToken()
         is_verified = False
-        access_token = cache_access_token.redis.get(x_user)
-        if access_token == key:
+        login_user_response = cache_access_token.redis.get(x_user)
+        login_user_response = json.loads(login_user_response.decode('utf-8'))
+        access_token = login_user_response['access_token']
+        if access_token.decode('utf-8') == key:
             decoded = jwt.decode(
                 key,
                 algorithms=['RS256'],
