@@ -20,9 +20,11 @@ from app.depends import check_api_key
 
 fhir_generator_router = APIRouter(prefix='/api/v1/fhir_generator')
 
+SERVICE_URL = 'http://fhir_generator:8000/api/v1/fhir_generator'
+
 @route(
     request_method=fhir_generator_router.get,
-    service_url=SERVICE_URLS[3],
+    service_url=SERVICE_URL,
     gateway_path='/check_required_header',
     service_path='/generate_care_plan',
     status_code=status.HTTP_200_OK,

@@ -28,7 +28,6 @@ SERVICE_URLS = [
     'http://api_gateway:8000/api/v1',
     'http://data_analysis_service:8000/api/v1/data_analysis',
     'http://ioht_data_collector:8000/api/v1/ioht_data_collector',
-    'http://fhir_generator:8000/api/v1/fhir_generator',
     'http://fhir_converter:8000/api/v1/fhir_converter',
     'http://fhir_ig_manager:8000/api/v1/fhir_ig_manager',
     'http://fhir_profile_manager:8000/api/v1/fhir_profile_manager',
