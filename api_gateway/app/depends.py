@@ -39,7 +39,7 @@ def check_api_key(request: Request):
             )
             expired_timestamp = decoded['exp']
             now_timestamp = int(datetime.datetime.now().timestamp())
-            if (now_timestamp - expired_timestamp) <= expired_seconds:
+            if (expired_timestamp - now_timestamp) <= expired_seconds:
                 is_verified = True
             else:
                 raise HTTPException(
