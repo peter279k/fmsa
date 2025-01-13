@@ -11,12 +11,19 @@ class CacheAccessToken:
         self.password = os.getenv('REDIS_PASSWORD')
         self.port = 6379
         self.db = 0
+        self.redis = redis.Redis(host=self.host, port=self.port, password=self.password, db=self.db)
 
     def store_cache(self, username: str, user_login_response: dict):
-        r = redis.Redis(host=self.host, port=self.port, password=self.password, db=self.db)
+        r = self.redis
         result = r.set(username, json.dumps(user_login_response))
 
         return result
+
+    def get_cache(self, username: str):
+        r = self.redis
+        result = r.get(username)
+
+        return result.decode('utf-8')
 
 class KeyCloakAdmin:
     def __init__(self):

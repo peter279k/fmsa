@@ -34,7 +34,7 @@ def test_initial_config_register_user():
     response = client.post('/api/v1/register', headers=headers, json=data)
 
     assert response.status_code == 200
-    assert len(response.json()['data']) == 1 
+    assert len(response.json()['data']) == 1
 
 @pytest.mark.dependency(depends=['test_initial_config_register_user'])
 def test_duplicated_register_user():
@@ -74,3 +74,9 @@ def test_user_login():
 
     assert response.status_code == 200
     assert response_json['data'][0].get('access_token') is not None
+
+def test_x_user_header_is_missed():
+    response = client.get('/api/v1/fhir_generator/generate_care_plan')
+
+    assert response.status_code == 401
+    assert response.json['detail'] == 'The x-user is missing in headers!'

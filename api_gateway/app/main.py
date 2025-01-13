@@ -8,10 +8,10 @@ from fastapi import File
 from fastapi import Form
 from fastapi import UploadFile
 from fastapi.security import OAuth2PasswordBearer
-from fastapi.security import OAuth2PasswordRequestForm
 from starlette import status
+from starlette.exceptions import HTTPException
 from starlette.requests import Request
-from starlette.responses import Response
+from starlette.responses import JSONResponse
 
 from fastapi_gateway import route
 from .depends import check_api_key
@@ -23,6 +23,7 @@ from app.routers.api_gateway_router import api_gateway_router
 
 app = FastAPI(title='FMSA API Gateway')
 account_router = APIRouter(prefix='/api/v1')
+fhir_generator_router = APIRouter(prefix='/api/v1/fhir_generator')
 
 SERVICE_URLS = [
     'http://api_gateway:8000/api/v1',
@@ -142,6 +143,19 @@ async def register_account(request: Request, payload: RegisterAccount):
         'message': '',
     }
 
+@route(
+    request_method=fhir_generator_router.get,
+    service_url=SERVICE_URLS[3],
+    gateway_path='/check_required_header',
+    service_path='/api/v1/fhir_generator/generate_care_plan',
+    status_code=status.HTTP_200_OK,
+    tags=['Check_api_key dependency for fhir_generator'],
+)
+async def check_required_header(request: Request):
+    check_api_key(request)
+    pass
+
 
 app.include_router(api_gateway_router)
 app.include_router(account_router)
+app.include_router(fhir_generator_router)
