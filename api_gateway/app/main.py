@@ -151,9 +151,9 @@ SERVICE_URL = 'http://fhir_generator:8000'
     service_path='/api/v1/generate_care_plan',
     status_code=status.HTTP_200_OK,
     tags=['Generate Care Plan for fhir_generator'],
+    dependencies=[Depends(check_api_key)],
 )
 async def generate_care_plan(request: Request, response: Response):
-    check_api_key(request)
     pass
 
 

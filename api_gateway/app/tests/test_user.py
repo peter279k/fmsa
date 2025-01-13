@@ -76,7 +76,7 @@ def test_user_login():
     assert response_json['data'][0].get('access_token') is not None
 
 def test_x_user_header_is_missed():
-    response = client.get('/api/v1/fhir_generator/generate_care_plan')
+    response = client.get('/api/v1/generate_care_plan')
 
     assert response.status_code == 401
     assert response.json['detail'] == 'The x-user is missing in headers!'
