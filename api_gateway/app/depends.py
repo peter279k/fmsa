@@ -32,11 +32,16 @@ def check_api_key(request: Request):
             now_timestamp = int(datetime.datetime.now().timestamp())
             if (expired_timestamp - now_timestamp) <= expired_seconds:
                 is_verified = True
+            else:
+                raise HTTPException(
+                   status_code=status.HTTP_401_UNAUTHORIZED,
+                    detail='You pass the expired api key in the header!',
+                )
 
         if is_verified is False:
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
-                detail='You pass the invalid or expired api key in the header!',
+                detail='You pass the invalid api key in the header!',
             )
 
     raise HTTPException(
