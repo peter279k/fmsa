@@ -11,7 +11,7 @@ from fastapi.security import OAuth2PasswordBearer
 from starlette import status
 from starlette.exceptions import HTTPException
 from starlette.requests import Request
-from starlette.responses import JSONResponse
+from starlette.responses import Response, JSONResponse
 
 from fastapi_gateway import route
 from .depends import check_api_key
@@ -22,7 +22,7 @@ from .modules import KeyCloakAdmin, CacheAccessToken
 
 app = FastAPI(title='FMSA API Gateway')
 account_router = APIRouter(prefix='/api/v1')
-fhir_generator_router = APIRouter(prefix='/api/v1/fhir_generator')
+fhir_generator_router = APIRouter(prefix='/')
 
 SERVICE_URLS = [
     'http://api_gateway:8000/api/v1',
@@ -147,15 +147,14 @@ SERVICE_URL = 'http://fhir_generator:8000'
 @route(
     request_method=fhir_generator_router.get,
     service_url=SERVICE_URL,
-    gateway_path='/check_required_header',
-    service_path='/generate_care_plan',
+    gateway_path='/api/v1/generate_care_plan',
+    service_path='/api/v1/generate_care_plan',
     status_code=status.HTTP_200_OK,
     tags=['Generate Care Plan for fhir_generator'],
 )
-async def check_required_header(request: Request):
+async def check_required_header(request: Request, response: Response):
     check_api_key(request)
     pass
-
 
 
 app.include_router(account_router)
