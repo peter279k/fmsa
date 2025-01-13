@@ -25,7 +25,7 @@ def check_api_key(request: Request):
         login_user_response = cache_access_token.redis.get(x_user)
         login_user_response = json.loads(login_user_response.decode('utf-8'))
         access_token = login_user_response['access_token']
-        if access_token.decode('utf-8') == key:
+        if access_token == key:
             decoded = jwt.decode(
                 key,
                 algorithms=['RS256'],
