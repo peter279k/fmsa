@@ -1,0 +1,36 @@
+{
+  "profile_urls": [
+    "https://hapi.fhir.tw/fhir/StructureDefinition/Goal-sport"
+  ],
+  "identifiers": [
+    {
+      "system": "https://www.health.ntpc.gov.tw/",
+      "value": "s141526"
+    }
+  ],
+  "lifecycle_status": "proposed",
+  "category_coding": [
+    {
+      "system": "https://hapi.fhir.tw/fhir/CodeSystem/tempcode",
+      "code": "PhysicalActivity",
+      "display": "Physical Activity"
+    }
+  ],
+  "description_text": "L5-S1椎間盤突出，在六個月內減少突出程度2-3毫米，疼痛評分減少50%",
+  "subject": {
+    "reference": "Patient/patient-tw-example"
+  },
+  "target_measure_coding": [
+    {
+      "system": "http://loinc.org",
+      "code": "41950-7",
+      "display": "Number of steps in 24 hour Measured"
+    }
+  ],
+  "target_detail_quantity": {
+    "value": 5000,
+    "unit": "steps per day",
+    "system": "http://unitsofmeasure.org",
+    "code": "/d"
+  }
+}

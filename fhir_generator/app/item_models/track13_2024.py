@@ -7,3 +7,6 @@ class Track13ForPatientModel(BaseModel):
 
 class Track13ForPractitionerModel(BaseModel):
     practitioner_payload: Dict
+
+class Track13ForGoalModel(BaseModel):
+    goal_payload: Dict
