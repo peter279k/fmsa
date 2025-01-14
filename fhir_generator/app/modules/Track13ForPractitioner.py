@@ -25,3 +25,4 @@ class Track13ForPractitioner:
 
         practitioner_class.create()
 
+        return practitioner_class.payload_template
