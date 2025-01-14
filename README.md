@@ -32,3 +32,11 @@
 - https://www.stefaanlippens.net/keycloak-programmatically-create-clients-and-users.html
   - Tested versions are `21.0.2`, `22.0.5` and `23.0.7`.
 - https://stackoverflow.com/questions/75776236/keycloak-session-and-token-timeouts
+
+# Troubleshooting
+
+1. FHIR server hostname setting (Tomcat issue)
+
+- `The character [_] is never valid in a domain name`
+- https://blog.csdn.net/janet1100/article/details/121639158
+- https://silcoet.ntunhs.edu.tw/FHIRSampleCode/Manual/HAPI%20FHIR%20Server_Linux.pdf

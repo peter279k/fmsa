@@ -1,13 +1,21 @@
+from app.routers import *
+
 from fastapi import FastAPI
 from starlette.requests import Request
 
 
-app = FastAPI(title='FHIR Generator')
-
-
-@app.get(
-    path='/api/v1/generate_care_plan',
-    tags=['Path'],
+description = '''
+FHIR Generator is used to create the specific FHIR resources
+'''
+app = FastAPI(
+    title='FHIR Generator',
+    description=description,
+    version='1.0',
+    contact={
+        'name': 'Peter',
+        'email': 'peter279k@gmail.com',
+    }
 )
-async def generate_care_plan(request: Request):
-    return {}
+
+#app.include_router(care_plan_router)
+app.include_router(patient_router)
