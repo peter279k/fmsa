@@ -10,3 +10,6 @@ class Track13ForPractitionerModel(BaseModel):
 
 class Track13ForGoalModel(BaseModel):
     goal_payload: Dict
+
+class Track13ForCarePlanModel(BaseModel):
+    care_plan_payload: Dict
