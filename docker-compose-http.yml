@@ -170,14 +170,16 @@ services:
     environment:
       - DATABASE_URL=${FHIR_DATA_MANAGER_DB_URL}
     depends_on:
-      - fhir_server_adapter
+      - fhir-server-adapter
       - fhir_server_adapter_postgres
     restart: always
 
-  fhir_server_adapter:
-    image: "hapiproject/hapi:latest"
+  fhir-server-adapter:
+    image: "hapiproject/hapi:v7.6.0"
     volumes:
       - ./fhir_server_adapter/hapi.application.yml:/app/config/application.yaml:ro
+    depends_on:
+      - fhir_server_adapter_postgres
 
   fhir_server_adapter_postgres:
     image: postgres:14.10-alpine

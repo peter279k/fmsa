@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: 'jdbc:postgresql://fhir_server_adapter_postgresql:5432/fhir'
-    username: postgres
-    password: openstack
+    url: 'jdbc:postgresql://fhir_server_adapter_postgres:5432/fhir_data_manager_db_dev'
+    username: fhir_data_manager_username
+    password: fhir_data_manager_password
     driverClassName: org.postgresql.Driver
   jpa:
     properties:
