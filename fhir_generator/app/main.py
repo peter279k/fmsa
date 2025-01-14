@@ -1,7 +1,6 @@
 from app.routers import *
 
 from fastapi import FastAPI
-from starlette.requests import Request
 
 
 description = '''
@@ -19,3 +18,4 @@ app = FastAPI(
 
 #app.include_router(care_plan_router)
 app.include_router(patient_router)
+app.include_router(practitioner_router)

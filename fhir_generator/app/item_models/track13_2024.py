@@ -4,3 +4,6 @@ from pydantic import BaseModel
 
 class Track13ForPatientModel(BaseModel):
     patient_payload: Dict
+
+class Track13ForPractitionerModel(BaseModel):
+    practitioner_payload: Dict

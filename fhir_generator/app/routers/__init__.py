@@ -1,5 +1,7 @@
 from .patient import *
 from .care_plan import *
+from .practitioner import *
+
 from fastapi import APIRouter
 
 
@@ -8,3 +10,6 @@ from fastapi import APIRouter
 
 patient_router = APIRouter(tags=['Generate Patient Resource'], prefix='/api/v1')
 patient_router.add_api_route('/track13_2024_patient', generate_track13_2024_for_patient, methods=['POST'], description='Generate Track13 2024 Patient Resource')
+
+practitioner_router = APIRouter(tags=['Generate Practitioner Resource'], prefix='/api/v1')
+practitioner_router.add_api_route('/track13_2024_practitioner', generate_track13_2024_for_practitioner, methods=['POST'], description='Generate Track13 2024 Practitioner Resource')
