@@ -9,14 +9,14 @@
         "coding": [
           {
             "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
-            "code": "MD"
+            "code": "MB"
           }
         ]
       },
-      "system": "https://www.tph.mohw.gov.tw",
-      "value": "KP00016"
+      "system": "https://www.morefit.com.tw/tw",
+      "value": "S1006"
     }
   ],
   "active": true,
-  "name_text": "林依聲"
+  "name_text": "陳建升"
 }
