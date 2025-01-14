@@ -1,1 +1,22 @@
-{"fhir_server":"https://fhir.dicom.tw/fhir","oauth_token_info":{},"oauth_level":"no-level","patient_payload":{"profile_urls":["https://hapi.fhir.tw/fhir/StructureDefinition/TWCorePractitioner"],"identifiers":[{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"MD"}]},"system":"https://www.tph.mohw.gov.tw","value":"KP00016"}],"active":true,"name_text":"林依聲"}}
+{
+  "profile_urls": [
+    "https://hapi.fhir.tw/fhir/StructureDefinition/TWCorePractitioner"
+  ],
+  "identifiers": [
+    {
+      "use": "official",
+      "type": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+            "code": "MD"
+          }
+        ]
+      },
+      "system": "https://www.tph.mohw.gov.tw",
+      "value": "KP00016"
+    }
+  ],
+  "active": true,
+  "name_text": "林依聲"
+}
