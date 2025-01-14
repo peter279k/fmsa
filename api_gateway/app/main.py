@@ -144,15 +144,15 @@ async def register_account(request: Request, payload: RegisterAccount):
 
 
 @route(
-    request_method=fhir_generator_router.get,
+    request_method=fhir_generator_router.post,
     service_url=SERVICE_URLS[2],
-    gateway_path='/generate_care_plan',
-    service_path='/api/v1/generate_care_plan',
+    gateway_path='/track13_2024_patient',
+    service_path='/api/v1/track13_2024_patient',
     status_code=status.HTTP_200_OK,
-    tags=['Generate Care Plan for fhir_generator'],
+    tags=['Generate Teack13 2024 Patient with the fhir_generator'],
     dependencies=[Depends(check_api_key)],
 )
-async def generate_care_plan(request: Request, response: Response):
+async def track13_2024_patient(request: Request, response: Response):
     pass
 
 
