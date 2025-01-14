@@ -25,14 +25,15 @@ account_router = APIRouter(prefix='/api/v1')
 fhir_generator_router = APIRouter(prefix='/api/v1')
 
 SERVICE_URLS = [
-    'http://api_gateway:8000/api/v1',
-    'http://data_analysis_service:8000/api/v1/data_analysis',
-    'http://ioht_data_collector:8000/api/v1/ioht_data_collector',
-    'http://fhir_converter:8000/api/v1/fhir_converter',
-    'http://fhir_ig_manager:8000/api/v1/fhir_ig_manager',
-    'http://fhir_profile_manager:8000/api/v1/fhir_profile_manager',
-    'http://fhir_data_manager:8000/api/v1/fhir_data_manager',
-    'http://terminology_manager:8000/api/v1/terminology_manager',
+    'http://api_gateway:8000',
+    'http://data_analysis_service:8000',
+    'http://fhir_generator:8000',
+    'http://ioht_data_collector:8000',
+    'http://fhir_converter:8000',
+    'http://fhir_ig_manager:8000',
+    'http://fhir_profile_manager:8000',
+    'http://fhir_data_manager:8000',
+    'http://terminology_manager:8000',
 ]
 
 auth_depend = OAuth2PasswordBearer(tokenUrl='/api/login', scheme_name='JWT')
@@ -142,11 +143,9 @@ async def register_account(request: Request, payload: RegisterAccount):
     }
 
 
-SERVICE_URL = 'http://fhir_generator:8000'
-
 @route(
     request_method=fhir_generator_router.get,
-    service_url=SERVICE_URL,
+    service_url=SERVICE_URLS[2],
     gateway_path='/generate_care_plan',
     service_path='/api/v1/generate_care_plan',
     status_code=status.HTTP_200_OK,
