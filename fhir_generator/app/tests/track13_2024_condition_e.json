@@ -1,0 +1,32 @@
+{
+  "profile_urls": [
+    "https://hapi.fhir.tw/fhir/StructureDefinition/Condition-excercise-history"
+  ],
+  "clinical_status_coding": [
+    {
+      "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+      "code": "active"
+    }
+  ],
+  "category_coding": [
+    {
+      "system": "https://hapi.fhir.tw/fhir/CodeSystem/tempcode",
+      "code": "PhysicalActivity",
+      "display": "Physical Activity"
+    }
+  ],
+  "code_coding": [
+    {
+      "system": "http://snomed.info/sct",
+      "code": "229072005",
+      "display": "Aerobic exercises"
+    }
+  ],
+  "code_text": "一週2次有氧運動 每次30分鐘",
+  "subject": {
+    "reference": "Patient/patient-tw-example"
+  },
+  "asserter": {
+    "reference": "Practitioner/practitioner-d-example"
+  }
+}

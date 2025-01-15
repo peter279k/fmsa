@@ -191,6 +191,17 @@ async def track13_2024_goal(request: Request, response: Response):
 async def track13_2024_care_plan(request: Request, response: Response):
     pass
 
+@route(
+    request_method=fhir_generator_router.post,
+    service_url=SERVICE_URLS[2],
+    gateway_path='/track13_2024_condition',
+    service_path='/api/v1/track13_2024_condition',
+    status_code=status.HTTP_200_OK,
+    tags=['Generate Teack13 2024 Condition with the fhir_generator'],
+    dependencies=[Depends(check_api_key)],
+)
+async def track13_2024_condition(request: Request, response: Response):
+    pass
 
 
 app.include_router(account_router)

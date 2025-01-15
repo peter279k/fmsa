@@ -13,3 +13,7 @@ class Track13ForGoalModel(BaseModel):
 
 class Track13ForCarePlanModel(BaseModel):
     care_plan_payload: Dict
+
+class Track13ForConditionModel(BaseModel):
+    condition_payload: Dict
+    condition_type: str
