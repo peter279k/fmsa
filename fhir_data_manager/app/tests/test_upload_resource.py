@@ -5,7 +5,7 @@ from fastapi.testclient import TestClient
 
 client = TestClient(app)
 
-def test_upload_patient_resource():
+def test_upload_patient_resource_without_meta_profile():
     headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
     with open('/app/app/tests/expected_track13_2024_patient.json', 'r', encoding='utf-8') as f:
         json_str = f.read()
