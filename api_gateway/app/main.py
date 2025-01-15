@@ -287,8 +287,81 @@ async def upload_track13_2024_condition(request: Request, response: Response):
     tags=['Upload Track13 2024 ServiceRequest with the fhir_data_manager'],
     dependencies=[Depends(check_api_key)],
 )
-async def track13_2024_service_request(request: Request, response: Response):
+async def upload_track13_2024_service_request(request: Request, response: Response):
     pass
+
+@route(
+    request_method=fhir_data_manager_router.get,
+    service_url=SERVICE_URLS[7],
+    gateway_path='/retrieve_track13_2024_patient',
+    service_path='/api/v1/retrieve_track13_2024_patient',
+    status_code=status.HTTP_200_OK,
+    tags=['Retrieve Track13 2024 Patient with the fhir_data_manager'],
+    dependencies=[Depends(check_api_key)],
+)
+async def retrieve_track13_2024_patient(request: Request, response: Response):
+    pass
+
+@route(
+    request_method=fhir_data_manager_router.get,
+    service_url=SERVICE_URLS[7],
+    gateway_path='/retrieve_track13_2024_practitioner',
+    service_path='/api/v1/retrieve_track13_2024_practitioner',
+    status_code=status.HTTP_200_OK,
+    tags=['Retrieve Track13 2024 Practitioner with the fhir_data_manager'],
+    dependencies=[Depends(check_api_key)],
+)
+async def retrieve_track13_2024_practitioner(request: Request, response: Response):
+    pass
+
+@route(
+    request_method=fhir_data_manager_router.get,
+    service_url=SERVICE_URLS[7],
+    gateway_path='/retrieve_track13_2024_goal',
+    service_path='/api/v1/retrieve_track13_2024_goal',
+    status_code=status.HTTP_200_OK,
+    tags=['Retrieve Track13 2024 Goal with the fhir_data_manager'],
+    dependencies=[Depends(check_api_key)],
+)
+async def retrieve_track13_2024_goal(request: Request, response: Response):
+    pass
+
+@route(
+    request_method=fhir_data_manager_router.get,
+    service_url=SERVICE_URLS[7],
+    gateway_path='/retrieve_track13_2024_care_plan',
+    service_path='/api/v1/retrieve_track13_2024_care_plan',
+    status_code=status.HTTP_200_OK,
+    tags=['Retrieve Track13 2024 CarePlan with the fhir_data_manager'],
+    dependencies=[Depends(check_api_key)],
+)
+async def retrieve_track13_2024_care_plan(request: Request, response: Response):
+    pass
+
+@route(
+    request_method=fhir_data_manager_router.get,
+    service_url=SERVICE_URLS[7],
+    gateway_path='/retrieve_track13_2024_condition',
+    service_path='/api/v1/retrieve_track13_2024_condition',
+    status_code=status.HTTP_200_OK,
+    tags=['Retrieve Track13 2024 Condition with the fhir_data_manager'],
+    dependencies=[Depends(check_api_key)],
+)
+async def retrieve_track13_2024_condition(request: Request, response: Response):
+    pass
+
+@route(
+    request_method=fhir_data_manager_router.get,
+    service_url=SERVICE_URLS[7],
+    gateway_path='/retrieve_track13_2024_service_request',
+    service_path='/api/v1/retrieve_track13_2024_service_request',
+    status_code=status.HTTP_200_OK,
+    tags=['Retrieve Track13 2024 ServiceRequest with the fhir_data_manager'],
+    dependencies=[Depends(check_api_key)],
+)
+async def retrieve_track13_2024_service_request(request: Request, response: Response):
+    pass
+
 
 
 app.include_router(account_router)
