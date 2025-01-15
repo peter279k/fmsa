@@ -3,6 +3,7 @@ from .patient import *
 from .care_plan import *
 from .condition import *
 from .practitioner import *
+from .service_request import *
 
 from fastapi import APIRouter
 
@@ -21,3 +22,6 @@ care_plan_router.add_api_route('/track13_2024_care_plan', generate_track13_2024_
 
 condition_router = APIRouter(tags=['Generate Condition Resource'], prefix='/api/v1')
 condition_router.add_api_route('/track13_2024_condition', generate_track13_2024_for_condition, methods=['POST'], description='Generate Track13 2024 Condition Resource')
+
+service_request_router = APIRouter(tags=['Generate ServiceRequest Resource'], prefix='/api/v1')
+service_request_router.add_api_route('/track13_2024_service_request', generate_track13_2024_for_service_request, methods=['POST'], description='Generate Track13 2024 ServiceRequest Resource')

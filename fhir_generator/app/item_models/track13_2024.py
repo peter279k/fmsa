@@ -17,3 +17,6 @@ class Track13ForCarePlanModel(BaseModel):
 class Track13ForConditionModel(BaseModel):
     condition_payload: Dict
     condition_type: str
+
+class Track13ForServiceRequestModel(BaseModel):
+    service_request_payload: Dict
