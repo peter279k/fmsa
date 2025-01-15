@@ -16,7 +16,6 @@ def test_upload_patient_resource():
     payload = {}
     payload['resource'] = json_dict
 
-    response = client.post('/api/v1/upload/Patient', headers=headers, json=json_dict)
-
-    assert response.status_code == 200
+    response = client.post('/api/v1/upload/Patient', headers=headers, json=payload)
+    assert response.status_code == 201
     assert response.json()['message'] == 'Uploading Patient is successful.'
