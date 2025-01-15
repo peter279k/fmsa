@@ -220,7 +220,7 @@ async def track13_2024_service_request(request: Request, response: Response):
 @route(
     request_method=fhir_data_manager_router.post,
     service_url=SERVICE_URLS[7],
-    gateway_path='/upload{resource_name}',
+    gateway_path='/upload/{resource_name}',
     service_path='/api/v1/upload/{resource_name}',
     status_code=status.HTTP_200_OK,
     tags=['Upload FHIR resource with the fhir_data_manager'],
