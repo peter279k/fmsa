@@ -11,11 +11,15 @@
 
 # References
 
-1. FHIR server
+1. HAPI FHIR server installation and usage
 
 - https://confluence.hl7.org/display/FHIR/Open+Source+Implementations
 - https://confluence.hl7.org/display/FHIR/SMART+on+FHIR+server+implementations
 - https://medium.com/impelsys/0f12c0cbbfdd
+
+- https://medblocks.com/blog/terminologies-in-fhir#how-to-set-up-snomed-ct-on-hapi-fhir--8
+- https://medblocks.com/blog/how-to-enable-fhir-profile-validation-with-hapi-fhir-jpa-server
+- https://hapifhir.io/hapi-fhir/docs/v/7.6.0/tools/hapi_fhir_cli.html
 
 2. microservice scalability
 
