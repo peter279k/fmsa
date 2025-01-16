@@ -1,6 +1,5 @@
 {
   "resourceType" : "Observation",
-  "id" : "height-example",
   "meta" : {
     "profile" : ["https://hapi.fhir.tw/fhir/StructureDefinition/Height-sport"]
   },
@@ -21,11 +20,11 @@
     "text" : "Body height"
   },
   "subject" : {
-    "reference" : "Patient/patient-ex-example"
+    "reference" : "Patient/950f065bb855"
   },
   "effectiveDateTime" : "2024-07-01",
   "performer" : [{
-    "reference" : "Practitioner/practitioner-c-example"
+    "reference" : "Practitioner/0be7f039-e804-4ef9-90e4-e07793c607f9"
   }],
   "valueQuantity" : {
     "value" : 160,
