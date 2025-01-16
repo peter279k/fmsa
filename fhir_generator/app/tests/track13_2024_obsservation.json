@@ -1,0 +1,37 @@
+{
+  "profile_urls": [
+    "https://hapi.fhir.tw/fhir/StructureDefinition/Height-sport"
+  ],
+  "status": "final",
+  "category_coding": [
+    {
+      "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+      "code": "vital-signs",
+      "display": "Vital Signs"
+    }
+  ],
+  "code_coding": [
+    {
+      "system": "http://loinc.org",
+      "code": "8302-2",
+      "display": "Body height"
+    }
+  ],
+  "code_text": "Body height",
+  "subject": {
+    "reference": "Patient/950f065bb855"
+  },
+  "effective_datetime": "2024-07-01",
+  "performer": [
+    {
+      "reference": "Practitioner/0be7f039-e804-4ef9-90e4-e07793c607f9"
+    }
+  ],
+  "type": "height",
+  "value_quantity": {
+    "value": 160,
+    "unit": "cm",
+    "system": "http://unitsofmeasure.org",
+    "code": "cm"
+  }
+}

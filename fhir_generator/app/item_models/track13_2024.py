@@ -20,3 +20,6 @@ class Track13ForConditionModel(BaseModel):
 
 class Track13ForServiceRequestModel(BaseModel):
     service_request_payload: Dict
+
+class Track13ForObservationModel(BaseModel):
+    observation_payload: Dict

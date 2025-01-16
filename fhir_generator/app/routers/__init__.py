@@ -2,6 +2,7 @@ from .goal import *
 from .patient import *
 from .care_plan import *
 from .condition import *
+from .observation import *
 from .practitioner import *
 from .service_request import *
 
@@ -25,3 +26,6 @@ condition_router.add_api_route('/track13_2024_condition', generate_track13_2024_
 
 service_request_router = APIRouter(tags=['Generate ServiceRequest Resource'], prefix='/api/v1')
 service_request_router.add_api_route('/track13_2024_service_request', generate_track13_2024_for_service_request, methods=['POST'], description='Generate Track13 2024 ServiceRequest Resource')
+
+observation_router = APIRouter(tags=['Generate Observation Resource'], prefix='/api/v1')
+observation_router.add_api_route('/track13_2024_observation', generate_track13_2024_for_observation, methods=['POST'], description='Generate Track13 2024 Observation Resource')
