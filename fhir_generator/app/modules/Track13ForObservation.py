@@ -16,6 +16,9 @@ class Track13ForObservation:
             'treadmill',
             'bloodpressure',
         ]
+        self.concept_form = ['gaittype-l', 'gaittype-r', 'weighttraining']
+        self.has_member_form = 'tbw'
+        self.body_site_form = ['gaitcycle-r', 'gaitcycle-l', 'gaittype-l', 'gaittype-r']
         self.resource = resource
 
     def generate_observation_resource(self):
