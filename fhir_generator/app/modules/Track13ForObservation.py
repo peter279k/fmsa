@@ -7,6 +7,15 @@ class Track13ForObservation:
     def __init__(self, resource, item_dict: dict):
         self.item_dict = item_dict
         self.observation_payload = item_dict['observation_payload']
+        self.component_form = [
+            'gaitcycle-r',
+            'gaitcycle-l',
+            'weighttraining',
+            'gaittype-l',
+            'gaittype-r',
+            'treadmill',
+            'bloodpressure',
+        ]
         self.resource = resource
 
     def generate_observation_resource(self):
