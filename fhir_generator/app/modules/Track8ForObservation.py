@@ -45,3 +45,28 @@ class Track8ForObservation:
         observation_class.create()
 
         return observation_class.payload_template
+
+    def generate_observation_cancer_staging_resource(self):
+        resource_id = hashlib.sha3_224(secrets.token_urlsafe(5).encode('utf-8')).hexdigest()
+        observation_class = Observation(resource_id)
+
+        profile_urls = self.observation_payload['profile_urls']
+        observation_class.set_profile_urls(profile_urls)
+
+        observation_class.set_status(self.observation_payload['status'])
+
+        observation_class.set_category_coding(self.observation_payload['category_coding'])
+
+        observation_class.set_code_coding(self.observation_payload['code_coding'])
+
+        observation_class.set_subject(self.observation_payload['subject'])
+
+        observation_class.set_effective_datetime(self.observation_payload['effective_datetime'])
+
+        observation_class.set_performer(self.observation_payload['performer'])
+
+        observation_class.set_value_codeable_concept(self.observation_payload['value_codeable_concept'])
+
+        observation_class.create()
+
+        return observation_class.payload_template

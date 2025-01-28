@@ -356,6 +356,53 @@ def test_create_track8_2024_observation_resource():
     assert len(response_json['data']) == 1
     assert response_json['data'][0] == json.loads(expected_json_str)
 
+def test_create_track8_2024_observation_cancer_staging_resource():
+    headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+
+    payload = {
+        'payload': {
+            'profile_urls': ['https://hitstdio.ntunhs.edu.tw/imri/StructureDefinition/observation-cancerstaging-imri'],
+            'status': 'final',
+            'category_coding': [{
+                'system' : 'http://loinc.org',
+                'code' : '22037-6',
+                'display' : 'Staging Cancer Narrative'
+            }],
+            'code_coding': [{
+                'system' : 'http://snomed.info/sct',
+                'code' : '399537006',
+                'display' : 'Clinical TNM stage grouping'
+            }],
+            'subject': {
+                'reference': 'Patient/Patient-min',
+            },
+            'effective_datetime': '2024-04-01',
+            'performer': [{
+                'reference' : 'Practitioner/Practitioner-min'
+            }],
+            'value_codeable_concept': {
+                'coding' : [{
+                    'system' : 'http://snomed.info/sct',
+                    'code' : '1222806003',
+                    'display' : 'American Joint Committee on Cancer stage IIIC (qualifier value)'
+                }],
+            }
+        },
+    }
+
+    with open('/app/app/tests/expected_track8_2024_observation_cancer_staging.json', 'r', encoding='utf-8') as f:
+        expected_json_str = f.read()
+
+    json_dict = payload
+    response = client.post('/api/v1/track8_2024_observation?type=imri-cancer-staging', headers=headers, json=json_dict)
+
+    response_json = response.json()
+    del response_json['data'][0]['id']
+
+    assert response.status_code == 200
+    assert len(response_json['data']) == 1
+    assert response_json['data'][0] == json.loads(expected_json_str)
+
 def test_create_track8_2024_encounter_resource():
     headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
 
