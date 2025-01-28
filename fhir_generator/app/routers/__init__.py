@@ -2,6 +2,7 @@ from .goal import *
 from .claim import *
 from .patient import *
 from .coverage import *
+from .procedure import *
 from .encounter import *
 from .care_plan import *
 from .condition import *
@@ -61,3 +62,6 @@ composition_router.add_api_route('/track8_2024_composition', generate_track8_202
 
 claim_router = APIRouter(tags=['Generate Claim Resource'], prefix='/api/v1')
 claim_router.add_api_route('/track8_2024_claim', generate_track8_2024_for_claim, methods=['POST'], description='Generate Track8 2024 Claim Resource')
+
+procedure_router = APIRouter(tags=['Generate Procedure Resource'], prefix='/api/v1')
+procedure_router.add_api_route('/track8_2024_procedure', generate_track8_2024_for_procedure, methods=['POST'], description='Generate Track8 2024 Procedure Resource')

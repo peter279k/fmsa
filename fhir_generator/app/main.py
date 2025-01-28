@@ -17,6 +17,7 @@ app = FastAPI(
 )
 
 app.include_router(claim_router)
+app.include_router(procedure_router)
 app.include_router(composition_router)
 app.include_router(coverage_router)
 app.include_router(care_plan_router)

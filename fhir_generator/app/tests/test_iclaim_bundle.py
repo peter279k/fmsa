@@ -632,3 +632,46 @@ def test_create_track8_2024_claim_resource():
     assert response.status_code == 200
     assert len(response_json['data']) == 1
     assert response_json['data'][0] == json.loads(expected_json_str)
+
+def test_create_track8_2024_procedure_resource():
+    headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+
+    payload = {
+        'payload': {
+            'profile_urls': ['https://hitstdio.ntunhs.edu.tw/imri/StructureDefinition/procedure-imri'],
+            'status': 'completed',
+            'category': {
+                'coding' : [{
+                    'system' : 'http://loinc.org',
+                    'code' : '8724-7',
+                    'display' : 'Surgical operation note description Narrative'
+                }]
+            },
+            'code_coding': [{
+                'system' : 'https://twcore.mohw.gov.tw/ig/twcore/CodeSystem/icd-10-pcs-2021-tw',
+                'code' : '06BY0ZC',
+                'display' : '開放性痔靜脈叢部分切除術'
+            }],
+            'code_text': '開放性痔靜脈叢部分切除術',
+            'subject': {
+                'reference': 'Patient/Patient-min'
+            },
+            'encounter': {
+                'reference' : 'Encounter/Encounter-min'
+            },
+            'performed_date_time': '2023-09-08T11:25:11+08:00',
+        },
+    }
+
+    with open('/app/app/tests/expected_track8_2024_procedure_min.json', 'r', encoding='utf-8') as f:
+        expected_json_str = f.read()
+
+    json_dict = payload
+    response = client.post('/api/v1/track8_2024_procedure', headers=headers, json=json_dict)
+
+    response_json = response.json()
+    del response_json['data'][0]['id']
+
+    assert response.status_code == 200
+    assert len(response_json['data']) == 1
+    assert response_json['data'][0] == json.loads(expected_json_str)
