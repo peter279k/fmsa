@@ -809,3 +809,49 @@ def test_create_track8_2024_procedure_resource():
     assert response.status_code == 200
     assert len(response_json['data']) == 1
     assert response_json['data'][0] == json.loads(expected_json_str)
+
+def test_create_track8_2024_medication_request_resource():
+    headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+
+    payload = {
+        'payload': {
+            'profile_urls': ['https://hitstdio.ntunhs.edu.tw/imri/StructureDefinition/medicationrequest-imri'],
+            'status': 'active',
+            'intent': 'proposal',
+            'medication_codeable_concept': {
+                'coding' : [{
+                    'system' : 'https://twcore.mohw.gov.tw/ig/twcore/CodeSystem/medication-nhi-tw',
+                    'code' : 'A003092100',
+                    'display' : 'ASPIRIN TABLETS 500MG \'S.Y.\''
+                }]
+            },
+            'subject': {
+                'reference': 'Patient/Patient-min'
+            },
+            'encounter': {
+                'reference': 'Encounter/Encounter-min'
+            },
+            'requester': {
+                'reference': 'Practitioner/Practitioner-min'
+            },
+            'performer': {
+                'reference' : 'Practitioner/Practitioner-min'
+            },
+            'based_on': [{
+                'reference' : 'CarePlan/CarePlan-min'
+            }],
+        },
+    }
+
+    with open('/app/app/tests/expected_track8_2024_medication_request_min.json', 'r', encoding='utf-8') as f:
+        expected_json_str = f.read()
+
+    json_dict = payload
+    response = client.post('/api/v1/track8_2024_medication_request', headers=headers, json=json_dict)
+
+    response_json = response.json()
+    del response_json['data'][0]['id']
+
+    assert response.status_code == 200
+    assert len(response_json['data']) == 1
+    assert response_json['data'][0] == json.loads(expected_json_str)

@@ -1,0 +1,30 @@
+{
+  "resourceType" : "MedicationRequest",
+  "meta" : {
+    "profile" : ["https://hitstdio.ntunhs.edu.tw/imri/StructureDefinition/medicationrequest-imri"]
+  },
+  "status" : "active",
+  "intent" : "proposal",
+  "medicationCodeableConcept" : {
+    "coding" : [{
+      "system" : "https://twcore.mohw.gov.tw/ig/twcore/CodeSystem/medication-nhi-tw",
+      "code" : "A003092100",
+      "display" : "ASPIRIN TABLETS 500MG \"S.Y.\""
+    }]
+  },
+  "subject" : {
+    "reference" : "Patient/Patient-min"
+  },
+  "encounter" : {
+    "reference" : "Encounter/Encounter-min"
+  },
+  "requester" : {
+    "reference" : "Practitioner/Practitioner-min"
+  },
+  "performer" : {
+    "reference" : "Practitioner/Practitioner-min"
+  },
+  "basedOn" : [{
+    "reference" : "CarePlan/CarePlan-min"
+  }]
+}

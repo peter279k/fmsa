@@ -13,6 +13,7 @@ from .practitioner import *
 from .service_request import *
 from .diagnostic_report import *
 from .practitioner_role import *
+from .medication_request import *
 
 from fastapi import APIRouter
 
@@ -65,3 +66,6 @@ claim_router.add_api_route('/track8_2024_claim', generate_track8_2024_for_claim,
 
 procedure_router = APIRouter(tags=['Generate Procedure Resource'], prefix='/api/v1')
 procedure_router.add_api_route('/track8_2024_procedure', generate_track8_2024_for_procedure, methods=['POST'], description='Generate Track8 2024 Procedure Resource')
+
+medication_request_router = APIRouter(tags=['Generate MedicationRequest Resource'], prefix='/api/v1')
+medication_request_router.add_api_route('/track8_2024_medication_request', generate_track8_2024_for_medication_request, methods=['POST'], description='Generate Track8 2024 MedicationRequest Resource')
