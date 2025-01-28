@@ -193,3 +193,78 @@ def test_create_track8_2024_organization_resource():
     assert response.status_code == 200
     assert len(response_json['data']) == 1
     assert response_json['data'][0] == json.loads(expected_json_str)
+
+def test_create_track8_2024_observation_resource():
+    headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+
+    payload = {
+        'payload': {
+            'profile_urls': ['https://claim.cgh.org.tw/iclaim/StructureDefinition/observation-iclaim'],
+            'identifiers': [{
+                'system' : 'https://www.cgh.org.tw',
+                'value' : '096H004'
+            }],
+            'status': 'final',
+            'category_coding': [{
+                'system' : 'http://terminology.hl7.org/CodeSystem/observation-category',
+                'code' : 'laboratory'
+            }],
+            'code_coding': [{
+                'system' : 'http://loinc.org',
+                'code' : '100856-4',
+                'display' : 'CD3+CD4+ (T4 helper) cells/100 cells in Blood mononuclear cells'
+            }],
+            'subject': {
+                'reference': 'Patient/Patient-C1',
+            },
+            'effective_datetime': '2023-08-07',
+            'issued': '2023-08-07T17:00:14+08:00',
+            'performer': [
+                {
+                    'reference' : 'PractitionerRole/PractitionerRole-tech'
+                },
+                {
+                    'reference' : 'PractitionerRole/PractitionerRole-rep'
+                },
+            ],
+            'value_quantity':  {
+                'value' : 4000,
+                'unit' : '/uL',
+                'system' : 'http://unitsofmeasure.org'
+            },
+            'note': [{
+                'text' : '無'
+            }],
+            'interpretation': [{
+                'coding' : [{
+                    'system' : 'http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation',
+                    'code' : '<'
+                }]
+            }],
+            'body_site_coding': [{
+                'system' : 'http://snomed.info/sct',
+                'code' : '9736006'
+            }],
+            'reference_range': [{
+                'low' : {
+                    'value' : 4500
+                },
+                'high' : {
+                    'value' : 10000
+                }
+            }],
+        },
+    }
+
+    with open('/app/app/tests/expected_track8_2024_observation_c1.json', 'r', encoding='utf-8') as f:
+        expected_json_str = f.read()
+
+    json_dict = payload
+    response = client.post('/api/v1/track8_2024_observation', headers=headers, json=json_dict)
+
+    response_json = response.json()
+    del response_json['data'][0]['id']
+
+    assert response.status_code == 200
+    assert len(response_json['data']) == 1
+    assert response_json['data'][0] == json.loads(expected_json_str)
