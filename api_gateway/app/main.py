@@ -238,7 +238,7 @@ async def track13_2024_observation(request: Request, response: Response):
     tags=['Generate Track13 2024 PractitionerRole Resources with the fhir_generator'],
     dependencies=[Depends(check_api_key)],
 )
-async def track8_2024_resource(request: Request, response: Response):
+async def track8_2024_practitioner_role_resource(request: Request, response: Response):
     pass
 
 @route(
@@ -250,7 +250,19 @@ async def track8_2024_resource(request: Request, response: Response):
     tags=['Generate Track13 2024 Practitioner Resources with the fhir_generator'],
     dependencies=[Depends(check_api_key)],
 )
-async def track8_2024_resource(request: Request, response: Response):
+async def track8_2024_practitioner_resource(request: Request, response: Response):
+    pass
+
+@route(
+    request_method=fhir_generator_router.post,
+    service_url=SERVICE_URLS[2],
+    gateway_path='/track8_2024_patient',
+    service_path='/api/v1/track8_2024_patient',
+    status_code=status.HTTP_200_OK,
+    tags=['Generate Track13 2024 Patient Resources with the fhir_generator'],
+    dependencies=[Depends(check_api_key)],
+)
+async def track8_2024_patient_resource(request: Request, response: Response):
     pass
 
 @route(
