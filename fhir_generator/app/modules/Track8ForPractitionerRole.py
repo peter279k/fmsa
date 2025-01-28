@@ -3,7 +3,7 @@ import secrets
 from fhir_data_generator import TWCorePractitionerRole as PractitionerRole
 
 
-class Track13ForPractitionerRole:
+class Track8ForPractitionerRole:
     def __init__(self, resource, item_dict: dict):
         self.item_dict = item_dict
         self.practitioner_role_payload = item_dict['payload']
