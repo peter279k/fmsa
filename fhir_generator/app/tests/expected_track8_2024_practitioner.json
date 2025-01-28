@@ -1,6 +1,5 @@
 {
   "resourceType" : "Practitioner",
-  "id" : "Practitioner-Chen",
   "meta" : {
     "profile" : ["https://claim.cgh.org.tw/iclaim/StructureDefinition/practitioner-iclaim"]
   },
