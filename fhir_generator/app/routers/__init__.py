@@ -1,5 +1,6 @@
 from .goal import *
 from .patient import *
+from .encounter import *
 from .care_plan import *
 from .condition import *
 from .observation import *
@@ -40,3 +41,6 @@ observation_router.add_api_route('/track8_2024_observation', generate_track8_202
 
 practitioner_role_router = APIRouter(tags=['Generate PractitionerRole Resource'], prefix='/api/v1')
 practitioner_role_router.add_api_route('/track8_2024_practitioner_role', generate_track8_2024_for_practitioner_role, methods=['POST'], description='Generate Track8 2024 PractitionerRole Resource')
+
+encounter_router = APIRouter(tags=['Generate Encounter Resource'], prefix='/api/v1')
+encounter_router.add_api_route('/track8_2024_encounter', generate_track8_2024_for_encounter, methods=['POST'], description='Generate Track8 2024 Encounter Resource')

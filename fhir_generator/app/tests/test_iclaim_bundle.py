@@ -268,3 +268,64 @@ def test_create_track8_2024_observation_resource():
     assert response.status_code == 200
     assert len(response_json['data']) == 1
     assert response_json['data'][0] == json.loads(expected_json_str)
+
+def test_create_track8_2024_encounter_resource():
+    headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+
+    payload = {
+        'payload': {
+            'profile_urls': ['https://claim.cgh.org.tw/iclaim/StructureDefinition/encounter-iclaim'],
+            'extension': [{
+                'url' : 'https://claim.cgh.org.tw/iclaim/StructureDefinition/cathay-medicalidentity',
+                'valueCodeableConcept' : {
+                    'coding' : [{
+                        'system' : 'http://terminology.hl7.org/CodeSystem/coverage-selfpay',
+                        'code' : 'pay'
+                    }]
+                }
+            }],
+            'identifiers': [{
+                'system' : 'https://www.cgh.org.tw',
+                'value' : '1286481'
+            }],
+            'status': 'finished',
+            'fixture_class': {
+                'system' : 'http://terminology.hl7.org/CodeSystem/v3-ActCode',
+                'code' : 'AMB'
+            },
+            'service_type_coding':  [{
+                'system' : 'https://claim.cgh.org.tw/iclaim/CodeSystem/nhi-department-values',
+                'code' : '06',
+                'display' : '骨科'
+            }],
+            'subject': {
+                'reference': 'Patient/Patient-C1'
+            },
+            'participant_individual': {
+                'reference' : 'PractitionerRole/PractitionerRole-rec'
+            },
+            'period': {
+                'start' : '2023-08-07T17:00:14-05:00',
+                'end' : '2023-08-07T18:00:14-05:00'
+            },
+            'length':  {
+                'value' : 1,
+                'unit' : 'days',
+                'system' : 'http://unitsofmeasure.org',
+                'code' : 'd'
+            },
+        },
+    }
+
+    with open('/app/app/tests/expected_track8_2024_encounter_c1.json', 'r', encoding='utf-8') as f:
+        expected_json_str = f.read()
+
+    json_dict = payload
+    response = client.post('/api/v1/track8_2024_encounter', headers=headers, json=json_dict)
+
+    response_json = response.json()
+    del response_json['data'][0]['id']
+
+    assert response.status_code == 200
+    assert len(response_json['data']) == 1
+    assert response_json['data'][0] == json.loads(expected_json_str)
