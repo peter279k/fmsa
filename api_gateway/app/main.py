@@ -350,6 +350,18 @@ async def track8_2024_composition_resource(request: Request, response: Response)
     pass
 
 @route(
+    request_method=fhir_generator_router.post,
+    service_url=SERVICE_URLS[2],
+    gateway_path='/track8_2024_claim',
+    service_path='/api/v1/track8_2024_claim',
+    status_code=status.HTTP_200_OK,
+    tags=['Generate Track8 2024 Claim Resources with the fhir_generator'],
+    dependencies=[Depends(check_api_key)],
+)
+async def track8_2024_claim_resource(request: Request, response: Response):
+    pass
+
+@route(
     request_method=fhir_data_manager_router.post,
     service_url=SERVICE_URLS[7],
     gateway_path='/upload/{resource_name}',

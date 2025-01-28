@@ -1,4 +1,5 @@
 from .goal import *
+from .claim import *
 from .patient import *
 from .coverage import *
 from .encounter import *
@@ -57,3 +58,6 @@ coverage_router.add_api_route('/track8_2024_coverage', generate_track8_2024_for_
 
 composition_router = APIRouter(tags=['Generate Composition Resource'], prefix='/api/v1')
 composition_router.add_api_route('/track8_2024_composition', generate_track8_2024_for_composition, methods=['POST'], description='Generate Track8 2024 Composition Resource')
+
+claim_router = APIRouter(tags=['Generate Claim Resource'], prefix='/api/v1')
+claim_router.add_api_route('/track8_2024_claim', generate_track8_2024_for_claim, methods=['POST'], description='Generate Track8 2024 Claim Resource')
