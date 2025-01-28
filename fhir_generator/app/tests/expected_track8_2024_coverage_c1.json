@@ -1,0 +1,13 @@
+{
+  "resourceType" : "Coverage",
+  "meta" : {
+    "profile" : ["https://claim.cgh.org.tw/iclaim/StructureDefinition/coverage-iclaim"]
+  },
+  "status" : "active",
+  "beneficiary" : {
+    "reference" : "Patient/Patient-C1"
+  },
+  "payor" : [{
+    "reference" : "Organization/Organization-cathay"
+  }]
+}

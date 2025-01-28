@@ -1,5 +1,6 @@
 from .goal import *
 from .patient import *
+from .coverage import *
 from .encounter import *
 from .care_plan import *
 from .condition import *
@@ -48,3 +49,6 @@ encounter_router.add_api_route('/track8_2024_encounter', generate_track8_2024_fo
 
 diagnostic_report_router = APIRouter(tags=['Generate DiagnosticReport Resource'], prefix='/api/v1')
 diagnostic_report_router.add_api_route('/track8_2024_diagnostic_report', generate_track8_2024_for_diagnostic_report, methods=['POST'], description='Generate Track8 2024 DiagnosticReport Resource')
+
+coverage_router = APIRouter(tags=['Generate Coverage Resource'], prefix='/api/v1')
+coverage_router.add_api_route('/track8_2024_coverage', generate_track8_2024_for_coverage, methods=['POST'], description='Generate Track8 2024 Coverage Resource')
