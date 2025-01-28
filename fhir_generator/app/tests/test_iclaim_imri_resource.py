@@ -822,7 +822,7 @@ def test_create_track8_2024_medication_request_resource():
                 'coding' : [{
                     'system' : 'https://twcore.mohw.gov.tw/ig/twcore/CodeSystem/medication-nhi-tw',
                     'code' : 'A003092100',
-                    'display' : 'ASPIRIN TABLETS 500MG \'S.Y.\''
+                    'display' : 'ASPIRIN TABLETS 500MG "S.Y."'
                 }]
             },
             'subject': {
