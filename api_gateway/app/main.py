@@ -244,10 +244,10 @@ async def track8_2024_resource(request: Request, response: Response):
 @route(
     request_method=fhir_generator_router.post,
     service_url=SERVICE_URLS[2],
-    gateway_path='/track8_2024_practitioner_role',
-    service_path='/api/v1/track8_2024_practitioner_role',
+    gateway_path='/track8_2024_practitioner',
+    service_path='/api/v1/track8_2024_practitioner',
     status_code=status.HTTP_200_OK,
-    tags=['Generate Track13 2024 PractitionerRole Resources with the fhir_generator'],
+    tags=['Generate Track13 2024 Practitioner Resources with the fhir_generator'],
     dependencies=[Depends(check_api_key)],
 )
 async def track8_2024_resource(request: Request, response: Response):
