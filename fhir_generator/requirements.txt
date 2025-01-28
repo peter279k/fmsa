@@ -3,4 +3,4 @@ uvicorn==0.20.0
 httpx==0.26.0
 pytest==8.3.4
 pytest-dependency==0.6.0
-fhir-data-generator==1.6.1
+fhir-data-generator==1.7.0
