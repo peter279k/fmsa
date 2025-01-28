@@ -4,15 +4,15 @@ from app.modules import Track8ForProcedure
 from fastapi.responses import JSONResponse
 
 
-async def generate_track8_2024_for_claim(item: Track8ForResource):
+async def generate_track8_2024_for_procedure(item: Track8ForResource):
     status_code = 200
-    resource_name = 'Claim'
+    resource_name = 'Procedure'
     item_dict = item.model_dump()
-    claim_resource = {}
+    procedure_resource = {}
 
     try:
-        track8_for_claim = Track8ForClaim.Track8ForClaim(resource_name, item_dict)
-        claim_resource = track8_for_claim.generate_claim_resource()
+        track8_for_procedure = Track8ForProcedure.Track8ForProcedure(resource_name, item_dict)
+        procedure_resource = track8_for_procedure.generate_procedure_resource()
     except Exception as e:
         status_code = 500
 
@@ -29,8 +29,8 @@ async def generate_track8_2024_for_claim(item: Track8ForResource):
     return JSONResponse(
         {
             'status': status_code,
-            'message': 'Creating Claim resource for Track 8 is successful.',
-            'data': [claim_resource],
+            'message': 'Creating Procedure resource for Track 8 is successful.',
+            'data': [procedure_resource],
         },
         status_code=status_code
     )
