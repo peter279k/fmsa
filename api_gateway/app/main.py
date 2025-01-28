@@ -266,6 +266,18 @@ async def track8_2024_patient_resource(request: Request, response: Response):
     pass
 
 @route(
+    request_method=fhir_generator_router.post,
+    service_url=SERVICE_URLS[2],
+    gateway_path='/track8_2024_organization',
+    service_path='/api/v1/track8_2024_organization',
+    status_code=status.HTTP_200_OK,
+    tags=['Generate Track13 2024 Organization Resources with the fhir_generator'],
+    dependencies=[Depends(check_api_key)],
+)
+async def track8_2024_organization_resource(request: Request, response: Response):
+    pass
+
+@route(
     request_method=fhir_data_manager_router.post,
     service_url=SERVICE_URLS[7],
     gateway_path='/upload/{resource_name}',
