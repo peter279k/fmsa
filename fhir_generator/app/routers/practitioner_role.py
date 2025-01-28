@@ -4,7 +4,7 @@ from app.modules import Track8ForPractitionerRole
 from fastapi.responses import JSONResponse
 
 
-async def generate_track13_2024_for_practitioner_role(item: Track8ForResource):
+async def generate_track8_2024_for_practitioner_role(item: Track8ForResource):
     status_code = 200
     resource_name = 'PractitionerRole'
     item_dict = item.model_dump()

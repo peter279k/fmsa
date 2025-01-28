@@ -5,6 +5,7 @@ from .condition import *
 from .observation import *
 from .practitioner import *
 from .service_request import *
+from .practitioner_role import *
 
 from fastapi import APIRouter
 
@@ -31,4 +32,4 @@ observation_router = APIRouter(tags=['Generate Observation Resource'], prefix='/
 observation_router.add_api_route('/track13_2024_observation', generate_track13_2024_for_observation, methods=['POST'], description='Generate Track13 2024 Observation Resource')
 
 practitioner_role_router = APIRouter(tags=['Generate PractitionerRole Resource'], prefix='/api/v1')
-practitioner_router.add_api_route('/track8_2024_practitioner_role', generate_track13_2024_for_practtioner_role, methods=['POST'], description='Generate Track8 2024 PractitionerRole Resource')
+practitioner_router.add_api_route('/track8_2024_practitioner_role', generate_track8_2024_for_practitioner_role, methods=['POST'], description='Generate Track8 2024 PractitionerRole Resource')
