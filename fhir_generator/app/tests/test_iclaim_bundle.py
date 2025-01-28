@@ -161,7 +161,7 @@ def test_create_track8_2024_organization_resource():
 
     payload = {
         'payload': {
-            'profile_urls': ['https://hitstdio.ntunhs.edu.tw/imri/StructureDefinition/organization-hosp-imri'],
+            'profile_urls': ['https://twcore.mohw.gov.tw/ig/twcore/StructureDefinition/Organization-hosp-twcore'],
             'identifiers': [{
                 'use': 'official',
                 'type': {
