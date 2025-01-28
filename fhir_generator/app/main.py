@@ -16,6 +16,7 @@ app = FastAPI(
     }
 )
 
+app.include_router(composition_router)
 app.include_router(coverage_router)
 app.include_router(care_plan_router)
 app.include_router(patient_router)

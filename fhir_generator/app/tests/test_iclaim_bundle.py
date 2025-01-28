@@ -454,3 +454,79 @@ def test_create_track8_2024_condition_resource():
     assert response.status_code == 200
     assert len(response_json['data']) == 1
     assert response_json['data'][0] == json.loads(expected_json_str)
+
+def test_create_track8_2024_composition_resource():
+    headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+
+    payload = {
+        'payload': {
+            'profile_urls': ['https://claim.cgh.org.tw/iclaim/StructureDefinition/composition-iclaim'],
+            'identifier': {
+                'system' : 'https://www.cgh.org.tw',
+                'value' : 'A0001'
+            },
+            'status': 'final',
+            'type_coding': [{
+                'system' : 'http://loinc.org',
+                'code' : '64291-8'
+            }],
+            'subject': {
+                'reference' : 'Patient/Patient-C1'
+            },
+            'date': '2023-08-21T14:30:00+08:00',
+            'author': [{
+                'reference' : 'Organization/Organization-min'
+            }],
+            'title': '理賠用收據-診斷證明-檢驗紀錄',
+            'section_title': '理賠用收據-診斷證明-檢驗紀錄',
+            'section_code': {
+                'coding' : [{
+                    'system' : 'http://loinc.org',
+                    'code' : '64291-8'
+                }]
+            },
+            'section_entry': [{
+                'reference' : 'Claim/Claim-C1'
+            },
+            {
+                'reference' : 'Coverage/Coverage-C1'
+            },
+            {
+                'reference' : 'Organization/Organization-cathay'
+            },
+            {
+                'reference' : 'Condition/Condition-C1'
+            },
+            {
+                'reference' : 'DiagnosticReport/DiagnosticReport-C1'
+            },
+            {
+                'reference' : 'Encounter/Encounter-C1'
+            },
+            {
+                'reference' : 'Practitioner/Practitioner-Chen'
+            },
+            {
+                'reference' : 'Practitioner/Practitioner-Ciou'
+            },
+            {
+                'reference' : 'Practitioner/Practitioner-Wang1'
+            },
+            {
+                'reference' : 'Observation/Observation-C1'
+            }]
+        },
+    }
+
+    with open('/app/app/tests/expected_track8_2024_condition_c1.json', 'r', encoding='utf-8') as f:
+        expected_json_str = f.read()
+
+    json_dict = payload
+    response = client.post('/api/v1/track8_2024_condition', headers=headers, json=json_dict)
+
+    response_json = response.json()
+    del response_json['data'][0]['id']
+
+    assert response.status_code == 200
+    assert len(response_json['data']) == 1
+    assert response_json['data'][0] == json.loads(expected_json_str)

@@ -53,3 +53,6 @@ diagnostic_report_router.add_api_route('/track8_2024_diagnostic_report', generat
 
 coverage_router = APIRouter(tags=['Generate Coverage Resource'], prefix='/api/v1')
 coverage_router.add_api_route('/track8_2024_coverage', generate_track8_2024_for_coverage, methods=['POST'], description='Generate Track8 2024 Coverage Resource')
+
+composition_router = APIRouter(tags=['Generate Composition Resource'], prefix='/api/v1')
+composition_router.add_api_route('/track8_2024_composition', generate_track8_2024_for_composition, methods=['POST'], description='Generate Track8 2024 Composition Resource')
