@@ -24,3 +24,18 @@ class Track8ForPractitioner:
         practitioner_class.create()
 
         return practitioner_class.payload_template
+
+    def generate_practitioner_name_resource(self):
+        resource_id = hashlib.sha3_224(secrets.token_urlsafe(5).encode('utf-8')).hexdigest()
+        practitioner_class = Practitioner(resource_id)
+
+        profile_urls = self.practitioner_payload['profile_urls']
+
+        practitioner_class.set_profile_urls(profile_urls)
+
+        practitioner_class.set_name(self.practitioner_payload['name'])
+
+        practitioner_class.create()
+
+        return practitioner_class.payload_template
+

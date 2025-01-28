@@ -1,0 +1,10 @@
+{
+  "resourceType" : "Practitioner",
+  "meta" : {
+    "profile" : ["https://hitstdio.ntunhs.edu.tw/imri/StructureDefinition/practitioner-imri"]
+  },
+  "name" : [{
+    "use" : "official",
+    "text" : "劉伊詩"
+  }]
+}
