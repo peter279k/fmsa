@@ -395,3 +395,62 @@ def test_create_track8_2024_coverage_resource():
     assert response.status_code == 200
     assert len(response_json['data']) == 1
     assert response_json['data'][0] == json.loads(expected_json_str)
+
+def test_create_track8_2024_condition_resource():
+    headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+
+    payload = {
+        'payload': {
+            'profile_urls': ['https://claim.cgh.org.tw/iclaim/StructureDefinition/condition-iclaim'],
+            'identifier': [{
+                'value': '1080108642',
+            }],
+            'clinical_status_coding': [{
+                'system': 'http://terminology.hl7.org/CodeSystem/condition-clinical',
+                'code': 'remission',
+            }],
+            'category_coding': [{
+                'system': 'http://terminology.hl7.org/CodeSystem/condition-category',
+                'code': 'encounter-diagnosis'
+            }],
+            'code_coding': [{
+                'system': 'https://twcore.mohw.gov.tw/ig/twcore/CodeSystem/icd-9-cm-2001-tw',
+                'code': '842.19',
+                'display': '手其他部位扭傷及拉傷',
+            }],
+            'subject': {
+                'reference': 'Patient/Patient-C1'
+            },
+            'encounter': {
+                'reference': 'Encounter/Encounter-C1',
+            },
+            'recorded_date': '2023-08-07',
+            'recorder': {
+                'reference': 'PractitionerRole/PractitionerRole-pri',
+            },
+            'asserter': {
+                'reference': 'PractitionerRole/PractitionerRole-res'
+            },
+            'stage': [{
+                'assessment' : [{
+                    'reference' : 'DiagnosticReport/DiagnosticReport-C1'
+                }]
+            }],
+            'note': [{
+                'text': '手扭傷後,關節局部腫脹,關節彎曲受限,伸不直或彎曲不了',
+            }],
+        },
+    }
+
+    with open('/app/app/tests/expected_track8_2024_condition_c1.json', 'r', encoding='utf-8') as f:
+        expected_json_str = f.read()
+
+    json_dict = payload
+    response = client.post('/api/v1/track8_2024_condition', headers=headers, json=json_dict)
+
+    response_json = response.json()
+    del response_json['data'][0]['id']
+
+    assert response.status_code == 200
+    assert len(response_json['data']) == 1
+    assert response_json['data'][0] == json.loads(expected_json_str)
