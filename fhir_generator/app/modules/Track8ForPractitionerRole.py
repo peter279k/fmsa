@@ -19,4 +19,6 @@ class Track8ForPractitionerRole:
 
         practitioner_role_class.set_code(self.practitioner_role_payload['code'])
 
+        practitioner_role_class.create()
+
         return practitioner_role_class.payload_template
