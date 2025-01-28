@@ -1,0 +1,19 @@
+{
+  "resourceType" : "DiagnosticReport",
+  "meta" : {
+    "profile" : ["https://claim.cgh.org.tw/iclaim/StructureDefinition/diagnosticreport-iclaim"]
+  },
+  "status" : "final",
+  "code" : {
+    "coding" : [{
+      "system" : "http://loinc.org",
+      "code" : "100537-0"
+    }]
+  },
+  "subject" : {
+    "reference" : "Patient/Patient-C1"
+  },
+  "result" : [{
+    "reference" : "Observation/Observation-C1"
+  }]
+}

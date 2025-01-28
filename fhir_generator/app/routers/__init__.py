@@ -7,6 +7,7 @@ from .observation import *
 from .organization import *
 from .practitioner import *
 from .service_request import *
+from .diagnostic_report import *
 from .practitioner_role import *
 
 from fastapi import APIRouter
@@ -44,3 +45,6 @@ practitioner_role_router.add_api_route('/track8_2024_practitioner_role', generat
 
 encounter_router = APIRouter(tags=['Generate Encounter Resource'], prefix='/api/v1')
 encounter_router.add_api_route('/track8_2024_encounter', generate_track8_2024_for_encounter, methods=['POST'], description='Generate Track8 2024 Encounter Resource')
+
+diagnostic_report_router = APIRouter(tags=['Generate DiagnosticReport Resource'], prefix='/api/v1')
+diagnostic_report_router.add_api_route('/track8_2024_diagnostic_report', generate_track8_2024_for_diagnostic_report, methods=['POST'], description='Generate Track8 2024 DiagnosticReport Resource')
