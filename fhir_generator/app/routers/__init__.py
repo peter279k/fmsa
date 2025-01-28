@@ -5,6 +5,7 @@ from .encounter import *
 from .care_plan import *
 from .condition import *
 from .observation import *
+from .composition import *
 from .organization import *
 from .practitioner import *
 from .service_request import *
