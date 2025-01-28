@@ -125,8 +125,8 @@ def test_create_track8_2024_patient_resource():
                 'system' : 'https://www.cgh.org.tw',
                 'value' : 'ADCM9487'
             }],
-            'name_use': 'official',
-            'name_text': '陳健骨',
+            'name_use': 'usual',
+            'name_text': '郝美麗',
             'gender': 'female',
             'birth_date' : '1990-04-22',
             'address': [{
