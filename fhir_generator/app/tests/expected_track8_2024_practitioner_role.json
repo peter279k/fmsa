@@ -1,0 +1,17 @@
+{
+  "resourceType" : "PractitionerRole",
+  "meta" : {
+    "profile" : ["https://claim.cgh.org.tw/iclaim/StructureDefinition/practitionerrole-iclaim"]
+  },
+  "practitioner" : {
+    "reference" : "Practitioner/Practitioner-Chen",
+    "display" : "陳健骨"
+  },
+  "code" : [{
+    "coding" : [{
+      "system" : "http://snomed.info/sct",
+      "code" : "405279007",
+      "display" : "Attending physician (occupation)"
+    }]
+  }]
+}

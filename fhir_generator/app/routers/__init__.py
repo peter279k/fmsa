@@ -29,3 +29,6 @@ service_request_router.add_api_route('/track13_2024_service_request', generate_t
 
 observation_router = APIRouter(tags=['Generate Observation Resource'], prefix='/api/v1')
 observation_router.add_api_route('/track13_2024_observation', generate_track13_2024_for_observation, methods=['POST'], description='Generate Track13 2024 Observation Resource')
+
+practitioner_role_router = APIRouter(tags=['Generate PractitionerRole Resource'], prefix='/api/v1')
+practitioner_router.add_api_route('/track8_2024_practitioner_role', generate_track13_2024_for_practtioner_role, methods=['POST'], description='Generate Track8 2024 PractitionerRole Resource')
