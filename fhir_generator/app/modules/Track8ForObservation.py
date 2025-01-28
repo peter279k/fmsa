@@ -18,7 +18,7 @@ class Track8ForObservation:
 
         observation_class.set_status(self.observation_payload['status'])
 
-        observation_class.set_identifier(self.observation_payload['identifier'])
+        observation_class.set_identifier(self.observation_payload['identifiers'])
 
         observation_class.set_category_coding(self.observation_payload['category_coding'])
 
