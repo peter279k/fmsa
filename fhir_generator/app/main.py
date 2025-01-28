@@ -18,6 +18,7 @@ app = FastAPI(
 
 app.include_router(care_plan_router)
 app.include_router(patient_router)
+app.include_router(organization_router)
 app.include_router(practitioner_router)
 app.include_router(practitioner_role_router)
 app.include_router(goal_router)
