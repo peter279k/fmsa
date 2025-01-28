@@ -1,0 +1,10 @@
+{
+  "resourceType" : "Location",
+  "meta" : {
+    "profile" : ["https://hitstdio.ntunhs.edu.tw/imri/StructureDefinition/location-imri"]
+  },
+  "identifier" : [{
+    "value" : "4012S"
+  }],
+  "name" : "病床"
+}

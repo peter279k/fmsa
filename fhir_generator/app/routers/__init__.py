@@ -1,6 +1,7 @@
 from .goal import *
 from .claim import *
 from .patient import *
+from .location import *
 from .coverage import *
 from .procedure import *
 from .encounter import *
@@ -69,3 +70,6 @@ procedure_router.add_api_route('/track8_2024_procedure', generate_track8_2024_fo
 
 medication_request_router = APIRouter(tags=['Generate MedicationRequest Resource'], prefix='/api/v1')
 medication_request_router.add_api_route('/track8_2024_medication_request', generate_track8_2024_for_medication_request, methods=['POST'], description='Generate Track8 2024 MedicationRequest Resource')
+
+location_router = APIRouter(tags=['Generate Location Resource'], prefix='/api/v1')
+location_router.add_api_route('/track8_2024_location', generate_track8_2024_for_location, methods=['POST'], description='Generate Track8 2024 Location Resource')
