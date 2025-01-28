@@ -128,7 +128,7 @@ def test_create_track8_2024_patient_resource():
             'name_use': 'official',
             'name_text': '陳健骨',
             'gender': 'female',
-            'birthDate' : '1990-04-22',
+            'birth_date' : '1990-04-22',
             'address': [{
                 'extension' : [{
                     'url' : 'https://twcore.mohw.gov.tw/ig/twcore/StructureDefinition/tw-number',
