@@ -1,0 +1,17 @@
+{
+  "resourceType" : "DocumentReference",
+  "meta" : {
+    "profile" : ["https://twcore.mohw.gov.tw/ig/twcore/StructureDefinition/DocumentReference-twcore"]
+  },
+  "status" : "current",
+  "subject" : {
+    "reference" : "Patient/Patient-min"
+  },
+  "content" : [{
+    "attachment" : {
+      "contentType" : "image/png",
+      "url" : "https://telegraph-image-55i.pages.dev/file/3830a304a2eb70419c80a.png",
+      "title" : "gallbladder polyp"
+    }
+  }]
+}

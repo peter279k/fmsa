@@ -18,6 +18,7 @@ app = FastAPI(
 
 app.include_router(claim_router)
 app.include_router(location_router)
+app.include_router(document_reference_router)
 app.include_router(imaging_study_router)
 app.include_router(procedure_router)
 app.include_router(medication_request_router)

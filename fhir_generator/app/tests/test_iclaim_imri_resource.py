@@ -965,3 +965,36 @@ def test_create_track8_2024_imaging_study_resource():
     assert response.status_code == 200
     assert len(response_json['data']) == 1
     assert response_json['data'][0] == json.loads(expected_json_str)
+
+def test_create_track8_2024_document_reference_resource():
+    headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+
+    payload = {
+        'payload': {
+            'profile_urls': ['https://twcore.mohw.gov.tw/ig/twcore/StructureDefinition/DocumentReference-twcore'],
+            'status': 'current',
+            'subject': {
+                'reference': 'Patient/Patient-min'
+            },
+            'content': [{
+                'attachment' : {
+                    'contentType' : 'image/png',
+                    'url' : 'https://telegraph-image-55i.pages.dev/file/3830a304a2eb70419c80a.png',
+                    'title' : 'gallbladder polyp'
+                }
+            }]
+        },
+    }
+
+    with open('/app/app/tests/expected_track8_2024_document_reference.json', 'r', encoding='utf-8') as f:
+        expected_json_str = f.read()
+
+    json_dict = payload
+    response = client.post('/api/v1/track8_2024_document_reference', headers=headers, json=json_dict)
+
+    response_json = response.json()
+    del response_json['data'][0]['id']
+
+    assert response.status_code == 200
+    assert len(response_json['data']) == 1
+    assert response_json['data'][0] == json.loads(expected_json_str)

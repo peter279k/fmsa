@@ -16,6 +16,7 @@ from .service_request import *
 from .diagnostic_report import *
 from .practitioner_role import *
 from .medication_request import *
+from .document_reference import *
 
 from fastapi import APIRouter
 
@@ -77,3 +78,6 @@ location_router.add_api_route('/track8_2024_location', generate_track8_2024_for_
 
 imaging_study_router = APIRouter(tags=['Generate ImagingStudy Resource'], prefix='/api/v1')
 imaging_study_router.add_api_route('/track8_2024_imaging_study', generate_track8_2024_for_imaging_study, methods=['POST'], description='Generate Track8 2024 ImagingStudy Resource')
+
+document_reference_router = APIRouter(tags=['Generate DocumentReference Resource'], prefix='/api/v1')
+document_reference_router.add_api_route('/track8_2024_document_reference', generate_track8_2024_for_document_reference, methods=['POST'], description='Generate Track8 2024 DocumentReference Resource')
