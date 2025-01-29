@@ -900,7 +900,6 @@ def test_create_track8_2024_imaging_study_resource():
                 'reference' : 'Practitioner/Practitioner-min'
             }],
             'description': 'No significant roentgenological abnormality is observed.',
-
         },
     }
 
