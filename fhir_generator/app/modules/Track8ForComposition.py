@@ -1,5 +1,6 @@
 import hashlib
 import secrets
+from fhir_data_generator import CompositionImri as Composition
 from fhir_data_generator import TWCoreComposition as Composition
 
 
@@ -32,6 +33,32 @@ class Track8ForComposition:
         composition_class.set_section_title(self.composition_payload['section_title'])
         composition_class.set_section_code(self.composition_payload['section_code'])
         composition_class.set_section_entry(self.composition_payload['section_entry'])
+
+        composition_class.create()
+
+        return composition_class.payload_template
+
+    def generate_composition_discharge_resource(self):
+        resource_id = hashlib.sha3_224(secrets.token_urlsafe(5).encode('utf-8')).hexdigest()
+        composition_class = CompositionImri(resource_id)
+
+        composition_class.set_profile_urls(self.composition_payload['profile_urls'])
+
+        composition_class.set_status(self.composition_payload['status'])
+
+        composition_class.set_type_coding(self.composition_payload['type_coding'])
+
+        composition_class.set_subject(self.composition_payload['subject'])
+
+        composition_class.set_encounter(self.composition_payload['encounter'])
+
+        composition_class.set_date(self.composition_payload['date'])
+
+        composition_class.set_author(self.composition_payload['author'])
+
+        composition_class.set_title(self.composition_payload['title'])
+
+        composition_class.set_section(self.composition_payload['section'])
 
         composition_class.create()
 
