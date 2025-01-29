@@ -1,6 +1,6 @@
 import hashlib
 import secrets
-from fhir_data_generator import CompositionImri as Composition
+from fhir_data_generator import CompositionImri
 from fhir_data_generator import TWCoreComposition as Composition
 
 
