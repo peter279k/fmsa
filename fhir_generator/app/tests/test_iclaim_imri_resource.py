@@ -971,7 +971,7 @@ def test_create_track8_2024_composition_discharge_summary_min_resource():
         },
     }
 
-    with open('/app/app/tests/expected_track8_2024_composition_discharge_summary.json.json', 'r', encoding='utf-8') as f:
+    with open('/app/app/tests/expected_track8_2024_composition_discharge_summary.json', 'r', encoding='utf-8') as f:
         expected_json_str = f.read()
 
     json_dict = payload
