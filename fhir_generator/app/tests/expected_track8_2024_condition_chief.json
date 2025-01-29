@@ -1,0 +1,42 @@
+{
+  "resourceType" : "Condition",
+  "id" : "ConditionChiefComplaint-min",
+  "meta" : {
+    "profile" : ["https://hitstdio.ntunhs.edu.tw/imri/StructureDefinition/conditionchiefcomplaint-imri"]
+  },
+  "text" : {
+    "status" : "generated",
+    "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><h3><b>病人主訴</b></h3><p><b>臨床狀態</b>：Active <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\">( <a href=\"http://terminology.hl7.org/CodeSystem/condition-clinical\">ConditionClinicalStatusCodes</a>#active)</span></p><p><b>病情、問題或診斷分類</b>：Chief complaint Narrative - Reported <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\">( <a href=\"http://loinc.org\">Condition Category Codes</a>#10154-3)</span></p><p><b>病人</b>：<a href=\"Patient-Patient-min.html\">Patient/Patient-min</a> \"安格斯\"</p><p><b>就醫事件</b>：<a href=\"Encounter-Encounter-min.html\">Encounter/Encounter-min</a></p><p><b>病人主訴之病情識別</b>：肛門及直腸出血 <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\">( <a href=\"https://twcore.mohw.gov.tw/ig/twcore/CodeSystem/icd-10-cm-2021-tw\">臺灣2021年中文版ICD-10-CM</a>#K62.5)</span></p><p><b>病人主訴</b>：Anal pain with anal bleeding for few days</p></div>"
+  },
+  "clinicalStatus" : {
+    "coding" : [{
+      "system" : "http://terminology.hl7.org/CodeSystem/condition-clinical",
+      "code" : "active",
+      "display" : "Active"
+    }]
+  },
+  "category" : [{
+    "coding" : [{
+      "system" : "http://loinc.org",
+      "code" : "10154-3",
+      "display" : "Chief complaint Narrative - Reported"
+    }]
+  }],
+  "code" : {
+    "coding" : [{
+      "system" : "https://twcore.mohw.gov.tw/ig/twcore/CodeSystem/icd-10-cm-2021-tw",
+      "code" : "K62.5",
+      "display" : "肛門及直腸出血"
+    }],
+    "text" : "肛門及直腸出血"
+  },
+  "subject" : {
+    "reference" : "Patient/Patient-min"
+  },
+  "encounter" : {
+    "reference" : "Encounter/Encounter-min"
+  },
+  "note" : [{
+    "text" : "Anal pain with anal bleeding for few days"
+  }]
+}
