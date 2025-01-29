@@ -903,11 +903,11 @@ def test_create_track8_2024_imaging_study_resource():
         },
     }
 
-    with open('/app/app/tests/expected_track8_2024_location_min.json', 'r', encoding='utf-8') as f:
+    with open('/app/app/tests/expected_track8_2024_imaging_study.json', 'r', encoding='utf-8') as f:
         expected_json_str = f.read()
 
     json_dict = payload
-    response = client.post('/api/v1/track8_2024_location', headers=headers, json=json_dict)
+    response = client.post('/api/v1/track8_2024_imaging_study', headers=headers, json=json_dict)
 
     response_json = response.json()
     del response_json['data'][0]['id']
