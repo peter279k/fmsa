@@ -1,0 +1,20 @@
+{
+  "resourceType" : "CarePlan",
+  "meta" : {
+    "profile" : ["https://hitstdio.ntunhs.edu.tw/imri/StructureDefinition/careplan-imri"]
+  },
+  "status" : "completed",
+  "intent" : "proposal",
+  "description" : "出院指示",
+  "subject" : {
+    "reference" : "Patient/Patient-min"
+  },
+  "encounter" : {
+    "reference" : "Encounter/Encounter-min"
+  },
+  "activity" : [{
+    "reference" : {
+      "reference" : "MedicationRequest/MedicationRequest-min"
+    }
+  }]
+}

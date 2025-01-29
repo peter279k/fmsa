@@ -37,6 +37,7 @@ goal_router.add_api_route('/track13_2024_goal', generate_track13_2024_for_goal, 
 
 care_plan_router = APIRouter(tags=['Generate CarePlan Resource'], prefix='/api/v1')
 care_plan_router.add_api_route('/track13_2024_care_plan', generate_track13_2024_for_care_plan, methods=['POST'], description='Generate Track13 2024 CarePlan Resource')
+care_plan_router.add_api_route('/track8_2024_care_plan', generate_track8_2024_for_care_plan, methods=['POST'], description='Generate Track8 2024 CarePlan Resource')
 
 condition_router = APIRouter(tags=['Generate Condition Resource'], prefix='/api/v1')
 condition_router.add_api_route('/track13_2024_condition', generate_track13_2024_for_condition, methods=['POST'], description='Generate Track13 2024 Condition Resource')

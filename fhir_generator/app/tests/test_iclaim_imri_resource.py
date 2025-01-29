@@ -1267,3 +1267,39 @@ def test_create_track8_2024_document_reference_resource():
     assert response.status_code == 200
     assert len(response_json['data']) == 1
     assert response_json['data'][0] == json.loads(expected_json_str)
+
+def test_create_track8_2024_care_plan_resource():
+    headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+
+    payload = {
+        'payload': {
+            'profile_urls': ['https://hitstdio.ntunhs.edu.tw/imri/StructureDefinition/careplan-imri'],
+            'status': 'completed',
+            'intent': 'proposal',
+            'description': '出院指示',
+            'subject': {
+                'reference': 'Patient/Patient-min'
+            },
+            'encounter': {
+                'reference': 'Encounter/Encounter-min',
+            },
+            'activity': [{
+                'reference' : {
+                    'reference' : 'MedicationRequest/MedicationRequest-min'
+                }
+            }],
+        },
+    }
+
+    with open('/app/app/tests/expected_track8_2024_care_plan_imri_min.json', 'r', encoding='utf-8') as f:
+        expected_json_str = f.read()
+
+    json_dict = payload
+    response = client.post('/api/v1/track8_2024_care_plan', headers=headers, json=json_dict)
+
+    response_json = response.json()
+    del response_json['data'][0]['id']
+
+    assert response.status_code == 200
+    assert len(response_json['data']) == 1
+    assert response_json['data'][0] == json.loads(expected_json_str)

@@ -422,6 +422,18 @@ async def track8_2024_document_reference_resource(request: Request, response: Re
     pass
 
 @route(
+    request_method=fhir_generator_router.post,
+    service_url=SERVICE_URLS[2],
+    gateway_path='/track8_2024_care_plan',
+    service_path='/api/v1/track8_2024_care_plan',
+    status_code=status.HTTP_200_OK,
+    tags=['Generate Track8 2024 CarePlan Resources with the fhir_generator'],
+    dependencies=[Depends(check_api_key)],
+)
+async def track8_2024_care_plan_resource(request: Request, response: Response):
+    pass
+
+@route(
     request_method=fhir_data_manager_router.post,
     service_url=SERVICE_URLS[7],
     gateway_path='/upload/{resource_name}',
