@@ -43,7 +43,7 @@ async def generate_track8_2024_for_condition(request: Request, item: Track8ForRe
     resource_name = 'Condition'
     item_dict = item.model_dump()
     condition_resource = {}
-    condition_type = request.query_params('type', '')
+    condition_type = request.query_params.get('type', '')
 
     try:
         track8_for_condition = Track8ForCondition.Track8ForCondition(resource_name, item_dict)
