@@ -6,7 +6,7 @@ from fhir_data_generator import CarePlanImri as CarePlan
 class Track8ForCarePlan:
     def __init__(self, resource, item_dict: dict):
         self.item_dict = item_dict
-        self.care_plan_payload = item_dict['care_plan_payload']
+        self.care_plan_payload = item_dict['payload']
         self.resource = resource
 
     def generate_care_plan_resource(self):
