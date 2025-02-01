@@ -1,5 +1,3 @@
-from typing import Annotated
-
 from app.item_models.ig_metadata import *
 from app.modules import ImplementationGuideManager
 
@@ -88,6 +86,7 @@ async def upload_ig(zip_file: UploadFile = File(...)):
         ig_manager = ImplementationGuideManager.ImplementationGuideManager()
         result = ig_manager.upload_ig(zip_file)
     except Exception as e:
+        zip_file.file.close()
         status_code = 500
 
         return JSONResponse(

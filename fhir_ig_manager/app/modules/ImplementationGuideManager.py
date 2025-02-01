@@ -38,11 +38,10 @@ class ImplementationGuideManager:
 
     def upload_ig(self, zip_file):
         file_name = zip_file.filename
-        file_size = len(zip_file)
 
         contents = zip_file.file.read()
         with open(f'/tmp/{file_name}', 'wb') as f:
-            f.write(contents)
+            file_size = f.write(contents)
 
         return {
             'filename': file_name,
