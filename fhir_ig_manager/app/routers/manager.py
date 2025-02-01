@@ -82,7 +82,7 @@ async def create_ig_metadata(item: ImplementationGuideMetadata):
         status_code=status_code
     )
 
-async def upload_ig(zip_file: Annotated[bytes, File(description='A archived IG file')]):
+async def upload_ig(zip_file: UploadFile = File(...)):
     status_code = 200
     try:
         ig_manager = ImplementationGuideManager.ImplementationGuideManager()

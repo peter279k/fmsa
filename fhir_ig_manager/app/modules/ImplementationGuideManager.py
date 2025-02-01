@@ -36,11 +36,11 @@ class ImplementationGuideManager:
 
         return True
 
-    def upload_ig(file):
-        file_name = file.filename
-        file_size = len(file)
+    def upload_ig(zip_file):
+        file_name = zip_file.filename
+        file_size = len(zip_file)
 
-        contents = file.file.read()
+        contents = zip_file.file.read()
         with open(f'/tmp/{file_name}', 'wb') as f:
             f.write(contents)
 
