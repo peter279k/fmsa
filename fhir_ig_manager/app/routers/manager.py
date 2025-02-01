@@ -134,3 +134,30 @@ async def update_ig_metadata(item: UpdateImplementationGuideMetadata):
         },
         status_code=status_code
     )
+
+async def delete_ig_metadata(item: ImplementationGuideMetadata):
+    status_code = 200
+    try:
+        ig_manager = ImplementationGuideManager.ImplementationGuideManager()
+        result = ig_manager.delete_ig_metadata(item.model_dump())
+    except Exception as e:
+        status_code = 500
+
+        return JSONResponse(
+            {
+                'status': status_code,
+                'message': str(e),
+                'data': [item.model_dump()],
+            },
+            status_code=status_code
+        )
+
+
+    return JSONResponse(
+        {
+            'status': status_code,
+            'message': 'Deleting specific Implementation Guide metadata is successful.',
+            'data': [item.model_dump(), result],
+        },
+        status_code=status_code
+    )

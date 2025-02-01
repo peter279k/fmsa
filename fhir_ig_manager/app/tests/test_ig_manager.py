@@ -8,6 +8,7 @@ from fastapi.testclient import TestClient
 
 client = TestClient(app)
 created = ''
+new_created = ''
 inserted_id = ''
 
 def test_retrieve_ig_metadata_with_disallowed_params():
@@ -114,6 +115,10 @@ def test_upload_ig():
 @pytest.mark.dependency(depends=['test_create_ig_metadata'])
 def test_update_ig_metadata():
     headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+
+    global new_created
+    new_created = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
     payload = {
         'version': '0.1.0',
         'name': 'imri',
@@ -121,7 +126,7 @@ def test_update_ig_metadata():
         'filename': 'full-ig-imri-0.1.0.zip',
         'new_version': '0.1.1',
         'new_name': 'imri',
-        'new_created': datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+        'new_created': new_created,
         'new_filename': 'full-ig-imri-0.1.1.zip',
     }
     response = client.put('/api/v1/update_ig_metadata', headers=headers, json=payload)
@@ -136,3 +141,24 @@ def test_update_ig_metadata():
     assert len(response_json['data']) == 2
     assert response_json['data'][1]['deleted_result'] >= 1
     assert response_json['data'][1]['inserted_result'] != inserted_id
+
+@pytest.mark.dependency(depends=['test_update_ig_metadata'])
+def test_delete_ig_metadata():
+    headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+    payload = {
+        'version': '0.1.1',
+        'name': 'imri',
+        'created': new_created,
+        'filename': 'full-ig-imri-0.1.0.zip',
+    }
+    response = client.delete('/api/v1/delete_ig_metadata', headers=headers, json=payload)
+
+    expected_status_code = 200
+    expected_message = 'Deleting specific Implementation Guide metadata is successful.'
+    response_json = response.json()
+
+    assert response.status_code == expected_status_code
+    assert response_json['status'] == expected_status_code
+    assert response_json['message'] == expected_message
+    assert len(response_json['data']) == 2
+    assert response_json['data'][1]['deleted_result'] == 1

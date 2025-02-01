@@ -73,3 +73,19 @@ class ImplementationGuideManager:
             'deleted_result': deleted_result.deleted_count,
             'inserted_result': str(inserted_result.inserted_id),
         }
+
+    def delete_ig_metadata(self, item_dict: dict):
+        db = self.mongo_client[self.db_name]
+        ig_collection = db[self.collection]
+        original_metadata = {
+            'version': item_dict['version'],
+            'name': item_dict['name'],
+            'created': item_dict['created'],
+            'filename': item_dict['filename'],
+        }
+
+        deleted_result = ig_collection.delete_one(original_metadata)
+
+        return {
+            'deleted_result': deleted_result.deleted_count,
+        }

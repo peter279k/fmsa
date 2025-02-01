@@ -473,10 +473,22 @@ async def upload_ig_file(request: Request, response: Response, file: UploadFile 
 @route(
     request_method=fhir_ig_manager_router.put,
     service_url=SERVICE_URLS[5],
-    gateway_path='/update_ig',
-    service_path='/api/v1/update_ig',
+    gateway_path='/update_ig_metadata',
+    service_path='/api/v1/update_ig_metadata',
     status_code=status.HTTP_200_OK,
     tags=['Update IG metadata with the fhir_ig_manager'],
+    dependencies=[Depends(check_api_key)],
+)
+async def update_ig_metadata(request: Request, response: Response):
+    pass
+
+@route(
+    request_method=fhir_ig_manager_router.delete,
+    service_url=SERVICE_URLS[5],
+    gateway_path='/delete_ig_metadata',
+    service_path='/api/v1/delete_ig_metadata',
+    status_code=status.HTTP_200_OK,
+    tags=['Delete IG metadata with the fhir_ig_manager'],
     dependencies=[Depends(check_api_key)],
 )
 async def update_ig_metadata(request: Request, response: Response):
