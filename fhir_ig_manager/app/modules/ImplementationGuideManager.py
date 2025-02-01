@@ -34,7 +34,7 @@ class ImplementationGuideManager:
         ig_collection = db[self.collection]
         inserted_result = ig_collection.insert_one(item_dict)
 
-        return inserted_result.inserted_id
+        return str(inserted_result.inserted_id)
 
     def upload_ig(self, zip_file):
         file_name = zip_file.filename
