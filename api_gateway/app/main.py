@@ -458,6 +458,18 @@ async def create_ig_metadata(request: Request, response: Response):
     pass
 
 @route(
+    request_method=fhir_generator_router.post,
+    service_url=SERVICE_URLS[5],
+    gateway_path='/upload_ig',
+    service_path='/api/v1/upload_ig',
+    status_code=status.HTTP_200_OK,
+    tags=['Upload Archived IG file with the fhir_ig_manager'],
+    dependencies=[Depends(check_api_key)],
+)
+async def create_ig_metadata(request: Request, response: Response, file: UploadFile = File()):
+    pass
+
+@route(
     request_method=fhir_data_manager_router.post,
     service_url=SERVICE_URLS[7],
     gateway_path='/upload/{resource_name}',

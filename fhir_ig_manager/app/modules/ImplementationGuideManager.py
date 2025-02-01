@@ -35,3 +35,16 @@ class ImplementationGuideManager:
         ig_collection.insert_one(item_dict)
 
         return True
+
+    def upload_ig(file):
+        file_name = file.filename
+        file_size = len(file)
+
+        with open(f'/tmp/{file_name}', 'wb') as f:
+            f.write(file_size)
+
+        return {
+            'filename': file_name,
+            'filesize': file_size,
+            'filepath': f'/tmp/{file_name}',
+        }
