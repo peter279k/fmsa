@@ -18,7 +18,7 @@ def test_retrieve_ig_metadata_with_disallowed_params():
     response = client.get('/api/v1/ig?{}'.format(encoded_uri), headers=headers)
 
     expected_status_code = 400
-    expected_message = 'Allowed params should be version,name,created'
+    expected_message = 'Allowed params should be version,name,created,filename'
     response_json = response.json()
 
     assert response.status_code == expected_status_code
