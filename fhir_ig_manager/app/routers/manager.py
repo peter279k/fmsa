@@ -64,7 +64,7 @@ async def create_ig_metadata(item: ImplementationGuideMetadata):
             {
                 'status': status_code,
                 'message': str(e),
-                'data': [item_dict],
+                'data': [item.model_dump()],
             },
             status_code=status_code
         )
@@ -74,7 +74,7 @@ async def create_ig_metadata(item: ImplementationGuideMetadata):
         {
             'status': status_code,
             'message': 'Creating specific Implementation Guide metadata is successful.',
-            'data': [item_dict],
+            'data': [item.model_dump()],
         },
         status_code=status_code
     )
