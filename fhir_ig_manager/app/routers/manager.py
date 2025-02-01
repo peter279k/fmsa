@@ -102,7 +102,7 @@ async def upload_ig(zip_file: UploadFile = File(...)):
     return JSONResponse(
         {
             'status': status_code,
-            'message': 'Uploading specific Implementation Guide metadata is successful.',
+            'message': 'Uploading specific Implementation Guide is successful.',
             'data': [result],
         },
         status_code=status_code
