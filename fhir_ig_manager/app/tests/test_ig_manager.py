@@ -68,6 +68,9 @@ def test_retrieve_ig_metadata_with_one():
     response = client.get('/api/v1/ig?{}'.format(encoded_uri), headers=headers)
 
     expected_status_code = 200
+    expected_version = '0.1.0'
+    expected_name = 'imri'
+    expected_filename = 'full-ig-imri-0.1.0.zip'
     expected_message = 'Retrieving specific Implementation Guide is successful.'
     response_json = response.json()
 
@@ -75,3 +78,6 @@ def test_retrieve_ig_metadata_with_one():
     assert response_json['status'] == expected_status_code
     assert response_json['message'] == expected_message
     assert len(response_json['data']) == 1
+    assert response_json['data'][0]['version'] == expected_version
+    assert response_json['data'][0]['name'] == expected_name
+    assert response_json['data'][0]['filename'] == expected_filename
