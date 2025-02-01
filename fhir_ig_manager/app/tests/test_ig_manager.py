@@ -1,4 +1,6 @@
 import json
+import pytest
+import datetime
 from app.main import app
 from urllib.parse import urlencode
 from fastapi.testclient import TestClient
@@ -35,3 +37,30 @@ def test_retrieve_ig_metadata_with_allowed_params():
     assert response_json['status'] == expected_status_code
     assert response_json['message'] == expected_message
     assert len(response_json['data']) == 1
+
+@pytest.mark.dependency()
+def test_create_ig_metadata():
+    headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+    payload = {
+        'version': '0.1.0',
+        'name': 'imri',
+        'created': '',
+        'filename': 'full-ig-imri-0.1.0.zip',
+    }
+
+    response = client.post('/api/v1/create_ig_metadata', headers=headers, json=payload)
+
+    expected_status_code = 200
+    expected_message = 'Creating specific Implementation Guide metadata is successful.'
+    response_json = response.json()
+
+    assert response.status_code == expected_status_code
+    assert response_json['status'] == expected_status_code
+    assert response_json['message'] == expected_message
+    assert len(response_json['data']) == 1
+    assert response_json['data'][0] == payload
+
+'''
+@pytest.mark.dependency(depends=['test_create_ig_metadata'])
+def test_retrieve_ig_metadata_with_one():
+'''

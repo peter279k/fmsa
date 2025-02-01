@@ -1,3 +1,4 @@
+from item_models.ig_metadata import *
 from app.modules import ImplementationGuideManager
 
 from fastapi.requests import Request
@@ -46,6 +47,34 @@ async def retrieve_ig(request: Request):
             'status': status_code,
             'message': 'Retrieving specific Implementation Guide is successful.',
             'data': [result],
+        },
+        status_code=status_code
+    )
+
+async def create_ig_metadata(item: ImplementationGuideMetadata):
+    status_code = 200
+    try:
+        ig_manager = ImplementationGuideManager.ImplementationGuideManager()
+        item_dict = item.model_dump()
+        ig_manager.create_metadata(item_dict)
+    except Exception as e:
+        status_code = 500
+
+        return JSONResponse(
+            {
+                'status': status_code,
+                'message': str(e),
+                'data': [item_dict],
+            },
+            status_code=status_code
+        )
+
+
+    return JSONResponse(
+        {
+            'status': status_code,
+            'message': 'Creating specific Implementation Guide metadata is successful.',
+            'data': [item_dict],
         },
         status_code=status_code
     )

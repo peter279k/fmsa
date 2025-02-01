@@ -21,3 +21,10 @@ class ImplementationGuideManager:
         result = ig_collection.find_one(params)
 
         return result
+
+    def create_metadata(self, item_dict: dict):
+        db = self.mongo_client[self.db_name]
+        ig_collection = db[self.collection]
+        ig_collection.insert_one(item_dict)
+
+        return True
