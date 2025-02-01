@@ -68,5 +68,5 @@ class ImplementationGuideManager:
 
         return {
             'deleted_result': deleted_result.deleted_count,
-            'inserted_result': inserted_result.inserted_id,
+            'inserted_result': str(inserted_result.inserted_id),
         }

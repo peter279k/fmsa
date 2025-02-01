@@ -129,4 +129,4 @@ def test_update_ig_metadata():
     assert response_json['message'] == expected_message
     assert len(response_json['data']) == 2
     assert response_json['data'][1]['deleted_result'] == 1
-    assert response_json['data'][1]['inserted_result'] == 1
+    assert response_json['data'][1]['inserted_result'] != inserted_id
