@@ -53,7 +53,10 @@ class ImplementationGuideManager:
         db = self.mongo_client[self.db_name]
         ig_collection = db[self.collection]
         original_metadata = {
-            '_id': item_dict['doc_id'],
+            'version': item_dict['version'],
+            'name': item_dict['name'],
+            'created': item_dict['created'],
+            'filename': item_dict['filename'],
         }
 
         new_metadata = {

@@ -7,6 +7,7 @@ from fastapi.testclient import TestClient
 
 
 client = TestClient(app)
+created = ''
 inserted_id = ''
 
 def test_retrieve_ig_metadata_with_disallowed_params():
@@ -41,11 +42,12 @@ def test_retrieve_ig_metadata_with_allowed_params():
 
 @pytest.mark.dependency()
 def test_create_ig_metadata():
+    created_datetime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
     payload = {
         'version': '0.1.0',
         'name': 'imri',
-        'created': datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+        'created': created_datetime,
         'filename': 'full-ig-imri-0.1.0.zip',
     }
 
@@ -62,8 +64,9 @@ def test_create_ig_metadata():
     assert response_json['data'][0] == payload
     assert type(response_json['data'][1]['inserted_id']) is str
 
-    global inserted_id
+    global created, inserted_id
     inserted_id = response_json['data'][1]['inserted_id']
+    created = created_datetime
 
 @pytest.mark.dependency(depends=['test_create_ig_metadata'])
 def test_retrieve_ig_metadata_with_one():
@@ -112,7 +115,10 @@ def test_upload_ig():
 def test_update_ig_metadata():
     headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
     payload = {
-        'doc_id': inserted_id,
+        'version': '0.1.0',
+        'name': 'imri',
+        'created': created,
+        'filename': 'full-ig-imri-0.1.0.zip',
         'new_version': '0.1.1',
         'new_name': 'imri',
         'new_created': datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
@@ -128,5 +134,5 @@ def test_update_ig_metadata():
     assert response_json['status'] == expected_status_code
     assert response_json['message'] == expected_message
     assert len(response_json['data']) == 2
-    assert response_json['data'][1]['deleted_result'] == 1
+    assert response_json['data'][1]['deleted_result'] >= 1
     assert response_json['data'][1]['inserted_result'] != inserted_id
