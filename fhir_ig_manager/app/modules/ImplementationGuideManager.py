@@ -19,6 +19,10 @@ class ImplementationGuideManager:
         db = self.mongo_client[self.db_name]
         ig_collection = db[self.collection]
         result = ig_collection.find_one(params)
+        if result.get('_id'):
+            result['_id'] = str(result['_id'])
+        if result.get('created'):
+            result['created'] = result['created'].strftime('%Y-%m-%d %H:%M:%S')
 
         return result
 

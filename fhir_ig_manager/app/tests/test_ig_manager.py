@@ -1,4 +1,3 @@
-import json
 import pytest
 import datetime
 from app.main import app
@@ -44,7 +43,7 @@ def test_create_ig_metadata():
     payload = {
         'version': '0.1.0',
         'name': 'imri',
-        'created': '',
+        'created': datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
         'filename': 'full-ig-imri-0.1.0.zip',
     }
 
@@ -60,7 +59,19 @@ def test_create_ig_metadata():
     assert len(response_json['data']) == 1
     assert response_json['data'][0] == payload
 
-'''
 @pytest.mark.dependency(depends=['test_create_ig_metadata'])
 def test_retrieve_ig_metadata_with_one():
-'''
+    headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+    params = {'version': '0.1.0', 'name': 'imri'}
+    encoded_uri = urlencode(params)
+
+    response = client.get('/api/v1/ig?{}'.format(encoded_uri), headers=headers)
+
+    expected_status_code = 200
+    expected_message = 'Retrieving specific Implementation Guide is successful.'
+    response_json = response.json()
+
+    assert response.status_code == expected_status_code
+    assert response_json['status'] == expected_status_code
+    assert response_json['message'] == expected_message
+    assert len(response_json['data']) == 1
