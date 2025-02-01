@@ -141,6 +141,7 @@ def test_update_ig_metadata():
     assert len(response_json['data']) == 2
     assert response_json['data'][1]['deleted_result'] >= 1
     assert response_json['data'][1]['inserted_result'] != inserted_id
+    assert os.path.isfile('/tmp/full-ig-imri-0.1.0.zip') is False
 
 @pytest.mark.dependency(depends=['test_update_ig_metadata'])
 def test_delete_ig_metadata():
@@ -149,9 +150,10 @@ def test_delete_ig_metadata():
         'version': '0.1.1',
         'name': 'imri',
         'created': new_created,
-        'filename': 'full-ig-imri-0.1.0.zip',
+        'filename': 'full-ig-imri-0.1.1.zip',
     }
-    response = client.delete('/api/v1/delete_ig_metadata', headers=headers, json=payload)
+    encoded_uri = urlencode(payload)
+    response = client.delete(f'/api/v1/delete_ig_metadata?{encoded_uri}', headers=headers)
 
     expected_status_code = 200
     expected_message = 'Deleting specific Implementation Guide metadata is successful.'

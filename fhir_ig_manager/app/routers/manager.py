@@ -135,11 +135,30 @@ async def update_ig_metadata(item: UpdateImplementationGuideMetadata):
         status_code=status_code
     )
 
-async def delete_ig_metadata(item: ImplementationGuideMetadata):
+async def delete_ig_metadata(request: Request):
     status_code = 200
+    allowed_params = ['version', 'name', 'created']
+    params = {}
+    result = {}
+    for param in allowed_params:
+        if request.query_params.get(param) is not None:
+            params[param] = request.query_params.get(param)
+
+    if params == {}:
+        status_code = 400
+
+        return JSONResponse(
+            {
+                'status': status_code,
+                'message': 'Allowed params should be {}'.format(','.join(allowed_params)),
+                'data': [params],
+            },
+            status_code=status_code
+        )
+
     try:
         ig_manager = ImplementationGuideManager.ImplementationGuideManager()
-        result = ig_manager.delete_ig_metadata(item.model_dump())
+        result = ig_manager.delete_ig_metadata(dict(params))
     except Exception as e:
         status_code = 500
 
@@ -147,7 +166,7 @@ async def delete_ig_metadata(item: ImplementationGuideMetadata):
             {
                 'status': status_code,
                 'message': str(e),
-                'data': [item.model_dump()],
+                'data': [params],
             },
             status_code=status_code
         )
@@ -157,7 +176,7 @@ async def delete_ig_metadata(item: ImplementationGuideMetadata):
         {
             'status': status_code,
             'message': 'Deleting specific Implementation Guide metadata is successful.',
-            'data': [item.model_dump(), result],
+            'data': [params, result],
         },
         status_code=status_code
     )

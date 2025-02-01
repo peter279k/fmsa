@@ -69,6 +69,9 @@ class ImplementationGuideManager:
         deleted_result = ig_collection.delete_one(original_metadata)
         inserted_result = ig_collection.insert_one(new_metadata)
 
+        if os.path.isfile(original_metadata['filename']) is True:
+            os.remove(original_metadata['filename'])
+
         return {
             'deleted_result': deleted_result.deleted_count,
             'inserted_result': str(inserted_result.inserted_id),
