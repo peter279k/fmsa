@@ -83,12 +83,10 @@ def test_retrieve_ig_metadata_with_one():
     assert response_json['data'][0]['filename'] == expected_filename
 
 def test_upload_ig():
-    headers = {'Content-Type': 'application/zip', 'Accept': 'application/json'}
-
     files = {
         'zip_file': open('/app/app/tests/full-ig-imri-0.1.0.zip', 'rb'),
     }
-    response = client.post('/api/v1/upload_ig', headers=headers, files=files)
+    response = client.post('/api/v1/upload_ig', files=files)
 
     expected_status_code = 200
     expected_message = 'Uploading specific Implementation Guide is successful.'
