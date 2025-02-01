@@ -92,11 +92,13 @@ def test_upload_ig():
     expected_status_code = 200
     expected_message = 'Uploading specific Implementation Guide is successful.'
     expected_filesize = 36565636
+    expected_filename = 'full-ig-imri-0.1.0.zip'
     response_json = response.json()
 
     assert response.status_code == expected_status_code
     assert response_json['status'] == expected_status_code
     assert response_json['message'] == expected_message
     assert len(response_json['data']) == 1
-    assert response_json['data'][0]['size'] == expected_filesize
+    assert response_json['data'][0]['filesize'] == expected_filesize
+    assert response_json['data'][0]['filename'] == expected_filename
     assert os.path.isfile('/tmp/full-ig-imri-0.1.0.zip') is True
