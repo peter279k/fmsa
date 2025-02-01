@@ -36,7 +36,7 @@ class ImplementationGuideManager:
 
         return True
 
-    def upload_ig(zip_file):
+    def upload_ig(self, zip_file):
         file_name = zip_file.filename
         file_size = len(zip_file)
 
