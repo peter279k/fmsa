@@ -81,13 +81,7 @@ class ImplementationGuideManager:
     def delete_ig_metadata(self, item_dict: dict):
         db = self.mongo_client[self.db_name]
         ig_collection = db[self.collection]
-        original_metadata = {
-            'version': item_dict['version'],
-            'name': item_dict['name'],
-            'created': item_dict['created'],
-            'filename': item_dict['filename'],
-        }
-
+        original_metadata = dict(item_dict)
         deleted_result = ig_collection.delete_one(original_metadata)
 
         filepath = '/tmp/{}'.format(original_metadata['filename'])

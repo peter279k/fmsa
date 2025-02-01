@@ -8,7 +8,7 @@ from fastapi.responses import JSONResponse
 
 async def retrieve_ig(request: Request):
     status_code = 200
-    allowed_params = ['version', 'name', 'created']
+    allowed_params = ['version', 'name', 'created', 'filename']
     params = {}
     result = {}
     for param in allowed_params:
@@ -137,14 +137,14 @@ async def update_ig_metadata(item: UpdateImplementationGuideMetadata):
 
 async def delete_ig_metadata(request: Request):
     status_code = 200
-    allowed_params = ['version', 'name', 'created']
+    allowed_params = ['version', 'name', 'created', 'filename']
     params = {}
     result = {}
     for param in allowed_params:
         if request.query_params.get(param) is not None:
             params[param] = request.query_params.get(param)
 
-    if params == {}:
+    if params == {} or len(params.keys()) != len(allowed_params):
         status_code = 400
 
         return JSONResponse(
