@@ -1,3 +1,4 @@
+import os
 import pytest
 import datetime
 from app.main import app
@@ -96,3 +97,4 @@ def test_upload_ig():
     assert response_json['status'] == expected_status_code
     assert response_json['message'] == expected_message
     assert len(response_json['data']) == 1
+    assert os.path.isfile('/tmp/full-ig-imri-0.1.0.zip') is True

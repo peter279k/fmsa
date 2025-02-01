@@ -40,8 +40,9 @@ class ImplementationGuideManager:
         file_name = file.filename
         file_size = len(file)
 
+        contents = file.file.read()
         with open(f'/tmp/{file_name}', 'wb') as f:
-            f.write(file_size)
+            f.write(contents)
 
         return {
             'filename': file_name,
