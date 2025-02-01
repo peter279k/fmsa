@@ -21,7 +21,8 @@ async def retrieve_ig(request: Request):
                 'status': status_code,
                 'message': 'Allowed params should be {}'.format(','.join(allowed_params)),
                 'data': [params],
-            }
+            },
+            status_code=status_code
         )
 
     try:
