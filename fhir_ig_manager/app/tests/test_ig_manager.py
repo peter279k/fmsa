@@ -88,7 +88,7 @@ def test_upload_ig():
     files = {
         'file': open('/app/app/tests/full-ig-imri-0.1.0.zip', 'rb'),
     }
-    response = client.get('/api/v1/upload_ig', headers=headers, files=files)
+    response = client.post('/api/v1/upload_ig', headers=headers, files=files)
 
     expected_status_code = 200
     expected_message = 'Uploading specific Implementation Guide is successful.'
