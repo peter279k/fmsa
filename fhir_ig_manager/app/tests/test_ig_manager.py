@@ -86,7 +86,7 @@ def test_upload_ig():
     headers = {'Content-Type': 'application/zip', 'Accept': 'application/json'}
 
     files = {
-        'file': open('/app/app/tests/full-ig-imri-0.1.0.zip', 'rb'),
+        'zip_file': open('/app/app/tests/full-ig-imri-0.1.0.zip', 'rb'),
     }
     response = client.post('/api/v1/upload_ig', headers=headers, files=files)
 
