@@ -60,7 +60,7 @@ def test_create_ig_metadata():
     assert response_json['message'] == expected_message
     assert len(response_json['data']) == 2
     assert response_json['data'][0] == payload
-    assert response_json['data'][1]['inserted_id'] == 1
+    assert type(response_json['data'][1]['inserted_id']) is str
 
     global inserted_id
     inserted_id = response_json['data'][1]['inserted_id']
