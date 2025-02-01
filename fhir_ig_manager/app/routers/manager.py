@@ -57,7 +57,7 @@ async def create_ig_metadata(item: ImplementationGuideMetadata):
     item_dict = item.model_dump()
     try:
         ig_manager = ImplementationGuideManager.ImplementationGuideManager()
-        ig_manager.create_metadata(item_dict)
+        result = ig_manager.create_metadata(item_dict)
     except Exception as e:
         status_code = 500
 
@@ -75,7 +75,7 @@ async def create_ig_metadata(item: ImplementationGuideMetadata):
         {
             'status': status_code,
             'message': 'Creating specific Implementation Guide metadata is successful.',
-            'data': [item.model_dump()],
+            'data': [item.model_dump(), {'inserted_id': result}],
         },
         status_code=status_code
     )
@@ -104,6 +104,33 @@ async def upload_ig(zip_file: UploadFile = File(...)):
             'status': status_code,
             'message': 'Uploading specific Implementation Guide is successful.',
             'data': [result],
+        },
+        status_code=status_code
+    )
+
+async def update_ig_metadata(item: UpdateImplementationGuideMetadata):
+    status_code = 200
+    try:
+        ig_manager = ImplementationGuideManager.ImplementationGuideManager()
+        result = ig_manager.update_ig_metadata(item.model_dump())
+    except Exception as e:
+        status_code = 500
+
+        return JSONResponse(
+            {
+                'status': status_code,
+                'message': str(e),
+                'data': [item.model_dump()],
+            },
+            status_code=status_code
+        )
+
+
+    return JSONResponse(
+        {
+            'status': status_code,
+            'message': 'Updating specific Implementation Guide metadata is successful.',
+            'data': [item.model_dump(), result],
         },
         status_code=status_code
     )

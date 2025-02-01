@@ -32,9 +32,9 @@ class ImplementationGuideManager:
     def create_metadata(self, item_dict: dict):
         db = self.mongo_client[self.db_name]
         ig_collection = db[self.collection]
-        ig_collection.insert_one(item_dict)
+        inserted_result = ig_collection.insert_one(item_dict)
 
-        return True
+        return inserted_result.inserted_id
 
     def upload_ig(self, zip_file):
         file_name = zip_file.filename
@@ -47,4 +47,26 @@ class ImplementationGuideManager:
             'filename': file_name,
             'filesize': file_size,
             'filepath': f'/tmp/{file_name}',
+        }
+
+    def update_ig_metadata(self, item_dict: dict):
+        db = self.mongo_client[self.db_name]
+        ig_collection = db[self.collection]
+        original_metadata = {
+            '_id': item_dict['doc_id'],
+        }
+
+        new_metadata = {
+            'version': item_dict['new_version'],
+            'name': item_dict['new_name'],
+            'created': item_dict['new_created'],
+            'filename': item_dict['new_filename'],
+        }
+
+        deleted_result = ig_collection.delete_one(original_metadata)
+        inserted_result = ig_collection.insert_one(new_metadata)
+
+        return {
+            'deleted_result': deleted_result.deleted_count,
+            'inserted_result': inserted_result.inserted_id,
         }

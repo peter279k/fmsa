@@ -22,6 +22,7 @@ from .modules import KeyCloakAdmin, CacheAccessToken
 
 app = FastAPI(title='FMSA API Gateway')
 account_router = APIRouter(prefix='/api/v1')
+fhir_ig_manager_router = APIRouter(prefix='/api/v1')
 fhir_generator_router = APIRouter(prefix='/api/v1')
 fhir_data_manager_router = APIRouter(prefix='/api/v1')
 
@@ -434,7 +435,7 @@ async def track8_2024_care_plan_resource(request: Request, response: Response):
     pass
 
 @route(
-    request_method=fhir_generator_router.get,
+    request_method=fhir_ig_manager_router.get,
     service_url=SERVICE_URLS[5],
     gateway_path='/ig',
     service_path='/api/v1/ig',
@@ -446,7 +447,7 @@ async def retrieve_ig(request: Request, response: Response):
     pass
 
 @route(
-    request_method=fhir_generator_router.post,
+    request_method=fhir_ig_manager_router.post,
     service_url=SERVICE_URLS[5],
     gateway_path='/create_ig_metadata',
     service_path='/api/v1/create_ig_metadata',
@@ -458,7 +459,7 @@ async def create_ig_metadata(request: Request, response: Response):
     pass
 
 @route(
-    request_method=fhir_generator_router.post,
+    request_method=fhir_ig_manager_router.post,
     service_url=SERVICE_URLS[5],
     gateway_path='/upload_ig',
     service_path='/api/v1/upload_ig',
@@ -466,7 +467,19 @@ async def create_ig_metadata(request: Request, response: Response):
     tags=['Upload Archived IG file with the fhir_ig_manager'],
     dependencies=[Depends(check_api_key)],
 )
-async def create_ig_metadata(request: Request, response: Response, file: UploadFile = File()):
+async def upload_ig_file(request: Request, response: Response, file: UploadFile = File(...)):
+    pass
+
+@route(
+    request_method=fhir_ig_manager_router.put,
+    service_url=SERVICE_URLS[5],
+    gateway_path='/update_ig',
+    service_path='/api/v1/update_ig',
+    status_code=status.HTTP_200_OK,
+    tags=['Update IG metadata with the fhir_ig_manager'],
+    dependencies=[Depends(check_api_key)],
+)
+async def update_ig_metadata(request: Request, response: Response):
     pass
 
 @route(
