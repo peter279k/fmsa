@@ -434,6 +434,18 @@ async def track8_2024_care_plan_resource(request: Request, response: Response):
     pass
 
 @route(
+    request_method=fhir_generator_router.get,
+    service_url=SERVICE_URLS[5],
+    gateway_path='/ig',
+    service_path='/api/v1/ig',
+    status_code=status.HTTP_200_OK,
+    tags=['Retrieve IG metadata with the fhir_ig_manager'],
+    dependencies=[Depends(check_api_key)],
+)
+async def retrieve_ig(request: Request, response: Response):
+    pass
+
+@route(
     request_method=fhir_data_manager_router.post,
     service_url=SERVICE_URLS[7],
     gateway_path='/upload/{resource_name}',
