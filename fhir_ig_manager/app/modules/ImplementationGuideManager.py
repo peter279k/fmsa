@@ -89,6 +89,9 @@ class ImplementationGuideManager:
 
         deleted_result = ig_collection.delete_one(original_metadata)
 
+        if os.path.isfile(original_metadata['filename']) is True:
+            os.remove(original_metadata['filename'])
+
         return {
             'deleted_result': deleted_result.deleted_count,
         }
