@@ -1,4 +1,4 @@
-from item_models.ig_metadata import *
+from app.item_models.ig_metadata import *
 from app.modules import ImplementationGuideManager
 
 from fastapi.requests import Request
