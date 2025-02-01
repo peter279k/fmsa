@@ -18,7 +18,7 @@ class ImplementationGuideManager:
     def retrieve_info(self, params: dict):
         db = self.mongo_client[self.db_name]
         ig_collection = db[self.collection]
-        result = ig_collection.find_one(params)
+        result = dict(ig_collection.find_one(params))
         if result.get('_id'):
             result['_id'] = str(result['_id'])
         if result.get('created'):
