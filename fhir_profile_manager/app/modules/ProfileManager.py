@@ -24,7 +24,7 @@ class ProfileManager:
 
         if result.get('_id'):
             result['_id'] = str(result['_id'])
-        if result.get('created'):
+        if result.get('created') and hasattr(result['created'], 'strftime'):
             result['created'] = result['created'].strftime('%Y-%m-%d %H:%M:%S')
 
         return result
