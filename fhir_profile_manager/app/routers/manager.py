@@ -1,5 +1,3 @@
-import json
-
 from app.modules import ProfileManager
 from app.item_models.profile_metadata import *
 
@@ -81,7 +79,7 @@ async def create_profile_metadata(item: ProfileMetadata):
         status_code=status_code
     )
 
-async def update_profile_metadata(item: ProfileMetadata):
+async def update_profile_metadata(item: UpdateProfileMetadata):
     status_code = 200
     try:
         profile_manager = ProfileManager.ProfileManager()
