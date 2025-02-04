@@ -10,6 +10,7 @@ client = TestClient(app)
 created = ''
 new_created = ''
 inserted_id = ''
+structure_definition_id = ''
 
 def test_retrieve_profile_metadata_with_disallowed_params():
     headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
@@ -94,7 +95,30 @@ def test_upload_profile_with_creating_new_profile():
     assert response_json['status'] == expected_created_status_code
     assert response_json['message'] == expected_message
     assert len(response_json['data']) == 1
-    assert response_json['data'][0]['result'] == json_profile_dict
+
+    global structure_definition_id
+    structure_definition_id = response_json['data'][0]['result']['id']
+
+@pytest.mark.dependency(depends=['test_upload_profile_with_creating_new_profile'])
+def test_retrieve_profile_from_fhir_server_with_specific_id():
+    headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+    with open('/app/app/tests/StructureDefinition-observationbloodloss-imri.json', 'r') as f:
+        structure_definition = f.read()
+
+    json_profile_dict = json.loads(structure_definition)
+    del json_profile_dict['id']
+
+    response = client.get(f'/api/v1/retrieve_profile?_id={structure_definition_id}', headers=headers)
+
+    expected_created_status_code = 200
+    expected_message = 'Retrieving specific Profile is successful.'
+    response_json = response.json()
+
+    assert response.status_code == expected_created_status_code
+    assert response_json['status'] == expected_created_status_code
+    assert response_json['message'] == expected_message
+    assert len(response_json['data']) == 1
+    assert json.loads(response_json['data'][0]['result'])['total'] == 1
 
 @pytest.mark.dependency(depends=['test_create_profile_metadata'])
 def test_retrieve_profile_metadata_with_one():

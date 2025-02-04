@@ -1,3 +1,5 @@
+from urllib.parse import urlencode
+
 from app.modules import ProfileManager
 from app.item_models.profile_metadata import *
 
@@ -98,6 +100,56 @@ async def upload_profile(item: ProfileStructureDefinition):
                 'status': status_code,
                 'message': str(e),
                 'data': [item.model_dump()],
+            },
+            status_code=status_code
+        )
+
+
+    return JSONResponse(
+        {
+            'status': http_response.status_code,
+            'message': message,
+            'data': [{'result': result}],
+        },
+        status_code=http_response.status_code
+    )
+
+async def retrieve_profile_from_fhir_server(request: Request):
+    status_code = 200
+    allowed_params = ['_id']
+    item_dict = {}
+    for allowed_param in allowed_params:
+        if request.query_params.get(allowed_param):
+            item_dict[allowed_param] = request.query_params.get(allowed_param)
+
+    if item_dict == {}:
+        status_code = 400
+
+        return JSONResponse(
+            {
+                'status': status_code,
+                'message': 'Retrieving specific profiles with these allowed params: {}'.format(','.join(allowed_params)),
+                'data': [dict(request.query_params)],
+            },
+            status_code=status_code
+        )
+
+    try:
+        profile_manager = ProfileManager.ProfileManager()
+        http_response = profile_manager.retrieve_profile(urlencode(item_dict))
+        message = 'Retrieving specific Profile is successful.'
+        result = http_response.json()
+        if http_response.status_code != 200 and http_response.status_code != 201:
+            message = 'Retrieving specific Profile is failed'
+
+    except Exception as e:
+        status_code = 500
+
+        return JSONResponse(
+            {
+                'status': status_code,
+                'message': str(e),
+                'data': [dict(request.query_params)],
             },
             status_code=status_code
         )
