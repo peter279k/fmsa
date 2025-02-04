@@ -504,7 +504,7 @@ async def delete_ig_metadata(request: Request, response: Response):
     tags=['Retrieve Profile metadata with the fhir_profile_manager'],
     dependencies=[Depends(check_api_key)],
 )
-async def retrieve_profile(request: Request, response: Response):
+async def profile(request: Request, response: Response):
     pass
 
 @route(
@@ -541,6 +541,30 @@ async def update_profile_metadata(request: Request, response: Response):
     dependencies=[Depends(check_api_key)],
 )
 async def delete_profile_metadata(request: Request, response: Response):
+    pass
+
+@route(
+    request_method=fhir_profile_manager_router.post,
+    service_url=SERVICE_URLS[6],
+    gateway_path='/upload_profile',
+    service_path='/api/v1/upload_profile',
+    status_code=status.HTTP_200_OK,
+    tags=['Upload Profile to FHIR Server Adapter with the fhir_profile_manager'],
+    dependencies=[Depends(check_api_key)],
+)
+async def upload_profile(request: Request, response: Response):
+    pass
+
+@route(
+    request_method=fhir_profile_manager_router.get,
+    service_url=SERVICE_URLS[6],
+    gateway_path='/retrieve_profile',
+    service_path='/api/v1/retrieve_profile',
+    status_code=status.HTTP_200_OK,
+    tags=['Retrieve Profile to FHIR Server Adapter with the fhir_profile_manager'],
+    dependencies=[Depends(check_api_key)],
+)
+async def retrieve_profile(request: Request, response: Response):
     pass
 
 @route(
