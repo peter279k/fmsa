@@ -79,6 +79,7 @@ def test_upload_profile():
         structure_definition = f.read()
 
     json_profile_dict = json.loads(structure_definition)
+    del json_profile_dict['id']
     payload = {
         'structure_definition': json_profile_dict,
     }
