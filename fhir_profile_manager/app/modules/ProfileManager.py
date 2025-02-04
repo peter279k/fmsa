@@ -4,9 +4,9 @@ import pymongo
 
 class ProfileManager:
     def __init__(self):
-        self.db_username = os.getenv('FHIR_PROFILE_DB_USER', '')
-        self.db_password = os.getenv('FHIR_PROFILE_DB_PASSWORD', '')
-        self.db_name = os.getenv('FHIR_PROFILE_DB', '')
+        self.db_username = os.getenv('FHIR_PROFILE_MANAGER_DB_USER', '')
+        self.db_password = os.getenv('FHIR_PROFILE_MANAGER_DB_PASSWORD', '')
+        self.db_name = os.getenv('FHIR_PROFILE_MANAGER_DB', '')
         self.collection = 'profile_collections'
         self.mongo_client = pymongo.MongoClient(
             host='fhir_profile_manager_db',
