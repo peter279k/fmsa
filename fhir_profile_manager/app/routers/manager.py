@@ -107,7 +107,7 @@ async def upload_profile(item: ProfileStructureDefinition):
         {
             'status': http_response.status_code,
             'message': message,
-            'data': [item.model_dump(), {'result': result}],
+            'data': [{'result': result}],
         },
         status_code=status_code
     )
