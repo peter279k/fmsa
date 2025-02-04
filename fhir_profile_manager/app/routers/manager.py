@@ -86,10 +86,9 @@ async def upload_profile(item: ProfileStructureDefinition):
         profile_manager = ProfileManager.ProfileManager()
         http_response = profile_manager.upload_profile(item_dict)
         message = 'Uploading specific Profile is successful.'
-        result = {}
+        result = http_response.json()
         if http_response.status_code != 200 and http_response.status_code != 201:
             message = 'Uploading specific Profile is failed'
-            result = http_response.json()
 
     except Exception as e:
         status_code = 500

@@ -73,7 +73,7 @@ def test_create_profile_metadata():
     created = created_datetime
 
 @pytest.mark.dependency()
-def test_upload_profile():
+def test_upload_profile_with_creating_new_profile():
     headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
     with open('/app/app/tests/StructureDefinition-observationbloodloss-imri.json', 'r') as f:
         structure_definition = f.read()
@@ -86,7 +86,7 @@ def test_upload_profile():
 
     response = client.post('/api/v1/upload_profile', headers=headers, json=payload)
 
-    expected_status_code = 200
+    expected_status_code = 201
     expected_message = 'Uploading specific Profile is successful.'
     response_json = response.json()
 
@@ -95,7 +95,7 @@ def test_upload_profile():
     assert response_json['message'] == expected_message
     assert len(response_json['data']) == 2
     assert response_json['data'][0] == payload
-    assert response_json['data'][1]['result'] == {}
+    assert response_json['data'][1]['result'] == json_profile_dict
 
 @pytest.mark.dependency(depends=['test_create_profile_metadata'])
 def test_retrieve_profile_metadata_with_one():
