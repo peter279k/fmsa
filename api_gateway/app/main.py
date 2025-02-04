@@ -23,6 +23,7 @@ from .modules import KeyCloakAdmin, CacheAccessToken
 app = FastAPI(title='FMSA API Gateway')
 account_router = APIRouter(prefix='/api/v1')
 fhir_ig_manager_router = APIRouter(prefix='/api/v1')
+fhir_profile_manager_router = APIRouter(prefix='/api/v1')
 fhir_generator_router = APIRouter(prefix='/api/v1')
 fhir_data_manager_router = APIRouter(prefix='/api/v1')
 
@@ -491,7 +492,55 @@ async def update_ig_metadata(request: Request, response: Response):
     tags=['Delete IG metadata with the fhir_ig_manager'],
     dependencies=[Depends(check_api_key)],
 )
-async def update_ig_metadata(request: Request, response: Response):
+async def delete_ig_metadata(request: Request, response: Response):
+    pass
+
+@route(
+    request_method=fhir_profile_manager_router.get,
+    service_url=SERVICE_URLS[6],
+    gateway_path='/profile',
+    service_path='/api/v1/profile',
+    status_code=status.HTTP_200_OK,
+    tags=['Retrieve Profile metadata with the fhir_profile_manager'],
+    dependencies=[Depends(check_api_key)],
+)
+async def retrieve_profile(request: Request, response: Response):
+    pass
+
+@route(
+    request_method=fhir_profile_manager_router.post,
+    service_url=SERVICE_URLS[6],
+    gateway_path='/create_profile_metadata',
+    service_path='/api/v1/create_profile_metadata',
+    status_code=status.HTTP_200_OK,
+    tags=['Create Profile metadata with the fhir_profile_manager'],
+    dependencies=[Depends(check_api_key)],
+)
+async def create_profile_metadata(request: Request, response: Response):
+    pass
+
+@route(
+    request_method=fhir_profile_manager_router.put,
+    service_url=SERVICE_URLS[6],
+    gateway_path='/update_profile_metadata',
+    service_path='/api/v1/update_profile_metadata',
+    status_code=status.HTTP_200_OK,
+    tags=['Update Profile metadata with the fhir_profile_manager'],
+    dependencies=[Depends(check_api_key)],
+)
+async def update_profile_metadata(request: Request, response: Response):
+    pass
+
+@route(
+    request_method=fhir_profile_manager_router.delete,
+    service_url=SERVICE_URLS[6],
+    gateway_path='/delete_profile_metadata',
+    service_path='/api/v1/delete_profile_metadata',
+    status_code=status.HTTP_200_OK,
+    tags=['Delete Profile metadata with the fhir_profile_manager'],
+    dependencies=[Depends(check_api_key)],
+)
+async def delete_profile_metadata(request: Request, response: Response):
     pass
 
 @route(
@@ -520,5 +569,7 @@ async def retrieve_track13_2024_service_request(request: Request, response: Resp
 
 
 app.include_router(account_router)
+app.include_router(fhir_ig_manager_router)
+app.include_router(fhir_profile_manager_router)
 app.include_router(fhir_generator_router)
 app.include_router(fhir_data_manager_router)
