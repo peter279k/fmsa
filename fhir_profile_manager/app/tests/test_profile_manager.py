@@ -1,3 +1,4 @@
+import json
 import pytest
 import datetime
 from app.main import app
@@ -77,8 +78,9 @@ def test_upload_profile():
     with open('/app/app/tests/StructureDefinition-observationbloodloss-imri.json', 'r') as f:
         structure_definition = f.read()
 
+    json_profile_dict = json.loads(structure_definition)
     payload = {
-        'structure_definition': structure_definition,
+        'structure_definition': json_profile_dict,
     }
 
     response = client.post('/api/v1/upload_profile', headers=headers, json=payload)
