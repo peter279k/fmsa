@@ -49,7 +49,7 @@ def test_create_profile_metadata():
 
     payload = {
         'version': '0.1.0',
-        'name': 'imri',
+        'name': 'StructureDefinition-observationbloodloss-imri',
         'created': created_datetime,
         'structure_definition': structure_definition,
     }
@@ -74,7 +74,7 @@ def test_create_profile_metadata():
 @pytest.mark.dependency(depends=['test_create_profile_metadata'])
 def test_retrieve_profile_metadata_with_one():
     headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
-    params = {'version': '0.1.0', 'name': 'imri'}
+    params = {'version': '0.1.0', 'name': 'StructureDefinition-observationbloodloss-imri'}
     encoded_uri = urlencode(params)
 
     response = client.get('/api/v1/profile?{}'.format(encoded_uri), headers=headers)
@@ -84,7 +84,7 @@ def test_retrieve_profile_metadata_with_one():
 
     expected_status_code = 200
     expected_version = '0.1.0'
-    expected_name = 'imri'
+    expected_name = 'StructureDefinition-observationbloodloss-imri'
     expected_message = 'Retrieving specific Profile is successful.'
     response_json = response.json()
 
@@ -108,11 +108,11 @@ def test_update_profile_metadata():
 
     payload = {
         'version': '0.1.0',
-        'name': 'imri',
+        'name': 'StructureDefinition-observationbloodloss-imri',
         'created': created,
         'structure_definition': structure_definition,
         'new_version': '0.1.1',
-        'new_name': 'imri',
+        'new_name': 'StructureDefinition-observationbloodloss-imri',
         'new_created': new_created,
         'new_structure_definition': structure_definition,
     }
@@ -132,14 +132,10 @@ def test_update_profile_metadata():
 @pytest.mark.dependency(depends=['test_update_profile_metadata'])
 def test_delete_profile_metadata():
     headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
-    with open('/app/app/tests/StructureDefinition-observationbloodloss-imri.json', 'r') as f:
-        structure_definition = f.read()
-
     payload = {
         'version': '0.1.1',
-        'name': 'imri',
+        'name': 'StructureDefinition-observationbloodloss-imri',
         'created': new_created,
-        'structure_definition': structure_definition,
     }
     encoded_uri = urlencode(payload)
     response = client.delete(f'/api/v1/delete_profile_metadata?{encoded_uri}', headers=headers)

@@ -108,7 +108,7 @@ async def update_profile_metadata(item: UpdateProfileMetadata):
 
 async def delete_profile_metadata(request: Request):
     status_code = 200
-    allowed_params = ['version', 'name', 'created', 'structure_definition']
+    allowed_params = ['version', 'name', 'created']
     params = {}
     result = {}
     for param in allowed_params:
