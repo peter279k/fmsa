@@ -88,7 +88,7 @@ async def upload_profile(item: ProfileStructureDefinition):
         message = 'Uploading specific Profile is successful.'
         result = {}
         if http_response.status_code != 200 and http_response.status_code != 201:
-            message = http_response.status_code
+            message = 'Uploading specific Profile is failed'
             result = http_response.json()
 
     except Exception as e:
@@ -106,7 +106,7 @@ async def upload_profile(item: ProfileStructureDefinition):
 
     return JSONResponse(
         {
-            'status': status_code,
+            'status': http_response.status_code,
             'message': message,
             'data': [item.model_dump(), {'result': result}],
         },
