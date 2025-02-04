@@ -81,7 +81,7 @@ def test_upload_profile():
     json_profile_dict = json.loads(structure_definition)
     del json_profile_dict['id']
     payload = {
-        'structure_definition': json_profile_dict,
+        'structure_definition': json.dumps(json_profile_dict),
     }
 
     response = client.post('/api/v1/upload_profile', headers=headers, json=payload)

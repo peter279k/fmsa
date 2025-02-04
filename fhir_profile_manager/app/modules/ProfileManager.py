@@ -44,7 +44,7 @@ class ProfileManager:
             'Accept': 'application/fhir+json',
             'Content-Type': 'application/fhir+json',
         }
-        profile_json_str = json.dumps(item_dict['structure_definition'])
+        profile_json_str = item_dict['structure_definition']
         response = httpx.post(fhir_server, headers=headers, content=profile_json_str)
 
         return response
