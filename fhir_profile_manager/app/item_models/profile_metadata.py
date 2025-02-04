@@ -16,3 +16,6 @@ class UpdateProfileMetadata(BaseModel):
     new_name: str
     new_created: str
     new_structure_definition: str
+
+class ProfileStructureDefinition(BaseModel):
+    structure_definition: str

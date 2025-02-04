@@ -1,4 +1,6 @@
 import os
+import json
+import httpx
 import pymongo
 
 
@@ -35,6 +37,17 @@ class ProfileManager:
         inserted_result = profile_collection.insert_one(item_dict)
 
         return str(inserted_result.inserted_id)
+
+    def upload_profile(self, item_dict: dict):
+        fhir_server = 'http://fhir-server-adapter:8080/fhir/StructureDefinition'
+        headers = {
+            'Accept': 'application/fhir+json',
+            'Content-Type': 'application/fhir+json',
+        }
+        profile_json_str = json.dumps(item_dict['structure_definition'])
+        response = httpx.post(fhir_server, headers=headers, content=profile_json_str)
+
+        return response
 
     def update_profile_metadata(self, item_dict: dict):
         db = self.mongo_client[self.db_name]

@@ -79,6 +79,40 @@ async def create_profile_metadata(item: ProfileMetadata):
         status_code=status_code
     )
 
+async def upload_profile(item: ProfileStructureDefinition):
+    status_code = 200
+    item_dict = item.model_dump()
+    try:
+        profile_manager = ProfileManager.ProfileManager()
+        http_response = profile_manager.upload_profile(item_dict)
+        message = 'Uploading specific Profile is successful.'
+        result = {}
+        if http_response.status_code != 200 and http_response.status_code != 201:
+            message = http_response.status_code
+            result = http_response.json()
+
+    except Exception as e:
+        status_code = 500
+
+        return JSONResponse(
+            {
+                'status': status_code,
+                'message': str(e),
+                'data': [item.model_dump()],
+            },
+            status_code=status_code
+        )
+
+
+    return JSONResponse(
+        {
+            'status': status_code,
+            'message': message,
+            'data': [item.model_dump(), {'result': result}],
+        },
+        status_code=status_code
+    )
+
 async def update_profile_metadata(item: UpdateProfileMetadata):
     status_code = 200
     try:
