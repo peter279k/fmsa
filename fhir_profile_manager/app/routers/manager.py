@@ -109,7 +109,7 @@ async def upload_profile(item: ProfileStructureDefinition):
             'message': message,
             'data': [{'result': result}],
         },
-        status_code=status_code
+        status_code=http_response.status_code
     )
 
 async def update_profile_metadata(item: UpdateProfileMetadata):
