@@ -161,6 +161,7 @@ def test_retrieve_updated_profile_from_fhir_server_with_specific_id():
     assert response_json['message'] == expected_message
     assert len(response_json['data']) == 1
     assert response_json['data'][0]['result']['total'] == 1
+    assert response_json['data'][0]['result']['entry'][0]['resource'] == json_profile_dict
 
 @pytest.mark.dependency(depends=['test_create_profile_metadata'])
 def test_retrieve_profile_metadata_with_one():
