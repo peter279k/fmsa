@@ -31,7 +31,9 @@ async def retrieve_profile(request: Request):
     try:
         profile_manager = ProfileManager.ProfileManager()
         result = profile_manager.retrieve_info(params)
+        profile_manager.mongo_client.close()
     except Exception as e:
+        profile_manager.mongo_client.close()
         status_code = 500
 
         return JSONResponse(
@@ -59,8 +61,10 @@ async def create_profile_metadata(item: ProfileMetadata):
     try:
         profile_manager = ProfileManager.ProfileManager()
         result = profile_manager.create_metadata(item_dict)
+        profile_manager.mongo_client.close()
     except Exception as e:
         status_code = 500
+        profile_manager.mongo_client.close()
 
         return JSONResponse(
             {
@@ -92,8 +96,11 @@ async def upload_profile(item: ProfileStructureDefinition):
         if http_response.status_code != 200 and http_response.status_code != 201:
             message = 'Uploading specific Profile is failed'
 
+        profile_manager.mongo_client.close()
+
     except Exception as e:
         status_code = 500
+        profile_manager.mongo_client.close()
 
         return JSONResponse(
             {
@@ -125,8 +132,11 @@ async def update_profile(item: ProfileStructureDefinition):
         if http_response.status_code != 200 and http_response.status_code != 201:
             message = 'Updating specific Profile is failed'
 
+        profile_manager.mongo_client.close()
+
     except Exception as e:
         status_code = 500
+        profile_manager.mongo_client.close()
 
         return JSONResponse(
             {
@@ -175,8 +185,11 @@ async def retrieve_profile_from_fhir_server(request: Request):
         if http_response.status_code != 200 and http_response.status_code != 201:
             message = 'Retrieving specific Profile is failed'
 
+        profile_manager.mongo_client.close()
+
     except Exception as e:
         status_code = 500
+        profile_manager.mongo_client.close()
 
         return JSONResponse(
             {
@@ -202,8 +215,10 @@ async def update_profile_metadata(item: UpdateProfileMetadata):
     try:
         profile_manager = ProfileManager.ProfileManager()
         result = profile_manager.update_profile_metadata(item.model_dump())
+        profile_manager.mongo_client.close()
     except Exception as e:
         status_code = 500
+        profile_manager.mongo_client.close()
 
         return JSONResponse(
             {
@@ -248,8 +263,10 @@ async def delete_profile_metadata(request: Request):
     try:
         profile_manager = ProfileManager.ProfileManager()
         result = profile_manager.delete_profile_metadata(dict(params))
+        profile_manager.mongo_client.close()
     except Exception as e:
         status_code = 500
+        profile_manager.mongo_client.close()
 
         return JSONResponse(
             {
