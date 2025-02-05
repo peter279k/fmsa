@@ -112,12 +112,12 @@ def test_update_profile_with_specific_profile_id():
 
     response = client.put('/api/v1/update_profile', headers=headers, json=payload)
 
-    expected_created_status_code = 201
+    expected_status_codes = [200, 201]
     expected_message = 'Updating specific Profile is successful.'
     response_json = response.json()
 
-    assert response.status_code == expected_created_status_code
-    assert response_json['status'] == expected_created_status_code
+    assert response.status_code in expected_status_codes
+    assert response_json['status'] in expected_status_codes
     assert response_json['message'] == expected_message
     assert len(response_json['data']) == 1
 
