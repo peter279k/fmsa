@@ -1,4 +1,5 @@
 import os
+import json
 import httpx
 import pymongo
 
@@ -50,7 +51,9 @@ class ProfileManager:
 
     def update_profile(self, item_dict: dict):
         profile_json_str = item_dict['structure_definition']
-        response = httpx.put(self.fhir_server, headers=self.fhir_server_headers, content=profile_json_str)
+        profile_id = json.loads(item_dict['structure_definition_id'])['id']
+        fhir_server = f'{self.fhir_server}/{profile_id}'
+        response = httpx.put(fhir_server, headers=self.fhir_server_headers, content=profile_json_str)
 
         return response
 
