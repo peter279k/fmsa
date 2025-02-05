@@ -48,6 +48,12 @@ class ProfileManager:
 
         return response
 
+    def update_profile(self, item_dict: dict):
+        profile_json_str = item_dict['structure_definition']
+        response = httpx.put(self.fhir_server, headers=self.fhir_server_headers, content=profile_json_str)
+
+        return response
+
     def retrieve_profile(self, query_params: str):
         fhir_server = f'{self.fhir_server}?{query_params}'
         response = httpx.get(fhir_server, headers=self.fhir_server_headers)

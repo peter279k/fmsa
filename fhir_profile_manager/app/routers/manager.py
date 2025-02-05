@@ -114,6 +114,39 @@ async def upload_profile(item: ProfileStructureDefinition):
         status_code=http_response.status_code
     )
 
+async def update_profile(item: ProfileStructureDefinition):
+    status_code = 200
+    item_dict = item.model_dump()
+    try:
+        profile_manager = ProfileManager.ProfileManager()
+        http_response = profile_manager.update_profile(item_dict)
+        message = 'Updating specific Profile is successful.'
+        result = http_response.json()
+        if http_response.status_code != 200 and http_response.status_code != 201:
+            message = 'Updating specific Profile is failed'
+
+    except Exception as e:
+        status_code = 500
+
+        return JSONResponse(
+            {
+                'status': status_code,
+                'message': str(e),
+                'data': [item.model_dump()],
+            },
+            status_code=status_code
+        )
+
+
+    return JSONResponse(
+        {
+            'status': http_response.status_code,
+            'message': message,
+            'data': [{'result': result}],
+        },
+        status_code=http_response.status_code
+    )
+
 async def retrieve_profile_from_fhir_server(request: Request):
     status_code = 200
     allowed_params = ['_id']

@@ -556,6 +556,18 @@ async def upload_profile(request: Request, response: Response):
     pass
 
 @route(
+    request_method=fhir_profile_manager_router.put,
+    service_url=SERVICE_URLS[6],
+    gateway_path='/update_profile',
+    service_path='/api/v1/update_profile',
+    status_code=status.HTTP_200_OK,
+    tags=['Update Profile with specific profile_id to FHIR Server Adapter with the fhir_profile_manager'],
+    dependencies=[Depends(check_api_key)],
+)
+async def update_profile(request: Request, response: Response):
+    pass
+
+@route(
     request_method=fhir_profile_manager_router.get,
     service_url=SERVICE_URLS[6],
     gateway_path='/retrieve_profile',

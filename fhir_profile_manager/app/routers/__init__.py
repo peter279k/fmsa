@@ -9,5 +9,6 @@ manager_router.add_api_route('/create_profile_metadata', create_profile_metadata
 manager_router.add_api_route('/update_profile_metadata', update_profile_metadata, methods=['PUT'], description='Update Profile metadata')
 manager_router.add_api_route('/delete_profile_metadata', delete_profile_metadata, methods=['DELETE'], description='Delete Profile metadata')
 
-manager_router.add_api_route('/upload_profile', upload_profile, methods=['POST'], description='Upload specific Profile StructureDefinition')
+manager_router.add_api_route('/upload_profile', upload_profile, methods=['POST'], description='Upload specific Profile StructureDefinition to the FHIR server')
+manager_router.add_api_route('/update_profile', update_profile, methods=['PUT'], description='Update specific Profile StructureDefinition to the FHIR server')
 manager_router.add_api_route('/retrieve_profile', retrieve_profile_from_fhir_server, methods=['GET'], description='Retrieve specific Profile StructureDefinition')

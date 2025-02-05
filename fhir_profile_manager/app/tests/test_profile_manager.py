@@ -99,6 +99,28 @@ def test_upload_profile_with_creating_new_profile():
     global structure_definition_id
     structure_definition_id = response_json['data'][0]['result']['id']
 
+@pytest.mark.dependency()
+def test_update_profile_with_specific_profile_id():
+    headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+    with open('/app/app/tests/StructureDefinition-observationbloodloss-imri.json', 'r') as f:
+        structure_definition = f.read()
+
+    json_profile_dict = json.loads(structure_definition)
+    payload = {
+        'structure_definition': json.dumps(json_profile_dict),
+    }
+
+    response = client.put('/api/v1/update_profile', headers=headers, json=payload)
+
+    expected_created_status_code = 201
+    expected_message = 'Updating specific Profile is successful.'
+    response_json = response.json()
+
+    assert response.status_code == expected_created_status_code
+    assert response_json['status'] == expected_created_status_code
+    assert response_json['message'] == expected_message
+    assert len(response_json['data']) == 1
+
 @pytest.mark.dependency(depends=['test_upload_profile_with_creating_new_profile'])
 def test_retrieve_profile_from_fhir_server_with_specific_id():
     headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
@@ -109,6 +131,26 @@ def test_retrieve_profile_from_fhir_server_with_specific_id():
     del json_profile_dict['id']
 
     response = client.get(f'/api/v1/retrieve_profile?_id={structure_definition_id}', headers=headers)
+
+    expected_created_status_code = 200
+    expected_message = 'Retrieving specific Profile is successful.'
+    response_json = response.json()
+
+    assert response.status_code == expected_created_status_code
+    assert response_json['status'] == expected_created_status_code
+    assert response_json['message'] == expected_message
+    assert len(response_json['data']) == 1
+    assert response_json['data'][0]['result']['total'] == 1
+
+@pytest.mark.dependency(depends=['test_update_profile_with_specific_profile_id'])
+def test_retrieve_updated_profile_from_fhir_server_with_specific_id():
+    headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+    with open('/app/app/tests/StructureDefinition-observationbloodloss-imri.json', 'r') as f:
+        structure_definition = f.read()
+
+    json_profile_dict = json.loads(structure_definition)
+
+    response = client.get(f'/api/v1/retrieve_profile?_id={json_profile_dict['id']}', headers=headers)
 
     expected_created_status_code = 200
     expected_message = 'Retrieving specific Profile is successful.'
