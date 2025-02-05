@@ -30,8 +30,10 @@ async def retrieve_ig(request: Request):
     try:
         ig_manager = ImplementationGuideManager.ImplementationGuideManager()
         result = ig_manager.retrieve_info(params)
+        ig_manager.mongo_client.close()
     except Exception as e:
         status_code = 500
+        ig_manager.mongo_client.close()
 
         return JSONResponse(
             {
@@ -58,8 +60,10 @@ async def create_ig_metadata(item: ImplementationGuideMetadata):
     try:
         ig_manager = ImplementationGuideManager.ImplementationGuideManager()
         result = ig_manager.create_metadata(item_dict)
+        ig_manager.mongo_client.close()
     except Exception as e:
         status_code = 500
+        ig_manager.mongo_client.close()
 
         return JSONResponse(
             {
@@ -85,9 +89,11 @@ async def upload_ig(zip_file: UploadFile = File(...)):
     try:
         ig_manager = ImplementationGuideManager.ImplementationGuideManager()
         result = ig_manager.upload_ig(zip_file)
+        ig_manager.mongo_client.close()
     except Exception as e:
         zip_file.file.close()
         status_code = 500
+        ig_manager.mongo_client.close()
 
         return JSONResponse(
             {
@@ -113,8 +119,10 @@ async def update_ig_metadata(item: UpdateImplementationGuideMetadata):
     try:
         ig_manager = ImplementationGuideManager.ImplementationGuideManager()
         result = ig_manager.update_ig_metadata(item.model_dump())
+        ig_manager.mongo_client.close()
     except Exception as e:
         status_code = 500
+        ig_manager.mongo_client.close()
 
         return JSONResponse(
             {
@@ -159,8 +167,10 @@ async def delete_ig_metadata(request: Request):
     try:
         ig_manager = ImplementationGuideManager.ImplementationGuideManager()
         result = ig_manager.delete_ig_metadata(dict(params))
+        ig_manager.mongo_client.close()
     except Exception as e:
         status_code = 500
+        ig_manager.mongo_client.close()
 
         return JSONResponse(
             {
