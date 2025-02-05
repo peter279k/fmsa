@@ -51,7 +51,7 @@ class ProfileManager:
 
     def update_profile(self, item_dict: dict):
         profile_json_str = item_dict['structure_definition']
-        profile_id = json.loads(item_dict['structure_definition_id'])['id']
+        profile_id = json.loads(item_dict['structure_definition'])['id']
         fhir_server = f'{self.fhir_server}/{profile_id}'
         response = httpx.put(fhir_server, headers=self.fhir_server_headers, content=profile_json_str)
 
