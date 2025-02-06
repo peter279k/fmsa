@@ -20,6 +20,7 @@
 - https://medblocks.com/blog/terminologies-in-fhir#how-to-set-up-snomed-ct-on-hapi-fhir--8
 - https://medblocks.com/blog/how-to-enable-fhir-profile-validation-with-hapi-fhir-jpa-server
 - https://hapifhir.io/hapi-fhir/docs/v/7.6.0/tools/hapi_fhir_cli.html
+  - https://hapifhir.io/hapi-fhir/docs/tools/hapi_fhir_cli.html
 
 2. microservice scalability
 
@@ -48,3 +49,8 @@
 - `The character [_] is never valid in a domain name`
 - https://blog.csdn.net/janet1100/article/details/121639158
 - https://silcoet.ntunhs.edu.tw/FHIRSampleCode/Manual/HAPI%20FHIR%20Server_Linux.pdf
+
+2. FHIR server upload-terminology issues
+
+- https://github.com/hapifhir/hapi-fhir/issues/3276
+- https://github.com/hapifhir/hapi-fhir/issues/4715
