@@ -1,4 +1,4 @@
-from terminology_manager.app.item_models.terminology_metadata import *
+from app.item_models.terminology_metadata import *
 from app.modules import TerminologyManager
 
 from fastapi import File, UploadFile
