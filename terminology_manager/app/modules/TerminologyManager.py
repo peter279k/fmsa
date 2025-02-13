@@ -36,10 +36,10 @@ class TerminologyManager:
 
         return str(inserted_result.inserted_id)
 
-    def upload_terminology(self, zip_file):
+    async def upload_terminology(self, zip_file):
         file_name = zip_file.filename
 
-        contents = zip_file.file.read()
+        contents = await zip_file.file.read()
         with open(f'/tmp/{file_name}', 'wb') as f:
             file_size = f.write(contents)
 
