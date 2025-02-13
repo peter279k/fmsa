@@ -197,7 +197,9 @@ services:
     volumes:
       - ./terminology_manager/:/app/
     environment:
-      - DATABASE_URL=${TERMINOLOGY_MANAGER_DB_URL}
+      - TERMINOLOGY_MANAGER_DB_USER=${TERMINOLOGY_MANAGER_DB_USER}
+      - TERMINOLOGY_MANAGER_DB_PASSWORD=${TERMINOLOGY_MANAGER_DB_PASSWORD}
+      - TERMINOLOGY_MANAGER_DB=${TERMINOLOGY_MANAGER_DB}
     depends_on:
       - terminology_manager_db
     restart: always
