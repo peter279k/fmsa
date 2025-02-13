@@ -26,6 +26,7 @@ fhir_ig_manager_router = APIRouter(prefix='/api/v1')
 fhir_profile_manager_router = APIRouter(prefix='/api/v1')
 fhir_generator_router = APIRouter(prefix='/api/v1')
 fhir_data_manager_router = APIRouter(prefix='/api/v1')
+terminology_manager_router = APIRouter(prefix='/api/v1')
 
 
 SERVICE_URLS = [
@@ -577,6 +578,66 @@ async def update_profile(request: Request, response: Response):
     dependencies=[Depends(check_api_key)],
 )
 async def retrieve_profile(request: Request, response: Response):
+    pass
+
+@route(
+    request_method=terminology_manager_router.get,
+    service_url=SERVICE_URLS[6],
+    gateway_path='/terminology',
+    service_path='/api/v1/terminology',
+    status_code=status.HTTP_200_OK,
+    tags=['Retrieve Terminology metadata with the terminology_manager'],
+    dependencies=[Depends(check_api_key)],
+)
+async def terminology(request: Request, response: Response):
+    pass
+
+@route(
+    request_method=terminology_manager_router.post,
+    service_url=SERVICE_URLS[6],
+    gateway_path='/create_terminology_metadata',
+    service_path='/api/v1/create_terminology_metadata',
+    status_code=status.HTTP_200_OK,
+    tags=['Create Terminology metadata with the terminology_manager'],
+    dependencies=[Depends(check_api_key)],
+)
+async def create_terminology_metadata(request: Request, response: Response):
+    pass
+
+@route(
+    request_method=terminology_manager_router.put,
+    service_url=SERVICE_URLS[6],
+    gateway_path='/update_terminology_metadata',
+    service_path='/api/v1/update_terminology_metadata',
+    status_code=status.HTTP_200_OK,
+    tags=['Update Terminology metadata with the terminology_manager'],
+    dependencies=[Depends(check_api_key)],
+)
+async def update_terminology_metadata(request: Request, response: Response):
+    pass
+
+@route(
+    request_method=terminology_manager_router.delete,
+    service_url=SERVICE_URLS[6],
+    gateway_path='/delete_terminology_metadata',
+    service_path='/api/v1/delete_terminology_metadata',
+    status_code=status.HTTP_200_OK,
+    tags=['Delete Terminology metadata with the terminology_manager'],
+    dependencies=[Depends(check_api_key)],
+)
+async def delete_terminology_metadata(request: Request, response: Response):
+    pass
+
+@route(
+    request_method=terminology_manager_router.post,
+    service_url=SERVICE_URLS[6],
+    gateway_path='/upload_terminology',
+    service_path='/api/v1/upload_terminology',
+    status_code=status.HTTP_200_OK,
+    tags=['Upload Terminology to FHIR Server Adapter with the terminology_manager'],
+    dependencies=[Depends(check_api_key)],
+)
+async def upload_terminology(request: Request, response: Response):
     pass
 
 @route(
