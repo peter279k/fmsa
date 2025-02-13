@@ -92,6 +92,7 @@ def test_retrieve_terminology_metadata_with_one():
     assert response_json['data'][0]['name'] == expected_name
     assert response_json['data'][0]['filename'] == expected_filename
 
+@pytest.mark.dependency()
 def test_upload_terminology():
     files = {
         'zip_file': open('/app/app/tests/Loinc_2.72.zip', 'rb'),
@@ -168,7 +169,7 @@ def test_delete_terminology_metadata():
 @pytest.mark.dependency(depends=['test_upload_terminology'])
 def test_retrieve_archived_code_system():
     headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
-    zip_filename = 'Loinc_2.72.zip'
+    zip_filename = urlencode('Loinc_2.72.zip')
 
     response = client.get(f'/api/v1/retrieve_archived_code_system?filename={zip_filename}', headers=headers)
 
