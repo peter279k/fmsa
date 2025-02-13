@@ -36,17 +36,15 @@ class TerminologyManager:
 
         return str(inserted_result.inserted_id)
 
-    async def upload_terminology(self, zip_file):
-        file_name = zip_file.filename
+    def upload_terminology(self, contents, filename):
 
-        contents = await zip_file.file.read()
-        with open(f'/tmp/{file_name}', 'wb') as f:
-            file_size = f.write(contents)
+        with open(f'/tmp/{filename}', 'wb') as f:
+            filesize = f.write(contents)
 
         return {
-            'filename': file_name,
-            'filesize': file_size,
-            'filepath': f'/tmp/{file_name}',
+            'filename': filename,
+            'filesize': len(contents),
+            'filepath': f'/tmp/{filename}',
         }
 
     def update_terminology_metadata(self, item_dict: dict):

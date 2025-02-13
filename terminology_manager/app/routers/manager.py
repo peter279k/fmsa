@@ -91,7 +91,8 @@ async def upload_terminology(zip_file: UploadFile = File(...)):
     status_code = 200
     try:
         terminology_manager = TerminologyManager.TerminologyManager()
-        result = await terminology_manager.upload_terminology(zip_file)
+        contents = await zip_file.read()
+        result = terminology_manager.upload_terminology(contents, zip_file.filename)
         terminology_manager.mongo_client.close()
     except Exception as e:
         zip_file.file.close()
