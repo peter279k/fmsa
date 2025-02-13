@@ -1,6 +1,7 @@
 import os
 import pytest
 import datetime
+import subprocess
 from app.main import app
 from urllib.parse import urlencode
 from fastapi.testclient import TestClient
@@ -92,7 +93,6 @@ def test_retrieve_terminology_metadata_with_one():
     assert response_json['data'][0]['name'] == expected_name
     assert response_json['data'][0]['filename'] == expected_filename
 
-@pytest.mark.dependency()
 def test_upload_terminology():
     files = {
         'zip_file': open('/app/app/tests/Loinc_2.72.zip', 'rb'),
@@ -166,8 +166,9 @@ def test_delete_terminology_metadata():
     assert len(response_json['data']) == 2
     assert response_json['data'][1]['deleted_result'] == 1
 
-@pytest.mark.dependency(depends=['test_upload_terminology'])
 def test_retrieve_archived_code_system():
+    subprocess.run(['cp', '/app/app/tests/Loinc_2.72.zip', '/tmp/'])
+
     headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
     encoded_uri = urlencode({'filename': 'Loinc_2.72.zip'})
 
