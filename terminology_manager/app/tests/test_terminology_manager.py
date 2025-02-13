@@ -169,9 +169,9 @@ def test_delete_terminology_metadata():
 @pytest.mark.dependency(depends=['test_upload_terminology'])
 def test_retrieve_archived_code_system():
     headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
-    zip_filename = urlencode('Loinc_2.72.zip')
+    encoded_uri = urlencode({'filename': 'Loinc_2.72.zip'})
 
-    response = client.get(f'/api/v1/retrieve_archived_code_system?filename={zip_filename}', headers=headers)
+    response = client.get(f'/api/v1/retrieve_archived_code_system?{encoded_uri}', headers=headers)
 
     expected_status_code = 200
     expected_content_size = 87061668
