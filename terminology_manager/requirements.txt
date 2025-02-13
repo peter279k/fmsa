@@ -1,4 +1,5 @@
 fastapi==0.115.8
 uvicorn==0.20.0
 httpx==0.26.0
-pymongo==4.10.1
+pymongo==4.11
+python-multipart==0.0.20
