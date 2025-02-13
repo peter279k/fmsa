@@ -1,8 +1,11 @@
+import os
+
 from app.item_models.terminology_metadata import *
 from app.modules import TerminologyManager
 
 from fastapi import File, UploadFile
 from fastapi.requests import Request
+from fastapi.responses import FileResponse
 from fastapi.responses import JSONResponse
 
 
@@ -189,4 +192,29 @@ async def delete_terminology_metadata(request: Request):
             'data': [params, result],
         },
         status_code=status_code
+    )
+
+async def retrieve_archived_code_system(request: Request):
+    zip_filename = request.query_params.get('filename', '')
+    zip_filepath = '/tmp/{}'.format(zip_filename)
+    status_code = 404
+
+    if os.path.isfile(zip_filepath) is False:
+        return JSONResponse(
+            {
+                'status': status_code,
+                'message': 'The {} file is not found.'.format(zip_filepath),
+                'data': [],
+            },
+            status_code=status_code
+        )
+
+    status_code = 200
+    media_type = 'application/zip'
+
+    return FileResponse(
+        status_code=status_code,
+        path=zip_filepath,
+        filename=zip_filename,
+        media_type=media_type,
     )

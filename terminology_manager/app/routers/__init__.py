@@ -9,3 +9,4 @@ manager_router.add_api_route('/create_terminology_metadata', create_terminology_
 manager_router.add_api_route('/upload_terminology', upload_terminology, methods=['POST'], description='Upload Terminology archived zip file')
 manager_router.add_api_route('/update_terminology_metadata', update_terminology_metadata, methods=['PUT'], description='Update Terminology metadata')
 manager_router.add_api_route('/delete_terminology_metadata', delete_terminology_metadata, methods=['DELETE'], description='Delete Terminology metadata')
+manager_router.add_api_route('/retrieve_archived_code_system', retrieve_archived_code_system, methods=['GET'], description='Retrieve CodeSystem zip file via filename')

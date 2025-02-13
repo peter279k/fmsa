@@ -164,3 +164,16 @@ def test_delete_terminology_metadata():
     assert response_json['message'] == expected_message
     assert len(response_json['data']) == 2
     assert response_json['data'][1]['deleted_result'] == 1
+
+@pytest.mark.dependency(depends=['test_upload_terminology'])
+def test_retrieve_archived_code_system():
+    headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+    zip_filename = 'Loinc_2.72.zip'
+
+    response = client.get(f'/api/v1/retrieve_archived_code_system?filename={zip_filename}', headers=headers)
+
+    expected_status_code = 200
+    expected_content_size = 87061668
+
+    assert response.status_code == expected_status_code
+    assert len(response.content) == expected_content_size
