@@ -18,3 +18,4 @@ app = FastAPI(
 
 app.include_router(upload_resource_router)
 app.include_router(retrieve_resource_router)
+app.include_router(hapi_fhir_server_adapter_router)

@@ -168,10 +168,23 @@ services:
     volumes:
       - ./fhir_data_manager/:/app/
     environment:
-      - DATABASE_URL=${FHIR_DATA_MANAGER_DB_URL}
+      - FHIR_DATA_MANAGER_DB_USER=${FHIR_DATA_MANAGER_DB_USER}
+      - FHIR_DATA_MANAGER_DB_PASSWORD=${FHIR_DATA_MANAGER_DB_PASSWORD}
+      - FHIR_DATA_MANAGER_DB=${FHIR_DATA_MANAGER_DB}
     depends_on:
       - fhir-server-adapter
       - fhir_server_adapter_postgres
+      - fhir_data_manager_db
+    restart: always
+
+  fhir_data_manager_db:
+    image: mongo:7.0.16-jammy
+    volumes:
+      - fhir_data_manager_data:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${FHIR_DATA_MANAGER_DB_USER}
+      - MONGO_INITDB_ROOT_PASSWORD=${FHIR_DATA_MANAGER_DB_PASSWORD}
+      - MONGO_INITDB_DATABASE=${FHIR_DATA_MANAGER_DB}
     restart: always
 
   fhir-server-adapter:
@@ -238,6 +251,7 @@ volumes:
   clickhouse_ioht_data:
   keycloak_adapter_postgres_data:
   fhir_server_adapter_postgres_data:
+  fhir_data_manager_data:
   fhir_ig_manager_data:
   fhir_profile_manager_data:
   terminology_manager_data:

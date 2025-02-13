@@ -1,4 +1,5 @@
 import os
+import httpx
 
 from app.item_models.terminology_metadata import *
 from app.modules import TerminologyManager
@@ -218,4 +219,25 @@ async def retrieve_archived_code_system(request: Request):
         path=zip_filepath,
         filename=zip_filename,
         media_type=media_type,
+    )
+
+async def import_archived_code_system(request: Request):
+    zip_filename = request.query_params.get('filename', '')
+    zip_filepath = '/tmp/{}'.format(zip_filename)
+    status_code = 404
+
+    if os.path.isfile(zip_filepath) is False:
+        return JSONResponse(
+            {
+                'status': status_code,
+                'message': 'The {} file is not found.'.format(zip_filepath),
+                'data': [],
+            },
+            status_code=status_code
+        )
+
+
+    response = httpx.get(
+        'http://fhir_data_manager:8000/api/v1/import_archived_code_system?{}',
+        headers=self.headers
     )
