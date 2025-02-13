@@ -147,10 +147,10 @@ def test_update_terminology_metadata():
 def test_delete_terminology_metadata():
     headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
     payload = {
-        'version': '2.72',
+        'version': '2.73',
         'name': 'loinc',
         'created': new_created,
-        'filename': 'Loinc_2.72.zip',
+        'filename': 'Loinc_2.73.zip',
     }
     encoded_uri = urlencode(payload)
     response = client.delete(f'/api/v1/delete_terminology_metadata?{encoded_uri}', headers=headers)
