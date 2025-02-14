@@ -165,6 +165,8 @@ services:
   fhir_data_manager:
     build: ./fhir_data_manager
     command: uvicorn app.main:app --host 0.0.0.0 --workers ${FHIR_DATA_MANAGER_UVICORN_WORKERS} --port 8000
+    volumes:
+      - ./fhir_data_manager/app/tests:/app/app/tests
     environment:
       - FHIR_DATA_MANAGER_DB_USER=${FHIR_DATA_MANAGER_DB_USER}
       - FHIR_DATA_MANAGER_DB_PASSWORD=${FHIR_DATA_MANAGER_DB_PASSWORD}

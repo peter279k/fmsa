@@ -653,6 +653,18 @@ async def retrieve_archived_code_system(request: Request, response: Response):
     pass
 
 @route(
+    request_method=fhir_data_manager_router.get,
+    service_url=SERVICE_URLS[7],
+    gateway_path='/import_archived_code_system',
+    service_path='/api/v1/import_archived_code_system',
+    status_code=status.HTTP_200_OK,
+    tags=['Import specific archived code system to the fhir_data_manager'],
+    dependencies=[Depends(check_api_key)],
+)
+async def import_archived_code_system(request: Request, response: Response):
+    pass
+
+@route(
     request_method=fhir_data_manager_router.post,
     service_url=SERVICE_URLS[7],
     gateway_path='/upload/{resource_name}',
