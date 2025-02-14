@@ -3,6 +3,7 @@ FROM python:3.13-slim
 WORKDIR /app
 
 COPY ./requirements.txt /app/requirements.txt
+COPY . /app/
 
 RUN apt-get update \
     && apt-get install gcc wget openjdk-17-jdk wget unzip -y \
@@ -17,5 +18,3 @@ RUN apt-get update \
 
 RUN pip install -r /app/requirements.txt \
     && rm -rf /root/.cache/pip
-
-COPY . /app/
