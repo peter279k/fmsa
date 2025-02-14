@@ -13,7 +13,7 @@ def test_import_archived_code_system():
     }
     encoded_uri = urlencode(filename)
 
-    upload_archived_code_system = 'curl -F "zip_file=@/app/app/tests/Loinc_2.72.zip" http://terminology_manager:8000/api/v1/upload_terminology'.split(' ')
+    upload_archived_code_system = 'curl -F zip_file=@/app/app/tests/Loinc_2.72.zip http://terminology_manager:8000/api/v1/upload_terminology'.split(' ')
     uploaded_result = subprocess.run(upload_archived_code_system, capture_output=True)
 
     assert uploaded_result.returncode == 0
