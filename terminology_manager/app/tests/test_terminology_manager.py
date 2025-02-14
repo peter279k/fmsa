@@ -166,6 +166,7 @@ def test_delete_terminology_metadata():
     assert len(response_json['data']) == 2
     assert response_json['data'][1]['deleted_result'] == 1
 
+@pytest.mark.dependency()
 def test_retrieve_archived_code_system():
     subprocess.run(['cp', '/app/app/tests/Loinc_2.72.zip', '/tmp/'])
 
@@ -190,3 +191,15 @@ def call_importing_archived_code_system_with_non_existed_file():
 
     assert response.status_code == expected_status_code
     assert response.json()['message'] == 'The non_existed.zip file is not found.'
+
+@pytest.mark.dependency(depends=['test_retrieve_archived_code_system'])
+def call_importing_archived_code_system_with_existed_file():
+    headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+    encoded_uri = urlencode({'filename': 'Loinc_2.72.zip'})
+
+    response = client.get(f'/api/v1/call_importing_archived_code_system?{encoded_uri}', headers=headers)
+
+    expected_status_code = 200
+
+    assert response.status_code == expected_status_code
+    assert response.json()['message'] == 'Importing the Loinc_2.72.zip is on the way.'
