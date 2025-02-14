@@ -9,8 +9,7 @@ RUN apt-get update \
     && wget -O hapi-fhir-7.6.0-cli.zip https://github.com/hapifhir/hapi-fhir/releases/download/v7.6.0/hapi-fhir-7.6.0-cli.zip \
     && mkdir hapi-fhir-cli && cd hapi-fhir-cli \
     && unzip ../hapi-fhir-7.6.0-cli.zip \
-    && cd .. \
-    && rm -f hapi-fhir-cli.cmd hapi-fhir-7.6.0-cli.zip \
+    && rm -f hapi-fhir-cli.cmd ../hapi-fhir-7.6.0-cli.zip \
     && apt-get purge -y wget unzip \
     && apt-get autoremove -y \
     && apt-get clean
