@@ -191,7 +191,7 @@ def test_call_importing_archived_code_system_with_non_existed_file():
     expected_status_code = 400
 
     assert response.status_code == expected_status_code
-    assert response.json()['message'] == 'The non_existed.zip file is not found.'
+    assert response.json()['message'] == 'The /tmp/non_existed.zip file is not found.'
 
 @pytest.mark.dependency(depends=['test_retrieve_archived_code_system'])
 def test_call_importing_archived_code_system_with_existed_file():
