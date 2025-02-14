@@ -583,6 +583,18 @@ async def retrieve_profile(request: Request, response: Response):
 @route(
     request_method=terminology_manager_router.get,
     service_url=SERVICE_URLS[6],
+    gateway_path='/call_importing_archived_code_system',
+    service_path='/api/v1/call_importing_archived_code_system',
+    status_code=status.HTTP_200_OK,
+    tags=['Call the fhir_data_manager microservice to import archived code system'],
+    dependencies=[Depends(check_api_key)],
+)
+async def call_importing_archived_code_system(request: Request, response: Response):
+    pass
+
+@route(
+    request_method=terminology_manager_router.get,
+    service_url=SERVICE_URLS[6],
     gateway_path='/terminology',
     service_path='/api/v1/terminology',
     status_code=status.HTTP_200_OK,
