@@ -595,6 +595,18 @@ async def call_importing_archived_code_system(request: Request, response: Respon
 @route(
     request_method=terminology_manager_router.get,
     service_url=SERVICE_URLS[6],
+    gateway_path='/call_retrieving_code_system_log',
+    service_path='/api/v1/call_retrieving_code_system_log',
+    status_code=status.HTTP_200_OK,
+    tags=['Call the fhir_data_manager microservice to retrieve archived code system importing log'],
+    dependencies=[Depends(check_api_key)],
+)
+async def call_retrieving_code_system_log(request: Request, response: Response):
+    pass
+
+@route(
+    request_method=terminology_manager_router.get,
+    service_url=SERVICE_URLS[6],
     gateway_path='/terminology',
     service_path='/api/v1/terminology',
     status_code=status.HTTP_200_OK,
