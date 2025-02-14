@@ -35,9 +35,7 @@ def test_import_archived_code_system():
     processed_id = response_json['data'][0]['processed_id']
 
 @pytest.mark.dependency(depends=['test_import_archived_code_system'])
-def test_retrieve_code_system_log():
-    time.sleep(5)
-
+def test_retrieve_code_system_log_with_empty_data_result():
     headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
     encoded_uri = {
         'processed_id': processed_id,
@@ -49,3 +47,4 @@ def test_retrieve_code_system_log():
     assert response_json['status'] == 200
     assert response_json['message'] == 'Retrieve code system importing log is successful'
     assert len(response_json['data']) == 1
+    assert response_json['data'] == {}
