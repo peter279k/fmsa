@@ -11,6 +11,7 @@ client = TestClient(app)
 created = ''
 new_created = ''
 inserted_id = ''
+processed_id = ''
 
 def test_retrieve_terminology_metadata_with_disallowed_params():
     headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
@@ -181,7 +182,7 @@ def test_retrieve_archived_code_system():
     assert response.status_code == expected_status_code
     assert len(response.content) == expected_content_size
 
-def call_importing_archived_code_system_with_non_existed_file():
+def test_call_importing_archived_code_system_with_non_existed_file():
     headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
     encoded_uri = urlencode({'filename': 'non_existed.zip'})
 
@@ -193,13 +194,29 @@ def call_importing_archived_code_system_with_non_existed_file():
     assert response.json()['message'] == 'The non_existed.zip file is not found.'
 
 @pytest.mark.dependency(depends=['test_retrieve_archived_code_system'])
-def call_importing_archived_code_system_with_existed_file():
+def test_call_importing_archived_code_system_with_existed_file():
     headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
     encoded_uri = urlencode({'filename': 'Loinc_2.72.zip'})
 
     response = client.get(f'/api/v1/call_importing_archived_code_system?{encoded_uri}', headers=headers)
+    response_json = response.json()
 
     expected_status_code = 200
 
     assert response.status_code == expected_status_code
-    assert response.json()['message'] == 'Importing the Loinc_2.72.zip is on the way.'
+    assert response_json['message'] == 'Importing the Loinc_2.72.zip is on the way.'
+
+    global processed_id
+    processed_id = response_json['data'][0]['processed_id']
+
+@pytest.mark.dependency(depends=['test_call_importing_archived_code_system_with_existed_file'])
+def test_call_retrieving_code_system_log():
+    headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+    encoded_uri = urlencode({'processed_id': processed_id})
+
+    response = client.get(f'/api/v1/call_retrieving_code_system_log?{encoded_uri}', headers=headers)
+
+    expected_status_code = 200
+
+    assert response.status_code == expected_status_code
+    assert response.json()['message'] == 'Retrieve code system importing log is successful'

@@ -11,3 +11,4 @@ manager_router.add_api_route('/update_terminology_metadata', update_terminology_
 manager_router.add_api_route('/delete_terminology_metadata', delete_terminology_metadata, methods=['DELETE'], description='Delete Terminology metadata')
 manager_router.add_api_route('/retrieve_archived_code_system', retrieve_archived_code_system, methods=['GET'], description='Retrieve CodeSystem zip file via filename')
 manager_router.add_api_route('/call_importing_archived_code_system', call_importing_archived_code_system, methods=['GET'], description='Importing archived CodeSystem via zip filename to fhir_data_manager (fhir_server_adapter)')
+manager_router.add_api_route('/call_retrieving_code_system_log', call_retrieving_code_system_log, methods=['GET'], description='Importing archived CodeSystem via zip filename to fhir_data_manager (fhir_server_adapter)')

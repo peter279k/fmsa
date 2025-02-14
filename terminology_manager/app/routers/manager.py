@@ -1,5 +1,6 @@
 import os
 import httpx
+from urllib.parse import urlencode
 
 from app.item_models.terminology_metadata import *
 from app.modules import TerminologyManager
@@ -238,9 +239,32 @@ async def call_importing_archived_code_system(request: Request):
             status_code=status_code
         )
 
+    query_params = {
+        'filename': 'Loinc_2.72.zip',
+        'code_system_url': 'http://loinc.org',
+    }
+    encoded_uri = urlencode(query_params)
 
     response = httpx.get(
-        'http://fhir_data_manager:8000/api/v1/import_archived_code_system?{}',
+        f'http://fhir_data_manager:8000/api/v1/import_archived_code_system?{encoded_uri}',
+        headers=headers
+    )
+
+    return JSONResponse(
+        response.json(),
+        status_code=response.status_code,
+    )
+
+async def call_retrieving_code_system_log(request: Request):
+    headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+
+    processed_id = request.query_params.get('processed_id', '')
+    encoded_uri = urlencode({
+        'processed_id': processed_id,
+    })
+
+    response = httpx.get(
+        f'http://fhir_data_manager:8000/api/v1/retrieve_code_system_log?{encoded_uri}',
         headers=headers
     )
 
