@@ -5,8 +5,8 @@ WORKDIR /app
 COPY . /app/
 
 RUN apt-get update \
-    && apt-get install gcc wget openjdk-17-jdk wget unzip -y \
-    && wget https://github.com/hapifhir/hapi-fhir/releases/download/v7.6.0/hapi-fhir-7.6.0-cli.zip \
+    && apt-get install gcc wget openjdk-17-jdk wget unzip procps -y \
+    && wget -O hapi-fhir-7.6.0-cli.zip https://github.com/hapifhir/hapi-fhir/releases/download/v7.6.0/hapi-fhir-7.6.0-cli.zip \
     && mkdir hapi-fhir-cli && cd hapi-fhir-cli \
     && unzip ../hapi-fhir-7.6.0-cli.zip \
     && cd .. \
