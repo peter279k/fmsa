@@ -44,9 +44,10 @@ async def retrieve_resource(request: Request, resource_name: str):
 async def import_archived_code_system(request: Request, background_tasks: BackgroundTasks):
     status_code = 200
     zip_filename = request.query_params.get('filename', '')
+    code_system_url = request.query_params.get('code_system_url', '')
 
     processed_id = uuid.uuid4().hex
-    background_tasks.add_task(execute_hapi_fhir_cli_task, zip_filename, processed_id)
+    background_tasks.add_task(execute_hapi_fhir_cli_task, zip_filename, processed_id, code_system_url)
 
     return JSONResponse(
         {
@@ -57,7 +58,7 @@ async def import_archived_code_system(request: Request, background_tasks: Backgr
         status_code=status_code
     )
 
-async def execute_hapi_fhir_cli_task(zip_filename: str, processed_id: str):
+async def execute_hapi_fhir_cli_task(zip_filename: str, processed_id: str, code_system_url: str):
     headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
     encoded_uri = urlencode({'filename': zip_filename})
     response = httpx.get(
@@ -104,7 +105,7 @@ async def execute_hapi_fhir_cli_task(zip_filename: str, processed_id: str):
         with open(zip_filename, mode='wb') as f:
             f.write(response.content)
 
-        command = f'/app/hapi-fhir-cli/hapi-fhir-cli upload-terminology -d /tmp/{zip_filename} -v r4 -t http://fhir-server-adapter:8080/fhir -u http://loinc.org -s 10GB'
+        command = f'/app/hapi-fhir-cli/hapi-fhir-cli upload-terminology -d /tmp/{zip_filename} -v r4 -t http://fhir-server-adapter:8080/fhir -u {code_system_url} -s 10GB'
         commands = command.split(' ')
         result = subprocess.run(commands, capture_output=True)
         log_content = {

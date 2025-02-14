@@ -11,7 +11,8 @@ client = TestClient(app)
 @pytest.mark.dependency()
 def test_import_archived_code_system():
     filename = {
-        'filename': 'Loinc_2.72.zip'
+        'filename': 'Loinc_2.72.zip',
+        'code_system_url': 'http://loinc.org',
     }
     encoded_uri = urlencode(filename)
 
