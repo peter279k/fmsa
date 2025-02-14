@@ -167,6 +167,11 @@ services:
     command: uvicorn app.main:app --host 0.0.0.0 --workers ${FHIR_DATA_MANAGER_UVICORN_WORKERS} --port 8000
     volumes:
       - ./fhir_data_manager/app/tests:/app/app/tests
+      - ./fhir_data_manager/app/modules:/app/app/modules
+      - ./fhir_data_manager/app/routers:/app/app/routers
+      - ./fhir_data_manager/app/item_models:/app/app/item_models
+      - ./fhir_data_manager/app/main.py:/app/app/main.py
+      - ./fhir_data_manager/app/__init__.py:/app/app/__init__.py
     environment:
       - FHIR_DATA_MANAGER_DB_USER=${FHIR_DATA_MANAGER_DB_USER}
       - FHIR_DATA_MANAGER_DB_PASSWORD=${FHIR_DATA_MANAGER_DB_PASSWORD}
