@@ -221,10 +221,12 @@ async def retrieve_archived_code_system(request: Request):
         media_type=media_type,
     )
 
-async def import_archived_code_system(request: Request):
+async def call_importing_archived_code_system(request: Request):
+    headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+
     zip_filename = request.query_params.get('filename', '')
     zip_filepath = '/tmp/{}'.format(zip_filename)
-    status_code = 404
+    status_code = 400
 
     if os.path.isfile(zip_filepath) is False:
         return JSONResponse(
@@ -239,5 +241,10 @@ async def import_archived_code_system(request: Request):
 
     response = httpx.get(
         'http://fhir_data_manager:8000/api/v1/import_archived_code_system?{}',
-        headers=self.headers
+        headers=headers
+    )
+
+    return JSONResponse(
+        response.json(),
+        status_code=response.status_code,
     )

@@ -179,3 +179,14 @@ def test_retrieve_archived_code_system():
 
     assert response.status_code == expected_status_code
     assert len(response.content) == expected_content_size
+
+def call_importing_archived_code_system_with_non_existed_file():
+    headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+    encoded_uri = urlencode({'filename': 'non_existed.zip'})
+
+    response = client.get(f'/api/v1/call_importing_archived_code_system?{encoded_uri}', headers=headers)
+
+    expected_status_code = 400
+
+    assert response.status_code == expected_status_code
+    assert response.json()['message'] == 'The non_existed.zip file is not found.'
