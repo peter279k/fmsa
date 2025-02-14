@@ -47,4 +47,4 @@ def test_retrieve_code_system_log_with_empty_data_result():
     assert response_json['status'] == 200
     assert response_json['message'] == 'Retrieve code system importing log is successful'
     assert len(response_json['data']) == 1
-    assert response_json['data'] == {}
+    assert response_json['data'][0] == {}
