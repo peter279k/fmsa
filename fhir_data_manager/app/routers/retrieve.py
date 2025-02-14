@@ -91,11 +91,30 @@ async def execute_hapi_fhir_cli_task(zip_filename: str, processed_id: str):
             task_log.mongo_client.close()
             pass
 
+    check_fhir_server_process = 'ps aux | grep [h]api-fhir-cli'
+    result = subprocess.run(check_fhir_server_process.split(' '), capture_output=True)
+    if result.returncode > 0:
+        try:
+            log_content = {
+                'processed_id': processed_id,
+                'created':  datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                'message': 'Another hapi-fhir-cli process is still running.',
+            }
+
+            task_log = TaskLog.TaskLog()
+            task_log.write_log(log_content)
+            task_log.mongo_client.close()
+        except Exception as e:
+            # TODO: ELK integration
+            pass
+
+        return False
+
     try:
         with open(zip_filename, mode='wb') as f:
             f.write(response.content)
 
-        command = f'./hapi-fhir-cli upload-terminology -d /tmp/{zip_filename} -v r4 -t http://fhir-server-adapter:8080/fhir -u http://loinc.org -s 10GB'
+        command = f'/app/hapi-fhir-cli/hapi-fhir-cli upload-terminology -d /tmp/{zip_filename} -v r4 -t http://fhir-server-adapter:8080/fhir -u http://loinc.org -s 10GB'
         commands = command.split(' ')
         result = subprocess.run(commands, capture_output=True)
         log_content = {
@@ -109,6 +128,29 @@ async def execute_hapi_fhir_cli_task(zip_filename: str, processed_id: str):
         task_log.write_log(log_content)
         task_log.mongo_client.close()
 
+    except Exception as e:
+        # TODO: ELK integration
+        task_log.mongo_client.close()
+        pass
+
+async def retrieve_code_system_log(request: Request):
+    status_code = 200
+    processed_id = request.query_params.get('processed_id', '')
+
+    try:
+        params = {'processed_id': processed_id}
+        task_log = TaskLog.TaskLog()
+        result = task_log.get_log(params)
+        task_log.mongo_client.close()
+
+        return JSONResponse(
+            {
+                'status': status_code,
+                'message': 'Retrieve code system importing log is successful',
+                'data': [result],
+            },
+            status_code=status_code
+        )
     except Exception as e:
         # TODO: ELK integration
         task_log.mongo_client.close()

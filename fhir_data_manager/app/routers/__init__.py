@@ -12,3 +12,4 @@ retrieve_resource_router.add_api_route('/retrieve/{resource_name}', retrieve_res
 
 hapi_fhir_server_adapter_router = APIRouter(tags=['Interacting the HAPI FHIR server adapter'], prefix='/api/v1')
 hapi_fhir_server_adapter_router.add_api_route('/import_archived_code_system', import_archived_code_system, methods=['GET'], description='Import specific archived code system file')
+hapi_fhir_server_adapter_router.add_api_route('/retrieve_code_system_log', retrieve_code_system_log, methods=['GET'], description='Retrieve specific code system importing log')
