@@ -44,16 +44,6 @@ async def retrieve_resource(request: Request, resource_name: str):
 async def import_archived_code_system(request: Request, background_tasks: BackgroundTasks):
     status_code = 200
     zip_filename = request.query_params.get('filename', '')
-    if os.path.isfile(zip_filename) is False:
-        status_code = 404
-        return JSONResponse(
-            {
-                'status': status_code,
-                'message': f'The {zip_filename} file is not found.',
-                'data': [],
-            },
-            status_code=status_code
-        )
 
     processed_id = uuid.uuid4().hex
     background_tasks.add_task(execute_hapi_fhir_cli_task, zip_filename, processed_id)
