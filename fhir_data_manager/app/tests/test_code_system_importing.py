@@ -1,4 +1,3 @@
-import time
 import pytest
 import subprocess
 from app.main import app
