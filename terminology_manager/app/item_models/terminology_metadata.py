@@ -1,3 +1,4 @@
+from typing import Dict
 from pydantic import BaseModel
 
 
@@ -16,3 +17,6 @@ class UpdateTerminologyMetadata(BaseModel):
     new_name: str
     new_created: str
     new_filename: str
+
+class CodeSystemPayloadModel(BaseModel):
+    resource: Dict
