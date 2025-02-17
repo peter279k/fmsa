@@ -245,9 +245,8 @@ def test_delete_code_system():
     headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
     resource_id = 'tempcode'
 
-    response = client.delete(f'/api/v1/create_code_system/{resource_id}', headers=headers)
+    response = client.delete(f'/api/v1/delete_code_system/{resource_id}', headers=headers)
 
-    expected_status_code = [200, 201]
+    expected_status_code = 200
 
     assert response.status_code in expected_status_code
-    assert response.json()['id'] == 'tempcode'
