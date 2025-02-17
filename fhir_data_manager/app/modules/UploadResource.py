@@ -10,12 +10,19 @@ class UploadResource:
         }
         self.fhir_server_url = f'http://fhir-server-adapter:8080/fhir/{resource_name}'
 
-    def upload(self):
+    def upload(self, method='POST'):
         resource = self.item_dict['resource']
-        response = httpx.post(
-            self.fhir_server_url,
-            headers=self.headers,
-            json=resource
-        )
+        if method == 'PUT':
+            response = httpx.put(
+                f"{self.fhir_server_url}/{self.item_dict['resource']['id']}",
+                headers=self.headers,
+                json=resource
+            )
+        else:
+            response = httpx.post(
+                self.fhir_server_url,
+                headers=self.headers,
+                json=resource
+            )
 
         return response

@@ -1,0 +1,209 @@
+{
+  "resourceType": "CodeSystem",
+  "id": "tempcode",
+  "meta": {
+    "versionId": "2",
+    "lastUpdated": "2025-02-17T14:10:54.570+00:00",
+    "source": "#ndn2b7yypQNq9NGO"
+  },
+  "url": "https://hapi.fhir.tw/fhir/CodeSystem/tempcode",
+  "version": "0.1.0",
+  "name": "TempCode",
+  "title": "暫時使用的代碼",
+  "status": "active",
+  "experimental": false,
+  "date": "2024-05-14",
+  "publisher": "CYLAB",
+  "contact": [ {
+    "name": "CYLAB",
+    "telecom": [ {
+      "system": "url",
+      "value": "https://mitw.dicom.org.tw/"
+    } ]
+  } ],
+  "description": "暫時使用的代碼，目前無官方代碼。",
+  "copyright": "World Health Organization (WHO)",
+  "caseSensitive": true,
+  "content": "complete",
+  "count": 17,
+  "property": [ {
+    "code": "updateDate",
+    "description": "異動日期",
+    "type": "string"
+  }, {
+    "code": "event",
+    "description": "異動方式",
+    "type": "string"
+  } ],
+  "concept": [ {
+    "code": "PhysicalActivity",
+    "display": "Physical Activity",
+    "property": [ {
+      "code": "updateDate",
+      "valueString": "2024-06"
+    }, {
+      "code": "event",
+      "valueString": "新增"
+    } ]
+  }, {
+    "code": "BCA",
+    "display": "Body Composition Analysis",
+    "property": [ {
+      "code": "updateDate",
+      "valueString": "2024-06"
+    }, {
+      "code": "event",
+      "valueString": "新增"
+    } ]
+  }, {
+    "code": "Protein",
+    "display": "蛋白質重",
+    "property": [ {
+      "code": "updateDate",
+      "valueString": "2024-06"
+    }, {
+      "code": "event",
+      "valueString": "新增"
+    } ]
+  }, {
+    "code": "FFMI",
+    "display": "無脂肪質量指數",
+    "property": [ {
+      "code": "updateDate",
+      "valueString": "2024-06"
+    }, {
+      "code": "event",
+      "valueString": "新增"
+    } ]
+  }, {
+    "code": "VFI",
+    "display": "內臟脂肪指數",
+    "property": [ {
+      "code": "updateDate",
+      "valueString": "2024-06"
+    }, {
+      "code": "event",
+      "valueString": "新增"
+    } ]
+  }, {
+    "code": "Mineral",
+    "display": "礦物質重",
+    "property": [ {
+      "code": "updateDate",
+      "valueString": "2024-06"
+    }, {
+      "code": "event",
+      "valueString": "新增"
+    } ]
+  }, {
+    "code": "BodyAge",
+    "display": "體內年齡",
+    "property": [ {
+      "code": "updateDate",
+      "valueString": "2024-06"
+    }, {
+      "code": "event",
+      "valueString": "新增"
+    } ]
+  }, {
+    "code": "WHR",
+    "display": "腰臀圍比",
+    "property": [ {
+      "code": "updateDate",
+      "valueString": "2024-06"
+    }, {
+      "code": "event",
+      "valueString": "新增"
+    } ]
+  }, {
+    "code": "ObesityDegree",
+    "display": "肥胖度",
+    "property": [ {
+      "code": "updateDate",
+      "valueString": "2024-06"
+    }, {
+      "code": "event",
+      "valueString": "新增"
+    } ]
+  }, {
+    "code": "DLM",
+    "display": "除脂乾物重",
+    "property": [ {
+      "code": "updateDate",
+      "valueString": "2024-06"
+    }, {
+      "code": "event",
+      "valueString": "新增"
+    } ]
+  }, {
+    "code": "ICW",
+    "display": "細胞內水分",
+    "property": [ {
+      "code": "updateDate",
+      "valueString": "2024-06"
+    }, {
+      "code": "event",
+      "valueString": "新增"
+    } ]
+  }, {
+    "code": "ECW",
+    "display": "細胞外水分",
+    "property": [ {
+      "code": "updateDate",
+      "valueString": "2024-06"
+    }, {
+      "code": "event",
+      "valueString": "新增"
+    } ]
+  }, {
+    "code": "SMM",
+    "display": "骨骼肌重",
+    "property": [ {
+      "code": "updateDate",
+      "valueString": "2024-06"
+    }, {
+      "code": "event",
+      "valueString": "新增"
+    } ]
+  }, {
+    "code": "SMI",
+    "display": "肌肉質量指數",
+    "property": [ {
+      "code": "updateDate",
+      "valueString": "2024-06"
+    }, {
+      "code": "event",
+      "valueString": "新增"
+    } ]
+  }, {
+    "code": "BodyCellMass",
+    "display": "細胞量",
+    "property": [ {
+      "code": "updateDate",
+      "valueString": "2024-06"
+    }, {
+      "code": "event",
+      "valueString": "新增"
+    } ]
+  }, {
+    "code": "SLM",
+    "display": "肌肉量",
+    "property": [ {
+      "code": "updateDate",
+      "valueString": "2024-06"
+    }, {
+      "code": "event",
+      "valueString": "新增"
+    } ]
+  }, {
+    "code": "ECWRatio",
+    "display": "水腫指數",
+    "property": [ {
+      "code": "updateDate",
+      "valueString": "2024-06"
+    }, {
+      "code": "event",
+      "valueString": "新增"
+    } ]
+  } ]
+}

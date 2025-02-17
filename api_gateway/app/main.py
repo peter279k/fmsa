@@ -677,6 +677,18 @@ async def retrieve_archived_code_system(request: Request, response: Response):
     pass
 
 @route(
+    request_method=terminology_manager_router.get,
+    service_url=SERVICE_URLS[6],
+    gateway_path='/create_code_system',
+    service_path='/api/v1/create_code_system',
+    status_code=status.HTTP_200_OK,
+    tags=['Create specific CodeSystem resource to the fhir_data_manager'],
+    dependencies=[Depends(check_api_key)],
+)
+async def create_code_system(request: Request, response: Response):
+    pass
+
+@route(
     request_method=fhir_data_manager_router.get,
     service_url=SERVICE_URLS[7],
     gateway_path='/import_archived_code_system',
@@ -698,6 +710,18 @@ async def import_archived_code_system(request: Request, response: Response):
     dependencies=[Depends(check_api_key)],
 )
 async def upload_resource(request: Request, response: Response):
+    pass
+
+@route(
+    request_method=fhir_data_manager_router.post,
+    service_url=SERVICE_URLS[7],
+    gateway_path='/update/{resource_name}',
+    service_path='/api/v1/update/{resource_name}',
+    status_code=status.HTTP_200_OK,
+    tags=['Update FHIR resource with the fhir_data_manager'],
+    dependencies=[Depends(check_api_key)],
+)
+async def update_resource(request: Request, response: Response):
     pass
 
 @route(

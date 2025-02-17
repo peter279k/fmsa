@@ -1,4 +1,5 @@
 import os
+import json
 import pytest
 import datetime
 import subprocess
@@ -220,3 +221,17 @@ def test_call_retrieving_code_system_log():
 
     assert response.status_code == expected_status_code
     assert response.json()['message'] == 'Retrieve code system importing log is successful'
+
+def test_create_code_system():
+    headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+
+    with open('/app/app/tests/pa_tempcode.json', 'r') as f:
+        pa_temp_code_json_str = f.read()
+
+    pa_temp_code_json = json.loads(pa_temp_code_json_str)
+    response = client.put(f'/api/v1/create_code_system', headers=headers, json=pa_temp_code_json)
+
+    expected_status_code = 200
+
+    assert response.status_code == expected_status_code
+    assert response.json()['id'] == 'tempcode'
