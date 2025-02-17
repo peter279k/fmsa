@@ -14,4 +14,4 @@ manager_router.add_api_route('/call_importing_archived_code_system', call_import
 manager_router.add_api_route('/call_retrieving_code_system_log', call_retrieving_code_system_log, methods=['GET'], description='Importing archived CodeSystem via zip filename to fhir_data_manager (fhir_server_adapter)')
 
 manager_router.add_api_route('/create_code_system', create_code_system, methods=['PUT'], description='Create specific CodeSystem to the fhir_data_manager (fhir_server_adapter)')
-#manager_router.add_api_route('/delete_code_system', delete_code_system, methods=['DELETE'], description='Delete specific CodeSystem to the fhir_data_manager (fhir_server_adapter)')
+manager_router.add_api_route('/delete_code_system/{resource_id}', delete_code_system, methods=['DELETE'], description='Delete specific CodeSystem to the fhir_data_manager (fhir_server_adapter)')

@@ -677,7 +677,7 @@ async def retrieve_archived_code_system(request: Request, response: Response):
     pass
 
 @route(
-    request_method=terminology_manager_router.get,
+    request_method=terminology_manager_router.put,
     service_url=SERVICE_URLS[6],
     gateway_path='/create_code_system',
     service_path='/api/v1/create_code_system',
@@ -686,6 +686,18 @@ async def retrieve_archived_code_system(request: Request, response: Response):
     dependencies=[Depends(check_api_key)],
 )
 async def create_code_system(request: Request, response: Response):
+    pass
+
+@route(
+    request_method=terminology_manager_router.delete,
+    service_url=SERVICE_URLS[6],
+    gateway_path='/delete_code_system',
+    service_path='/api/v1/delete_code_system',
+    status_code=status.HTTP_200_OK,
+    tags=['Delete specific CodeSystem resource to the fhir_data_manager'],
+    dependencies=[Depends(check_api_key)],
+)
+async def delete_code_system(request: Request, response: Response):
     pass
 
 @route(
@@ -713,7 +725,7 @@ async def upload_resource(request: Request, response: Response):
     pass
 
 @route(
-    request_method=fhir_data_manager_router.post,
+    request_method=fhir_data_manager_router.put,
     service_url=SERVICE_URLS[7],
     gateway_path='/update/{resource_name}',
     service_path='/api/v1/update/{resource_name}',
@@ -734,6 +746,18 @@ async def update_resource(request: Request, response: Response):
     dependencies=[Depends(check_api_key)],
 )
 async def retrieve_track13_2024_service_request(request: Request, response: Response):
+    pass
+
+@route(
+    request_method=fhir_data_manager_router.delete,
+    service_url=SERVICE_URLS[7],
+    gateway_path='/delete/{resource_name}/{resource_id}',
+    service_path='/api/v1/delete/{resource_name}/{resource_id}',
+    status_code=status.HTTP_200_OK,
+    tags=['Delete FHIR resource with the fhir_data_manager'],
+    dependencies=[Depends(check_api_key)],
+)
+async def delete_resource(request: Request, response: Response):
     pass
 
 

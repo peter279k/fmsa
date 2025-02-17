@@ -57,3 +57,29 @@ async def update_resource(resource_name: str, item: UploadPayloadModel):
             },
             status_code=status_code
         )
+
+async def delete_resource(resource_name: str, resource_id: str):
+    status_code = 200
+
+    try:
+        upload_resource = UploadResource.UploadResource(resource_name, {})
+        deleted_result = upload_resource.delete(resource_id)
+        return JSONResponse(
+            {
+                'status': deleted_result.status_code,
+                'message': f'Uploading {resource_name} is successful.',
+                'data': [deleted_result.json()],
+            },
+            status_code=deleted_result.status_code
+        )
+    except Exception as e:
+        status_code = 500
+
+        return JSONResponse(
+            {
+                'status': status_code,
+                'message': str(e),
+                'data': [{'resource_id': resource_id}],
+            },
+            status_code=status_code
+        )

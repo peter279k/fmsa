@@ -222,6 +222,7 @@ def test_call_retrieving_code_system_log():
     assert response.status_code == expected_status_code
     assert response.json()['message'] == 'Retrieve code system importing log is successful'
 
+@pytest.mark.dependency()
 def test_create_code_system():
     headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
 
@@ -234,7 +235,19 @@ def test_create_code_system():
     }
     response = client.put(f'/api/v1/create_code_system', headers=headers, json=payload)
 
-    expected_status_code = 200
+    expected_status_code = [200, 201]
 
-    assert response.status_code == expected_status_code
+    assert response.status_code in expected_status_code
+    assert response.json()['id'] == 'tempcode'
+
+@pytest.mark.dependency(depends=['test_create_code_system'])
+def test_delete_code_system():
+    headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+    resource_id = 'tempcode'
+
+    response = client.delete(f'/api/v1/create_code_system/{resource_id}', headers=headers)
+
+    expected_status_code = [200, 201]
+
+    assert response.status_code in expected_status_code
     assert response.json()['id'] == 'tempcode'

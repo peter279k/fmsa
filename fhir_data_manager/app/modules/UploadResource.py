@@ -26,3 +26,11 @@ class UploadResource:
             )
 
         return response
+
+    def delete(self, resource_id: str):
+        response = httpx.delete(
+            f"{self.fhir_server_url}/{resource_id}",
+            headers=self.headers
+        )
+
+        return response

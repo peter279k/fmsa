@@ -288,3 +288,17 @@ async def create_code_system(item: CodeSystemPayloadModel):
         response.json(),
         status_code=response.status_code,
     )
+
+async def delete_code_system(resource_id: str):
+    headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+
+    resource_name = 'CodeSystem'
+    response = httpx.delete(
+        f'http://fhir_data_manager:8000/api/v1/update/{resource_name}/{resource_id}',
+        headers=headers
+    )
+
+    return JSONResponse(
+        response.json(),
+        status_code=response.status_code,
+    )
