@@ -229,7 +229,10 @@ def test_create_code_system():
         pa_temp_code_json_str = f.read()
 
     pa_temp_code_json = json.loads(pa_temp_code_json_str)
-    response = client.put(f'/api/v1/create_code_system', headers=headers, json=pa_temp_code_json)
+    payload = {
+        'resource': pa_temp_code_json,
+    }
+    response = client.put(f'/api/v1/create_code_system', headers=headers, json=payload)
 
     expected_status_code = 200
 
