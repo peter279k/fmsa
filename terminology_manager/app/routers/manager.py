@@ -294,7 +294,7 @@ async def delete_code_system(resource_id: str):
 
     resource_name = 'CodeSystem'
     response = httpx.delete(
-        f'http://fhir_data_manager:8000/api/v1/update/{resource_name}/{resource_id}',
+        f'http://fhir_data_manager:8000/api/v1/delete/{resource_name}/{resource_id}',
         headers=headers
     )
 
