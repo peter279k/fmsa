@@ -238,7 +238,7 @@ def test_create_code_system():
     expected_status_code = [200, 201]
 
     assert response.status_code in expected_status_code
-    assert response.json()['id'] == 'tempcode'
+    assert response.json()['data'][0]['id'] == 'tempcode'
 
 @pytest.mark.dependency(depends=['test_create_code_system'])
 def test_delete_code_system():
@@ -249,4 +249,5 @@ def test_delete_code_system():
 
     expected_status_code = 200
 
-    assert response.status_code in expected_status_code
+    assert response.status_code == expected_status_code
+    assert response.json()['message'] == f'Deleting {resource_id} is successful.'

@@ -67,7 +67,7 @@ async def delete_resource(resource_name: str, resource_id: str):
         return JSONResponse(
             {
                 'status': deleted_result.status_code,
-                'message': f'Uploading {resource_name} is successful.',
+                'message': f'Deleting {resource_id} is successful.',
                 'data': [deleted_result.json()],
             },
             status_code=deleted_result.status_code
