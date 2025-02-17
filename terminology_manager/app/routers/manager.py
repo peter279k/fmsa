@@ -278,7 +278,7 @@ async def create_code_system(item: CodeSystemPayloadModel):
     payload = {
         'resource': item_dict,
     }
-    headers = {'Content-Type': 'application/fhir+json', 'Accept': 'application/fhir+json'}
+    headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
 
     resource_name = 'CodeSystem'
     response = httpx.put(
