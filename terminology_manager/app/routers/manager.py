@@ -275,13 +275,16 @@ async def call_retrieving_code_system_log(request: Request):
 
 async def create_code_system(item: CodeSystemPayloadModel):
     item_dict = item.model_dump()
+    payload = {
+        'resource': item_dict,
+    }
     headers = {'Content-Type': 'application/fhir+json', 'Accept': 'application/fhir+json'}
 
     resource_name = 'CodeSystem'
     response = httpx.put(
         f'http://fhir_data_manager:8000/api/v1/update/{resource_name}',
         headers=headers,
-        json=item_dict
+        json=payload
     )
 
     return JSONResponse(
