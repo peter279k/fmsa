@@ -29,4 +29,4 @@ def test_import_archived_code_system():
     assert response.status_code == 200
     assert response_json['message'] == f'Converting data with {module_name} is successful.'
     assert len(response_json['data'][0]) == len(expected_converted_json_list)
-    assert response_json['data'][0][1] == expected_converted_json_list[2]
+    assert response_json['data'][0] == expected_converted_json_list
