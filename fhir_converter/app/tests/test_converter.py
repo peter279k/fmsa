@@ -17,7 +17,7 @@ def test_import_archived_code_system():
     }
     headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
 
-    response = client.get(f'/api/v1/convert', headers=headers, json=payload)
+    response = client.post(f'/api/v1/convert', headers=headers, json=payload)
     response_json = response.json()
 
     assert response.status_code == 200
