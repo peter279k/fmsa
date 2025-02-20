@@ -1,3 +1,4 @@
+import json
 import pytest
 from app.main import app
 from fastapi.testclient import TestClient
@@ -13,7 +14,7 @@ def test_import_archived_code_system():
     module_name = 'GoldenSmartHomeConverter'
     payload = {
         'module_name': module_name,
-        'original_data': golden_smart_home_data,
+        'original_data': json.loads(golden_smart_home_data),
     }
     headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
 
