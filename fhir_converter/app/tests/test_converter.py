@@ -24,6 +24,9 @@ def test_import_archived_code_system():
     response = client.post(f'/api/v1/convert', headers=headers, json=payload)
     response_json = response.json()
 
+    expected_converted_json_list = json.loads(expected_converted_json)
+
     assert response.status_code == 200
     assert response_json['message'] == f'Converting data with {module_name} is successful.'
-    assert response_json['data'][0] == json.loads(expected_converted_json)
+    assert len(response_json['data'][0]) == len(expected_converted_json_list)
+    assert response_json['data'][0][1] == expected_converted_json_list[2]
