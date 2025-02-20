@@ -1,7 +1,7 @@
-from typing import Dict
+from typing import List
 from pydantic import BaseModel
 
 
 class OriginalPayload(BaseModel):
     module_name: str
-    original_data: Dict
+    original_data: List
