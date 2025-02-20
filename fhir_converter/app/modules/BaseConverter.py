@@ -10,6 +10,6 @@ class BaseConverter:
     def convert(self):
         module_instance = importlib.import_module(f'{self.module_prefix}{self.module_name}')
         module_instance = getattr(module_instance, self.module_name)
-        converted_result = module_instance.convert(self.original_data)
+        converted_result = module_instance().convert(self.original_data)
 
         return converted_result
