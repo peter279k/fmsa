@@ -24,6 +24,7 @@ app = FastAPI(title='FMSA API Gateway')
 account_router = APIRouter(prefix='/api/v1')
 fhir_ig_manager_router = APIRouter(prefix='/api/v1')
 fhir_profile_manager_router = APIRouter(prefix='/api/v1')
+fhir_converter_router = APIRouter(prefix='/api/v1')
 fhir_generator_router = APIRouter(prefix='/api/v1')
 fhir_data_manager_router = APIRouter(prefix='/api/v1')
 terminology_manager_router = APIRouter(prefix='/api/v1')
@@ -434,6 +435,18 @@ async def track8_2024_document_reference_resource(request: Request, response: Re
     dependencies=[Depends(check_api_key)],
 )
 async def track8_2024_care_plan_resource(request: Request, response: Response):
+    pass
+
+@route(
+    request_method=fhir_converter_router.post,
+    service_url=SERVICE_URLS[4],
+    gateway_path='/convert',
+    service_path='/api/v1/convert',
+    status_code=status.HTTP_200_OK,
+    tags=['Convert original data to FHIR-based standard with the specific converter'],
+    dependencies=[Depends(check_api_key)],
+)
+async def convert(request: Request, response: Response):
     pass
 
 @route(
