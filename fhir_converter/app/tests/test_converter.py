@@ -12,7 +12,7 @@ def test_import_archived_code_system():
         golden_smart_home_data = f.read()
 
     with open('/app/app/tests/expected_sport.raw_data_goldensmarthome_20241212.json') as f:
-        golden_smart_home_data = f.read()
+        expected_converted_json = f.read()
 
     module_name = 'GoldenSmartHomeConverter'
     payload = {
@@ -26,4 +26,4 @@ def test_import_archived_code_system():
 
     assert response.status_code == 200
     assert response_json['message'] == f'Converting data with {module_name} is successful.'
-    assert response_json['data'][0] == expected_converted_json
+    assert response_json['data'][0] == json.loads(expected_converted_json)
