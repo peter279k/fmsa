@@ -3,7 +3,7 @@ from fhir_data_generator import PatientEX
 
 
 class GoldenSmartHomeConverter:
-    def convert(self, original_data: dict):
+    def convert(self, original_data: list):
         user_ids = []
         user_id_info = {}
         mapping_gender = {
