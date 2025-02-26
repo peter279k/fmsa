@@ -7,7 +7,13 @@
 # Development server
 
 - The worker server is deployed in the purevoltage (KVM-based VPS)
+  - CPU: 4 cores
+  - RAM: 16GB
+  - HDD: QEMU HARDDISK 200GB
 - The FMSA is deployed in the colocrossing (A dedicated server)
+  - CPU: Intel(R) Xeon(R) CPU E3-1271 v3
+  - RAM: 16GB
+  - HDD: Samsung SSD 850 EVO 1TB
 
 # References
 
