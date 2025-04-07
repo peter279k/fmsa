@@ -13,8 +13,9 @@ async def convert_to_fhir(item: OriginalPayload):
 
     try:
         status_code = 200
-        module_name = importlib.import_module(f'app.modules.{module_name}')
-        converter_service = ConverterService.ConverterService(module_name)
+        module_package = importlib.import_module(f'app.modules.{module_name}')
+        module_object = getattr(module_package, module_name)
+        converter_service = ConverterService.ConverterService(module_object)
         converted_result = converter_service.convert(original_data)
 
         return JSONResponse(
