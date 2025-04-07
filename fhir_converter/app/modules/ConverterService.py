@@ -5,5 +5,5 @@ class ConverterService:
     def __init__(self, converter: BaseConverter):
         self.converter = converter
 
-    def convert(self, original_data):
+    def convert(self, original_data: list):
         return self.converter.convert(original_data)
