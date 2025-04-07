@@ -1,5 +1,5 @@
-import importlib
 from app.item_models.original_payload import OriginalPayload
+from app.modules import GoldenSmartHomeConverter
 from app.modules import ConverterService
 
 from fastapi.responses import JSONResponse
@@ -13,10 +13,10 @@ async def convert_to_fhir(item: OriginalPayload):
 
     try:
         status_code = 200
-        module_package = importlib.import_module(f'app.modules.{module_name}')
-        module_object = getattr(module_package, module_name)
-        converter_service = ConverterService.ConverterService(module_object)
-        converted_result = converter_service.converter.convert(original_data)
+        if module_name == 'GoldenSmartHomeConverter':
+            converter_service = ConverterService.ConverterService(GoldenSmartHomeConverter())
+
+        converted_result = converter_service.converting(original_data)
 
         return JSONResponse(
             {
