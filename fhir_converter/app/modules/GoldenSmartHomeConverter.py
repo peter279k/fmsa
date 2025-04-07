@@ -1,8 +1,9 @@
 import hashlib
 from fhir_data_generator import PatientEX
+from app.modules.BaseConverter import BaseConverter
 
 
-class GoldenSmartHomeConverter:
+class GoldenSmartHomeConverter(BaseConverter):
     def convert(self, original_data: list):
         user_ids = []
         user_id_info = {}
