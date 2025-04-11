@@ -25,6 +25,7 @@ account_router = APIRouter(prefix='/api/v1')
 fhir_ig_manager_router = APIRouter(prefix='/api/v1')
 fhir_profile_manager_router = APIRouter(prefix='/api/v1')
 fhir_converter_router = APIRouter(prefix='/api/v1')
+data_analysis_router = APIRouter(prefix='/api/v1')
 fhir_generator_router = APIRouter(prefix='/api/v1')
 fhir_data_manager_router = APIRouter(prefix='/api/v1')
 terminology_manager_router = APIRouter(prefix='/api/v1')
@@ -450,6 +451,18 @@ async def convert(request: Request, response: Response):
     pass
 
 @route(
+    request_method=data_analysis_router.post,
+    service_url=SERVICE_URLS[1],
+    gateway_path='/analyze',
+    service_path='/api/v1/analyze',
+    status_code=status.HTTP_200_OK,
+    tags=['Analyze numeric data array with the specific statistic calculator'],
+    dependencies=[Depends(check_api_key)],
+)
+async def analyze(request: Request, response: Response):
+    pass
+
+@route(
     request_method=fhir_ig_manager_router.get,
     service_url=SERVICE_URLS[5],
     gateway_path='/ig',
@@ -779,3 +792,4 @@ app.include_router(fhir_ig_manager_router)
 app.include_router(fhir_profile_manager_router)
 app.include_router(fhir_generator_router)
 app.include_router(fhir_data_manager_router)
+app.include_router(data_analysis_router)
