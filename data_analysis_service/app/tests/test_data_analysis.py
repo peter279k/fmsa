@@ -115,7 +115,26 @@ def test_stdev_mode_without_xbar():
     assert response_json['message'] == f'Analyzing data with {module_name} is successful.'
     assert round(response_json['data'][0], precision) == expected_rounded_value
 
-def test_stdev_mode_with_xbar():
+def test_stdev_mode_with_xbar_none():
+    module_name = 'StdevStatistics'
+    payload = {
+        'module_name': module_name,
+        'data': [1, 2, 3, 3, 3],
+        'params': {'xbar': None},
+    }
+    headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+
+    response = client.post(f'/api/v1/analyze', headers=headers, json=payload)
+    response_json = response.json()
+
+    expected_rounded_value = 0.9
+    precision = 1
+
+    assert response.status_code == 200
+    assert response_json['message'] == f'Analyzing data with {module_name} is successful.'
+    assert round(response_json['data'][0], precision) == expected_rounded_value
+
+def test_stdev_mode_with_xbar_integer():
     module_name = 'StdevStatistics'
     payload = {
         'module_name': module_name,
@@ -128,6 +147,25 @@ def test_stdev_mode_with_xbar():
     response_json = response.json()
 
     expected_rounded_value = 1.8
+    precision = 1
+
+    assert response.status_code == 200
+    assert response_json['message'] == f'Analyzing data with {module_name} is successful.'
+    assert round(response_json['data'][0], precision) == expected_rounded_value
+
+def test_stdev_mode_with_xbar_float():
+    module_name = 'StdevStatistics'
+    payload = {
+        'module_name': module_name,
+        'data': [1, 2, 3, 3, 3],
+        'params': {'xbar': 1.2},
+    }
+    headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+
+    response = client.post(f'/api/v1/analyze', headers=headers, json=payload)
+    response_json = response.json()
+
+    expected_rounded_value = 1.6
     precision = 1
 
     assert response.status_code == 200
