@@ -1,3 +1,4 @@
 fastapi==0.115.8
 uvicorn==0.20.0
 httpx==0.26.0
+circuit_breaker_fastapi
