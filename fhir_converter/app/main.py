@@ -17,6 +17,7 @@ app = FastAPI(
     }
 )
 
+'''
 app.add_middleware(
     CircuitBreakerMiddleware,
     circuit_breaker_input=CircuitBreakerInputDto(
@@ -25,5 +26,6 @@ app.add_middleware(
         half_open_retry_timeout_seconds=30,
     ),
 )
+'''
 
 app.include_router(converter_router)
