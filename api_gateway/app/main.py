@@ -1,5 +1,6 @@
 import json
 from typing import List
+from pydantic import BaseModel
 
 from fastapi import APIRouter
 from fastapi import Depends
@@ -438,16 +439,21 @@ async def track8_2024_document_reference_resource(request: Request, response: Re
 async def track8_2024_care_plan_resource(request: Request, response: Response):
     pass
 
+class OriginalPayload(BaseModel):
+    module_name: str
+    original_data: List
+
 @route(
     request_method=fhir_converter_router.post,
     service_url=SERVICE_URLS[4],
     gateway_path='/convert',
     service_path='/api/v1/convert',
+    body_params=['convert_payload'],
     status_code=status.HTTP_200_OK,
     tags=['Convert original data to FHIR-based standard with the specific converter'],
     dependencies=[],
 )
-async def convert_data(request: Request, response: Response):
+async def convert_data(convert_payload: OriginalPayload, request: Request, response: Response):
     pass
 
 @route(
