@@ -445,9 +445,9 @@ async def track8_2024_care_plan_resource(request: Request, response: Response):
     service_path='/api/v1/convert',
     status_code=status.HTTP_200_OK,
     tags=['Convert original data to FHIR-based standard with the specific converter'],
-    dependencies=[Depends(check_api_key)],
+    dependencies=[],
 )
-async def convert(request: Request, response: Response):
+async def convert_data(request: Request, response: Response):
     pass
 
 @route(
