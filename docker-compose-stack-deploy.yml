@@ -1,13 +1,13 @@
 services:
   api_gateway:
     image: fmsa-api_gateway:latest
-    command: uvicorn app.main:app --host 0.0.0.0 --workers ${API_GATEWAY_UVICORN_WORKERS} --port 8000
+    command: uvicorn app.main:app --host 0.0.0.0 --workers 4 --port 8000
     environment:
-      - SECRET_KEY=${SECRET_KEY}
-      - TOKEN_EXPIRED_MINUTES=${TOKEN_EXPIRED_MINUTES}
-      - KEYCLOAK_ADMIN=${KEYCLOAK_ADMIN}
-      - KEYCLOAK_ADMIN_PASSWORD=${KEYCLOAK_ADMIN_PASSWORD}
-      - REDIS_PASSWORD=${API_GATEWAY_REDIS_PASSWORD}
+      - SECRET_KEY=1234567890abcdefghijklmnopqrstuvwxyz
+      - TOKEN_EXPIRED_MINUTES=600
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+      - REDIS_PASSWORD=redis
     depends_on:
       - api_gateway_access_token_storage
       - keycloak_adapter
@@ -19,7 +19,7 @@ services:
     environment:
       - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL,CONFIG
       - REDIS_AOF_ENABLED=no
-      - REDIS_PASSWORD=${API_GATEWAY_REDIS_PASSWORD}
+      - REDIS_PASSWORD=redis
     command: /opt/bitnami/scripts/redis/run.sh --maxmemory 300mb
     volumes:
       - redis_api_gateway_access_token_storage:/bitnami/redis/data
@@ -34,12 +34,12 @@ services:
       - KC_HTTP_ENABLED=true
       - KC_HOSTNAME_STRICT_HTTPS=false
       - KC_HEALTH_ENABLED=true
-      - KEYCLOAK_ADMIN=${KEYCLOAK_ADMIN}
-      - KEYCLOAK_ADMIN_PASSWORD=${KEYCLOAK_ADMIN_PASSWORD}
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
       - KC_DB=postgres
-      - KC_DB_URL=jdbc:postgresql://keycloak_adapter_postgres/${KC_POSTGRES_DB}
-      - KC_DB_USERNAME=${KC_POSTGRES_DB_USERNAME}
-      - KC_DB_PASSWORD=${KC_POSTGRES_DB_PASSWORD}
+      - KC_DB_URL=jdbc:postgresql://keycloak_adapter_postgres/keycloak
+      - KC_DB_USERNAME=keycloak
+      - KC_DB_PASSWORD=keycloak
     restart: always
     depends_on:
       - keycloak_adapter_postgres
@@ -51,20 +51,20 @@ services:
     volumes:
       - keycloak_adapter_postgres_data:/var/lib/postgresql/data/
     environment:
-      - POSTGRES_USER=${KC_POSTGRES_DB_USERNAME}
-      - POSTGRES_PASSWORD=${KC_POSTGRES_DB_PASSWORD}
-      - POSTGRES_DB=${KC_POSTGRES_DB}
+      - POSTGRES_USER=keycloak
+      - POSTGRES_PASSWORD=keycloak
+      - POSTGRES_DB=keycloak
     restart: always
 
   data_analysis_service:
     image: fmsa-data_analysis_service:latest
-    command: uvicorn app.main:app --host 0.0.0.0 --workers ${DATA_ANALYSIS_SERVICE_UVICORN_WORKERS} --port 8000
+    command: uvicorn app.main:app --host 0.0.0.0 --workers 4 --port 8000
     volumes:
       - ./data_analysis_service/:/app/
     environment:
-      - DATABASE_HOST=${DATA_ANALYSIS_DATABASE_HOST}
-      - DATABASE_USER=${DATA_ANALYSIS_DATABASE_USER}
-      - DATABASE_PASSWORD=${DATA_ANALYSIS_DATABASE_PASSWORD}
+      - DATABASE_HOST=analysis_db
+      - DATABASE_USER=default
+      - DATABASE_PASSWORD=analysis_data
     depends_on:
       - analysis_db
     restart: always
@@ -75,19 +75,19 @@ services:
       - clickhouse_analysis_data:/bitnami/clickhouse
     environment:
       - ALLOW_EMPTY_PASSWORD=no
-      - CLICKHOUSE_ADMIN_USER=${ANALYSIS_DB_CLICKHOUSE_ADMIN_USER}
-      - CLICKHOUSE_ADMIN_PASSWORD=${ANALYSIS_DB_CLICKHOUSE_ADMIN_PASSWORD}
+      - CLICKHOUSE_ADMIN_USER=default
+      - CLICKHOUSE_ADMIN_PASSWORD=analysis_data
     restart: always
 
   ioht_data_collector:
     image: fmsa-ioht_data_collector:latest
-    command: uvicorn app.main:app --host 0.0.0.0 --workers ${IOHT_DATA_COLLECTOR_UVICORN_WORKERS} --port 8000
+    command: uvicorn app.main:app --host 0.0.0.0 --workers 4 --port 8000
     volumes:
       - ./ioht_data_collector/:/app/
     environment:
-      - DATABASE_HOST=${IOHT_DATABASE_HOST}
-      - DATABASE_USER=${IOHT_DATABASE_USER}
-      - DATABASE_PASSWORD=${IOHT_DATABASE_PASSWORD}
+      - DATABASE_HOST=ioht_db
+      - DATABASE_USER=default
+      - DATABASE_PASSWORD=ioht_data
     depends_on:
       - ioht_db
     restart: always
@@ -98,33 +98,33 @@ services:
       - clickhouse_ioht_data:/bitnami/clickhouse
     environment:
       - ALLOW_EMPTY_PASSWORD=no
-      - CLICKHOUSE_ADMIN_USER=${IOHT_DB_CLICKHOUSE_ADMIN_USER}
-      - CLICKHOUSE_ADMIN_PASSWORD=${IOHT_DB_CLICKHOUSE_ADMIN_PASSWORD}
+      - CLICKHOUSE_ADMIN_USER=default
+      - CLICKHOUSE_ADMIN_PASSWORD=ioht_data
     restart: always
 
   fhir_generator:
     image: fmsa-fhir_generator:latest
-    command: uvicorn app.main:app --host 0.0.0.0 --workers ${FHIR_GENERATOR_UVICORN_WORKERS} --port 8000
+    command: uvicorn app.main:app --host 0.0.0.0 --workers 4 --port 8000
     volumes:
       - ./fhir_generator/:/app/
     restart: always
 
   fhir_converter:
     image: fmsa-fhir_converter
-    command: uvicorn app.main:app --host 0.0.0.0 --workers ${FHIR_CONVERTER_UVICORN_WORKERS} --port 8000
+    command: uvicorn app.main:app --host 0.0.0.0 --workers 4 --port 8000
     volumes:
       - ./fhir_converter/:/app/
     restart: always
 
   fhir_ig_manager:
     image: fmsa-fhir_ig_manager:latest
-    command: uvicorn app.main:app --host 0.0.0.0 --workers ${FHIR_IG_MANAGER_UVICORN_WORKERS} --port 8000
+    command: uvicorn app.main:app --host 0.0.0.0 --workers 4 --port 8000
     volumes:
       - ./fhir_ig_manager/:/app/
     environment:
-      - FHIR_IG_MANAGER_DB_USER=${FHIR_IG_MANAGER_DB_USER}
-      - FHIR_IG_MANAGER_DB_PASSWORD=${FHIR_IG_MANAGER_DB_PASSWORD}
-      - FHIR_IG_MANAGER_DB=${FHIR_IG_MANAGER_DB}
+      - FHIR_IG_MANAGER_DB_USER=fhir_ig_manager_username
+      - FHIR_IG_MANAGER_DB_PASSWORD=fhir_ig_manager_password
+      - FHIR_IG_MANAGER_DB=fhir_ig_manager_db_dev
     depends_on:
       - fhir_ig_manager_db
     restart: always
@@ -134,20 +134,20 @@ services:
     volumes:
       - fhir_ig_manager_data:/data/db
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=${FHIR_IG_MANAGER_DB_USER}
-      - MONGO_INITDB_ROOT_PASSWORD=${FHIR_IG_MANAGER_DB_PASSWORD}
-      - MONGO_INITDB_DATABASE=${FHIR_IG_MANAGER_DB}
+      - MONGO_INITDB_ROOT_USERNAME=fhir_ig_manager_username
+      - MONGO_INITDB_ROOT_PASSWORD=fhir_ig_manager_password
+      - MONGO_INITDB_DATABASE=fhir_ig_manager_db_dev
     restart: always
 
   fhir_profile_manager:
     image: fmsa-fhir_profile_manager
-    command: uvicorn app.main:app --host 0.0.0.0 --workers ${FHIR_PROFILE_MANAGER_UVICORN_WORKERS} --port 8000
+    command: uvicorn app.main:app --host 0.0.0.0 --workers 4 --port 8000
     volumes:
       - ./fhir_profile_manager/:/app/
     environment:
-      - FHIR_PROFILE_MANAGER_DB_USER=${FHIR_PROFILE_MANAGER_DB_USER}
-      - FHIR_PROFILE_MANAGER_DB_PASSWORD=${FHIR_PROFILE_MANAGER_DB_PASSWORD}
-      - FHIR_PROFILE_MANAGER_DB=${FHIR_PROFILE_MANAGER_DB}
+      - FHIR_PROFILE_MANAGER_DB_USER=fhir_profile_manager_username
+      - FHIR_PROFILE_MANAGER_DB_PASSWORD=fhir_profile_manager_password
+      - FHIR_PROFILE_MANAGER_DB=fhir_profile_manager_db_dev
     depends_on:
       - fhir_profile_manager_db
     restart: always
@@ -157,14 +157,14 @@ services:
     volumes:
       - fhir_profile_manager_data:/data/db
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=${FHIR_PROFILE_MANAGER_DB_USER}
-      - MONGO_INITDB_ROOT_PASSWORD=${FHIR_PROFILE_MANAGER_DB_PASSWORD}
-      - MONGO_INITDB_DATABASE=${FHIR_PROFILE_MANAGER_DB}
+      - MONGO_INITDB_ROOT_USERNAME=fhir_profile_manager_username
+      - MONGO_INITDB_ROOT_PASSWORD=fhir_profile_manager_password
+      - MONGO_INITDB_DATABASE=fhir_profile_manager_db_dev
     restart: always
 
   fhir_data_manager:
     image: fmsa-fhir_data_manager:latest
-    command: uvicorn app.main:app --host 0.0.0.0 --workers ${FHIR_DATA_MANAGER_UVICORN_WORKERS} --port 8000
+    command: uvicorn app.main:app --host 0.0.0.0 --workers 4 --port 8000
     volumes:
       - ./fhir_data_manager/app/tests:/app/app/tests
       - ./fhir_data_manager/app/modules:/app/app/modules
@@ -173,9 +173,9 @@ services:
       - ./fhir_data_manager/app/main.py:/app/app/main.py
       - ./fhir_data_manager/app/__init__.py:/app/app/__init__.py
     environment:
-      - FHIR_DATA_MANAGER_DB_USER=${FHIR_DATA_MANAGER_DB_USER}
-      - FHIR_DATA_MANAGER_DB_PASSWORD=${FHIR_DATA_MANAGER_DB_PASSWORD}
-      - FHIR_DATA_MANAGER_DB=${FHIR_DATA_MANAGER_DB}
+      - FHIR_DATA_MANAGER_DB_USER=fhir_data_manager_username
+      - FHIR_DATA_MANAGER_DB_PASSWORD=fhir_data_manager_password
+      - FHIR_DATA_MANAGER_DB=fhir_data_manager_db_dev
     depends_on:
       - fhir-server-adapter
       - fhir_server_adapter_postgres
@@ -187,9 +187,9 @@ services:
     volumes:
       - fhir_data_manager_data:/data/db
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=${FHIR_DATA_MANAGER_DB_USER}
-      - MONGO_INITDB_ROOT_PASSWORD=${FHIR_DATA_MANAGER_DB_PASSWORD}
-      - MONGO_INITDB_DATABASE=${FHIR_DATA_MANAGER_DB}
+      - MONGO_INITDB_ROOT_USERNAME=fhir_data_manager_username
+      - MONGO_INITDB_ROOT_PASSWORD=fhir_data_manager_password
+      - MONGO_INITDB_DATABASE=fhir_data_manager_db_dev
     restart: always
 
   fhir-server-adapter:
@@ -204,20 +204,20 @@ services:
     volumes:
       - fhir_server_adapter_postgres_data:/var/lib/postgresql/data/
     environment:
-      - POSTGRES_USER=${FHIR_DATA_MANAGER_DB_USER}
-      - POSTGRES_PASSWORD=${FHIR_DATA_MANAGER_DB_PASSWORD}
-      - POSTGRES_DB=${FHIR_DATA_MANAGER_DB}
+      - POSTGRES_USER=fhir_data_manager_username
+      - POSTGRES_PASSWORD=$fhir_data_manager_password
+      - POSTGRES_DB=fhir_data_manager_db_dev
     restart: always
 
   terminology_manager:
     image: fmsa-terminology_manager:latest
-    command: uvicorn app.main:app --host 0.0.0.0 --workers ${TERMINOLOGY_MANAGER_UVICORN_WORKERS} --port 8000
+    command: uvicorn app.main:app --host 0.0.0.0 --workers 4 --port 8000
     volumes:
       - ./terminology_manager/:/app/
     environment:
-      - TERMINOLOGY_MANAGER_DB_USER=${TERMINOLOGY_MANAGER_DB_USER}
-      - TERMINOLOGY_MANAGER_DB_PASSWORD=${TERMINOLOGY_MANAGER_DB_PASSWORD}
-      - TERMINOLOGY_MANAGER_DB=${TERMINOLOGY_MANAGER_DB}
+      - TERMINOLOGY_MANAGER_DB_USER=terminology_manager_username
+      - TERMINOLOGY_MANAGER_DB_PASSWORD=terminology_manager_password
+      - TERMINOLOGY_MANAGER_DB=terminology_manager_db_dev
     depends_on:
       - terminology_manager_db
     restart: always
@@ -227,9 +227,9 @@ services:
     volumes:
       - terminology_manager_data:/data/db
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=${TERMINOLOGY_MANAGER_DB_USER}
-      - MONGO_INITDB_ROOT_PASSWORD=${TERMINOLOGY_MANAGER_DB_PASSWORD}
-      - MONGO_INITDB_DATABASE=${TERMINOLOGY_MANAGER_DB}
+      - MONGO_INITDB_ROOT_USERNAME=terminology_manager_username
+      - MONGO_INITDB_ROOT_PASSWORD=terminology_manager_password
+      - MONGO_INITDB_DATABASE=terminology_manager_db_dev
     restart: always
 
   nginx:
