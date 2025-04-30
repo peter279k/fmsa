@@ -1,8 +1,22 @@
 # Development Steps
 
+- If using the HTTP to expose FMSA, copying the `docker-compose-http.yml` to the `docker-compose.yml` file.
 - Complete the `docker compose` environment building.
 - Complete the `api_gateway` development and features including login, register, OAuth2 and rate time limit.
 - Complete the `PA` implementation guide about scenario 1.
+
+# Docker Compose
+
+- Running the `docker compose up --build` to run the FMSA.
+
+# Docker Stack Deployment
+
+- Before running the `docker stack deploy` command, it should ensure the local Docker image has been built.
+- If they're not deployed, it should run the `docker compose build` command firstly.
+- If presenting `Error response from daemon: This node is not a swarm manager.` message, it should run the `docker swarm init`.
+- If the FMSA is running via the `docker compose up` command, it should use the `docker compose down`.
+- Then run the `export $(grep -v '^#' .env | xargs)` command to configure required env variables for FMSA.
+- Running `docker stack deploy -c docker-compose-stack-deploy.yml fmsa` command to deploy the Docker stack.
 
 # Development server
 
@@ -47,6 +61,10 @@
 5. Upload file with FastAPI
 
 - https://stackoverflow.com/questions/63048825/how-to-upload-file-using-fastapi
+
+6. Docker stack deployment approach
+
+- https://stackoverflow.com/questions/58666953
 
 # Troubleshooting
 
