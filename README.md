@@ -15,8 +15,9 @@
 - If they're not deployed, it should run the `docker compose build` command firstly.
 - If presenting `Error response from daemon: This node is not a swarm manager.` message, it should run the `docker swarm init`.
 - If the FMSA is running via the `docker compose up` command, it should use the `docker compose down`.
-- Then run the `export $(grep -v '^#' .env | xargs)` command to configure required env variables for FMSA.
 - Running `docker stack deploy -c docker-compose-stack-deploy.yml fmsa` command to deploy the Docker stack.
+
+**The docker-compose-stack-deploy.yml is only for testing Docker Stack deployment**
 
 # Development server
 
