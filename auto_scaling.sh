@@ -14,7 +14,8 @@ while :
 do
     echo "Automatic Scaling Checker has been started."
     # Get current CPU usage
-    CPU_USAGE=$(docker stats --no-stream --format "{{.CPUPerc}}" $(docker ps --format "{{.Names}}" | grep "$fhir_converter") | awk -F. '{print $1}')
+    CPU_USAGE_LIST=$(docker stats --no-stream --format "{{.CPUPerc}}" $(docker ps --format "{{.Names}}" | grep "$fhir_converter") | awk -F. '{print $1}' | awk '{print $NF}')
+    CPU_USAGE=$(echo $CPU_USAGE_LIST | awk '{print $NF}')
 
     api_gateway_counter=$(docker service inspect --format='{{.Spec.Mode.Replicated.Replicas}}' $api_gateway)
     fhir_converter_counter=$(docker service inspect --format='{{.Spec.Mode.Replicated.Replicas}}' $fhir_converter)
