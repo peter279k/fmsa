@@ -44,4 +44,5 @@ do
     fi;
 
     echo "Automatic Scaling Checker has been done."
+    sleep 3
 done;
