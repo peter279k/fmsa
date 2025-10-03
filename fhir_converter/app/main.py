@@ -21,8 +21,8 @@ app.add_middleware(
     CircuitBreakerMiddleware,
     circuit_breaker_input=CircuitBreakerInputDto(
         exception_list=(Exception,),
-        half_open_retry_count=3,
-        half_open_retry_timeout_seconds=30,
+        half_open_retry_count=5,
+        half_open_retry_timeout_seconds=60,
     ),
 )
 

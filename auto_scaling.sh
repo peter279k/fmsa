@@ -33,16 +33,16 @@ do
     fi;
 
     # Scale down if CPU usage is below the threshold
-    if [ "$CPU_USAGE" -lt "$SCALE_DOWN_THRESHOLD" ]; then
-        if [[ $api_gateway_counter > $low_counter ]]; then
-            docker service scale "$api_gateway=$(($api_gateway_counter - 1))"
-            echo "$(date): Scaling down $api_gateway due to low CPU usage: $CPU_USAGE%" >> scaling.log
-        fi;
-        if [[ $fhir_converter_counter > $low_counter ]]; then
-            docker service scale "$fhir_converter=$(($fhir_converter_counter - 1))"
-            echo "$(date): Scaling down $fhir_converter due to low CPU usage: $CPU_USAGE%" >> scaling.log
-        fi;
-    fi;
+#    if [ "$CPU_USAGE" -lt "$SCALE_DOWN_THRESHOLD" ]; then
+#        if [[ $api_gateway_counter > $low_counter ]]; then
+#            docker service scale "$api_gateway=$(($api_gateway_counter - 1))"
+#            echo "$(date): Scaling down $api_gateway due to low CPU usage: $CPU_USAGE%" >> scaling.log
+#        fi;
+#        if [[ $fhir_converter_counter > $low_counter ]]; then
+#            docker service scale "$fhir_converter=$(($fhir_converter_counter - 1))"
+#            echo "$(date): Scaling down $fhir_converter due to low CPU usage: $CPU_USAGE%" >> scaling.log
+#        fi;
+#    fi;
 
     echo "Automatic Scaling Checker has been done."
     sleep 3
