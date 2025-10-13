@@ -1,3 +1,13 @@
+# Introduction
+
+We proposed the FMSA (FHIR-based Microservice Architecture), a new open-source software architecture designed for medical informatics systems.
+And we developed this architecture to address the current lack of standardized microservice solutions in healthcare information systems.
+
+# Architecture
+
+<img width="984" height="823" alt="圖片1" src="https://github.com/user-attachments/assets/6bdf20c1-6e7a-4a38-8e83-6f4280081b67" />
+
+
 # Development Steps
 
 - If using the HTTP to expose FMSA, copying the `docker-compose-http.yml` to the `docker-compose.yml` file.
