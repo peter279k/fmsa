@@ -61,6 +61,8 @@ And we developed this architecture to address the current lack of standardized m
 
 - https://gcore.com/learning/sysdig-what-it-is-and-how-to-use-it
 - https://gcore.com/learning/troubleshooting-containers-with-sysdig-inspect
+- https://www.cnblogs.com/apink/p/15767687.html
+- https://onairotich.medium.com/understand-container-metrics-and-why-they-matter-9e88434ca62a
 
 4. KeyCloak admin API
 
