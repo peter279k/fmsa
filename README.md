@@ -42,6 +42,10 @@ And we developed this architecture to address the current lack of standardized m
 
 # References
 
+The proof of concept paper is as follows:
+
+- C.-S. Li, S.-P. Ma, and T.-H. Lin, ["FMSA: A Universal Microservice Architecture Based on FHIR Medical Informatics Standard,"](https://ieeexplore.ieee.org/document/11326732) 2025 Second International Conference on Artificial Intelligence for Medicine, Health and Care (AIxMHC), pp. 42–49, Oct. 2025.
+
 1. HAPI FHIR server installation and usage
 
 - https://confluence.hl7.org/display/FHIR/Open+Source+Implementations
