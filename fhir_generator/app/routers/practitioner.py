@@ -1,5 +1,7 @@
 from app.item_models.track8_2024 import *
+from app.item_models.ltc_tw_2025 import *
 from app.item_models.track13_2024 import *
+from app.modules import PractitionerLtc
 from app.modules import Track8ForPractitioner
 from app.modules import Track13ForPractitioner
 
@@ -69,6 +71,37 @@ async def generate_track8_2024_for_practitioner(request: Request, item: Track8Fo
         {
             'status': status_code,
             'message': 'Creating Practitioner resource for Track 8 is successful.',
+            'data': [practitioner_resource],
+        },
+        status_code=status_code
+    )
+
+async def generate_ltc_tw_practitioner(request: Request, item: PractitionerLTC):
+    status_code = 200
+    resource_name = 'Practitioner'
+    item_dict = item.model_dump()
+    practitioner_resource = {}
+
+    try:
+        practitioner = PractitionerLtc.PractitionerLtc(resource_name, item_dict)
+        practitioner_resource = practitioner.generate_practitioner_resource()
+    except Exception as e:
+        status_code = 500
+
+        return JSONResponse(
+            {
+                'status': status_code,
+                'message': str(e),
+                'data': [item_dict],
+            },
+            status_code=status_code
+        )
+
+
+    return JSONResponse(
+        {
+            'status': status_code,
+            'message': 'Creating Practitioner resource for LTC is successful.',
             'data': [practitioner_resource],
         },
         status_code=status_code

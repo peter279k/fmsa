@@ -35,7 +35,8 @@ organization_router.add_api_route('/ltc_tw_2025_organization', generate_ltc_tw_o
 
 practitioner_router = APIRouter(tags=['Generate Practitioner Resource'], prefix='/api/v1')
 practitioner_router.add_api_route('/track13_2024_practitioner', generate_track13_2024_for_practitioner, methods=['POST'], description='Generate Track13 2024 Practitioner Resource')
-practitioner_router.add_api_route('/track8_2024_practitioner', generate_track8_2024_for_practitioner, methods=['POST'], description='Generate Track8 2024 PractitionerRole Resource')
+practitioner_router.add_api_route('/track8_2024_practitioner', generate_track8_2024_for_practitioner, methods=['POST'], description='Generate Track8 2024 Practitioner Resource')
+practitioner_router.add_api_route('/ltc_tw_2025_practitioner', generate_ltc_tw_practitioner, methods=['POST'], description='Generate Practitioner Resource for LTC')
 
 goal_router = APIRouter(tags=['Generate Goal Resource'], prefix='/api/v1')
 goal_router.add_api_route('/track13_2024_goal', generate_track13_2024_for_goal, methods=['POST'], description='Generate Track13 2024 Goal Resource')

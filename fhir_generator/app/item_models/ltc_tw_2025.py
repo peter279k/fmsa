@@ -28,5 +28,9 @@ class QuestionnaireResponseLTC(BaseModel):
 class OrganizationLTC(BaseModel):
     payload: Dict
 
+class PractitionerLTC(BaseModel):
+    payload: Dict
+    type: str
+
 class PractitionerRoleLTC(BaseModel):
     payload: Dict
