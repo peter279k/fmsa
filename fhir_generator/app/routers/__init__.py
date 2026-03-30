@@ -54,10 +54,11 @@ service_request_router.add_api_route('/track13_2024_service_request', generate_t
 observation_router = APIRouter(tags=['Generate Observation Resource'], prefix='/api/v1')
 observation_router.add_api_route('/track13_2024_observation', generate_track13_2024_for_observation, methods=['POST'], description='Generate Track13 2024 Observation Resource')
 observation_router.add_api_route('/track8_2024_observation', generate_track8_2024_for_observation, methods=['POST'], description='Generate Track8 2024 Observation Resource')
-observation_router.add_api_route('/ltc_tw_2025_observation_blood_pressure', generate_ltc_tw_blood_pressure_observation, methods=['POST'], description='Generate Blood Pressure Observation Resource')
+observation_router.add_api_route('/ltc_tw_2025_observation_blood_pressure', generate_ltc_tw_blood_pressure_observation, methods=['POST'], description='Generate Blood Pressure Observation Resource for LTC')
 
 practitioner_role_router = APIRouter(tags=['Generate PractitionerRole Resource'], prefix='/api/v1')
 practitioner_role_router.add_api_route('/track8_2024_practitioner_role', generate_track8_2024_for_practitioner_role, methods=['POST'], description='Generate Track8 2024 PractitionerRole Resource')
+practitioner_role_router.add_api_route('/ltc_tw_2025_practitioner_role', generate_ltc_tw_for_practitioner_role, methods=['POST'], description='Generate PractitionerRole Resource for LTC')
 
 encounter_router = APIRouter(tags=['Generate Encounter Resource'], prefix='/api/v1')
 encounter_router.add_api_route('/track8_2024_encounter', generate_track8_2024_for_encounter, methods=['POST'], description='Generate Track8 2024 Encounter Resource')
