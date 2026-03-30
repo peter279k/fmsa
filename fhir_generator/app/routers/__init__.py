@@ -26,6 +26,7 @@ from fastapi import APIRouter
 patient_router = APIRouter(tags=['Generate Patient Resource'], prefix='/api/v1')
 patient_router.add_api_route('/track13_2024_patient', generate_track13_2024_for_patient, methods=['POST'], description='Generate Track13 2024 Patient Resource')
 patient_router.add_api_route('/track8_2024_patient', generate_track8_2024_for_patient, methods=['POST'], description='Generate Track13 2024 Patient Resource')
+patient_router.add_api_route('/ltc_tw_2025_patient', generate_ltc_tw_patient, methods=['POST'], description='Generate Patient Resource for LTC')
 
 organization_router = APIRouter(tags=['Generate Organization Resource'], prefix='/api/v1')
 organization_router.add_api_route('/track8_2024_organization', generate_track8_2024_for_organization, methods=['POST'], description='Generate Track13 2024 Organization Resource')

@@ -14,3 +14,7 @@ class LocationLTC(BaseModel):
 
 class MedicationAdministrationLTC(BaseModel):
     payload: Dict
+
+class PatientLTC(BaseModel):
+    payload: Dict
+    type: str
