@@ -46,7 +46,7 @@ class PractitionerLtc:
 
             practitioner_class.set_qualification(self.practitioner_payload['qualification'])
 
-        if self.type == '':
+        if self.type == 'ltc':
             practitioner_class.set_profile_urls(self.practitioner_payload['profile_urls'])
 
             practitioner_class.set_identifiers(self.practitioner_payload['identifiers'])
