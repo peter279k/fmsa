@@ -1,7 +1,9 @@
+from app.item_models.ltc_tw_2025 import *
 from app.item_models.track8_2024 import *
 from app.item_models.track13_2024 import *
 from app.modules import Track8ForObservation
 from app.modules import Track13ForObservation
+from app.modules import ObservationBloodPressureLtc
 
 from fastapi.requests import Request
 from fastapi.responses import JSONResponse
@@ -68,6 +70,37 @@ async def generate_track8_2024_for_observation(request: Request, item: Track8For
         {
             'status': status_code,
             'message': 'Creating Observation resource for Track 8 is successful.',
+            'data': [observation_resource],
+        },
+        status_code=status_code
+    )
+
+async def generate_ltc_tw_blood_pressure_observation(request: Request, item: ObservationResourceLTC):
+    status_code = 200
+    resource_name = 'Observation'
+    item_dict = item.model_dump()
+    observation_resource = {}
+
+    try:
+        observation_resource = ObservationBloodPressureLtc.ObservationBloodPressureLtc(resource_name, item_dict)
+        observation_resource = observation_resource.generate_observation_resource()
+    except Exception as e:
+        status_code = 500
+
+        return JSONResponse(
+            {
+                'status': status_code,
+                'message': str(e),
+                'data': [item_dict],
+            },
+            status_code=status_code
+        )
+
+
+    return JSONResponse(
+        {
+            'status': status_code,
+            'message': 'Creating Observation resource for LTC Blood Pressure is successful.',
             'data': [observation_resource],
         },
         status_code=status_code
