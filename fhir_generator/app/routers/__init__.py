@@ -31,6 +31,7 @@ patient_router.add_api_route('/ltc_tw_2025_patient', generate_ltc_tw_patient, me
 
 organization_router = APIRouter(tags=['Generate Organization Resource'], prefix='/api/v1')
 organization_router.add_api_route('/track8_2024_organization', generate_track8_2024_for_organization, methods=['POST'], description='Generate Track13 2024 Organization Resource')
+organization_router.add_api_route('/ltc_tw_2025_organization', generate_ltc_tw_organization, methods=['POST'], description='Generate Organization Resource for LTC')
 
 practitioner_router = APIRouter(tags=['Generate Practitioner Resource'], prefix='/api/v1')
 practitioner_router.add_api_route('/track13_2024_practitioner', generate_track13_2024_for_practitioner, methods=['POST'], description='Generate Track13 2024 Practitioner Resource')

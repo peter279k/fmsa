@@ -24,3 +24,6 @@ class ProcedureLTC(BaseModel):
 
 class QuestionnaireResponseLTC(BaseModel):
     payload: Dict
+
+class OrganizationLTC(BaseModel):
+    payload: Dict
