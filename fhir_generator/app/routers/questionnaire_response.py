@@ -11,8 +11,8 @@ async def generate_ltc_tw_questionnaire_response(item: QuestionnaireResponseLTC)
     questionnaire_response_resource = {}
 
     try:
-        adverse_event = AdverseEventResourceLtc.AdverseEventResourceLtc(resource_name, item_dict)
-        adverse_event_resource = adverse_event.generate_adverse_event_resource()
+        questionnaire_response = QuestionnaireResponseResourceLtc.QuestionnaireResponseResourceLtc(resource_name, item_dict)
+        questionnaire_response_resource = questionnaire_response.generate_questionnaire_response_resource()
     except Exception as e:
         status_code = 500
 
@@ -29,8 +29,8 @@ async def generate_ltc_tw_questionnaire_response(item: QuestionnaireResponseLTC)
     return JSONResponse(
         {
             'status': status_code,
-            'message': 'Creating AdverseEvent resource for LTC is successful.',
-            'data': [adverse_event_resource],
+            'message': 'Creating QuestionnaireResponse resource for LTC is successful.',
+            'data': [questionnaire_response_resource],
         },
         status_code=status_code
     )
