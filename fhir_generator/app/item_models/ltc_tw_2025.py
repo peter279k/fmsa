@@ -8,3 +8,6 @@ class ObservationResourceLTC(BaseModel):
 class AdverseEventResourceLTC(BaseModel):
     payload: Dict
     type: str
+
+class LocationLTC(BaseModel):
+    payload: Dict

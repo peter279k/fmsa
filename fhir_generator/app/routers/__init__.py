@@ -78,6 +78,7 @@ medication_request_router.add_api_route('/track8_2024_medication_request', gener
 
 location_router = APIRouter(tags=['Generate Location Resource'], prefix='/api/v1')
 location_router.add_api_route('/track8_2024_location', generate_track8_2024_for_location, methods=['POST'], description='Generate Track8 2024 Location Resource')
+location_router.add_api_route('/ltc_tw_2025_location', generate_ltc_tw_location, methods=['POST'], description='Generate Location Resource for LTC')
 
 imaging_study_router = APIRouter(tags=['Generate ImagingStudy Resource'], prefix='/api/v1')
 imaging_study_router.add_api_route('/track8_2024_imaging_study', generate_track8_2024_for_imaging_study, methods=['POST'], description='Generate Track8 2024 ImagingStudy Resource')
