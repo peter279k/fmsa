@@ -4,3 +4,7 @@ from pydantic import BaseModel
 
 class ObservationResourceLTC(BaseModel):
     payload: Dict
+
+class AdverseEventResourceLTC(BaseModel):
+    payload: Dict
+    type: str

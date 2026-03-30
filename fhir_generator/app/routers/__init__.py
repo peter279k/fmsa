@@ -11,6 +11,7 @@ from .observation import *
 from .composition import *
 from .organization import *
 from .practitioner import *
+from .adverse_event import *
 from .imaging_study import *
 from .service_request import *
 from .diagnostic_report import *
@@ -83,3 +84,6 @@ imaging_study_router.add_api_route('/track8_2024_imaging_study', generate_track8
 
 document_reference_router = APIRouter(tags=['Generate DocumentReference Resource'], prefix='/api/v1')
 document_reference_router.add_api_route('/track8_2024_document_reference', generate_track8_2024_for_document_reference, methods=['POST'], description='Generate Track8 2024 DocumentReference Resource')
+
+adverse_event_router = APIRouter(tags=['Generate AdverseEvent Resource'], prefix='/api/v1')
+adverse_event_router.add_api_route('/ltc_tw_2025_adverse_event', generate_ltc_tw_adverse_event, methods=['POST'], description='Generate AdverseEvent Resource for LTC')
