@@ -1,5 +1,7 @@
 from app.item_models.track8_2024 import *
+from app.item_models.ltc_tw_2025 import *
 from app.modules import Track8ForProcedure
+from app.modules import ProcedureResourceLtc
 
 from fastapi.responses import JSONResponse
 
@@ -30,6 +32,37 @@ async def generate_track8_2024_for_procedure(item: Track8ForResource):
         {
             'status': status_code,
             'message': 'Creating Procedure resource for Track 8 is successful.',
+            'data': [procedure_resource],
+        },
+        status_code=status_code
+    )
+
+async def generate_ltc_tw_procedure(item: ProcedureLTC):
+    status_code = 200
+    resource_name = 'Procedure'
+    item_dict = item.model_dump()
+    procedure_resource = {}
+
+    try:
+        procedure = ProcedureResourceLtc.ProcedureResourceLtc(resource_name, item_dict)
+        procedure_resource = procedure.generate_procedure_resource()
+    except Exception as e:
+        status_code = 500
+
+        return JSONResponse(
+            {
+                'status': status_code,
+                'message': str(e),
+                'data': [item_dict],
+            },
+            status_code=status_code
+        )
+
+
+    return JSONResponse(
+        {
+            'status': status_code,
+            'message': 'Creating Procedure resource for LTC is successful.',
             'data': [procedure_resource],
         },
         status_code=status_code

@@ -74,6 +74,7 @@ claim_router.add_api_route('/track8_2024_claim', generate_track8_2024_for_claim,
 
 procedure_router = APIRouter(tags=['Generate Procedure Resource'], prefix='/api/v1')
 procedure_router.add_api_route('/track8_2024_procedure', generate_track8_2024_for_procedure, methods=['POST'], description='Generate Track8 2024 Procedure Resource')
+procedure_router.add_api_route('/ltc_tw_2025_procedure', generate_ltc_tw_procedure, methods=['POST'], description='Generate Procedure Resource for LTC')
 
 medication_request_router = APIRouter(tags=['Generate MedicationRequest Resource'], prefix='/api/v1')
 medication_request_router.add_api_route('/track8_2024_medication_request', generate_track8_2024_for_medication_request, methods=['POST'], description='Generate Track8 2024 MedicationRequest Resource')

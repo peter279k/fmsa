@@ -18,3 +18,6 @@ class MedicationAdministrationLTC(BaseModel):
 class PatientLTC(BaseModel):
     payload: Dict
     type: str
+
+class ProcedureLTC(BaseModel):
+    payload: Dict
