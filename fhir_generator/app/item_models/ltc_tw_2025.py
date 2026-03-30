@@ -21,3 +21,6 @@ class PatientLTC(BaseModel):
 
 class ProcedureLTC(BaseModel):
     payload: Dict
+
+class QuestionnaireResponseLTC(BaseModel):
+    payload: Dict

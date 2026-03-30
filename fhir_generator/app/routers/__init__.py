@@ -17,6 +17,7 @@ from .service_request import *
 from .diagnostic_report import *
 from .practitioner_role import *
 from .medication_request import *
+from .questionnaire_response import *
 from .medication_administration import *
 from .document_reference import *
 
@@ -94,3 +95,6 @@ document_reference_router.add_api_route('/track8_2024_document_reference', gener
 
 adverse_event_router = APIRouter(tags=['Generate AdverseEvent Resource'], prefix='/api/v1')
 adverse_event_router.add_api_route('/ltc_tw_2025_adverse_event', generate_ltc_tw_adverse_event, methods=['POST'], description='Generate AdverseEvent Resource for LTC')
+
+questionnaire_response_router = APIRouter(tags=['Generate QuestionnaireResponse Resource'], prefix='/api/v1')
+questionnaire_response_router.add_api_route('/ltc_tw_2025_questionnaire_response', generate_ltc_tw_questionnaire_response, methods=['POST'], description='Generate QuestionnaireResponse Resource for LTC')
