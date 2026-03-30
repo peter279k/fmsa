@@ -17,6 +17,7 @@ from .service_request import *
 from .diagnostic_report import *
 from .practitioner_role import *
 from .medication_request import *
+from .medication_administration import *
 from .document_reference import *
 
 from fastapi import APIRouter
@@ -75,6 +76,9 @@ procedure_router.add_api_route('/track8_2024_procedure', generate_track8_2024_fo
 
 medication_request_router = APIRouter(tags=['Generate MedicationRequest Resource'], prefix='/api/v1')
 medication_request_router.add_api_route('/track8_2024_medication_request', generate_track8_2024_for_medication_request, methods=['POST'], description='Generate Track8 2024 MedicationRequest Resource')
+
+medication_administration_router = APIRouter(tags=['Generate MedicationAdministration Resource'], prefix='/api/v1')
+medication_administration_router.add_api_route('/ltc_tw_2025_medication_administration', generate_ltc_tw_medication_administration, methods=['POST'], description='Generate MedicationAdministration Resource for LTC')
 
 location_router = APIRouter(tags=['Generate Location Resource'], prefix='/api/v1')
 location_router.add_api_route('/track8_2024_location', generate_track8_2024_for_location, methods=['POST'], description='Generate Track8 2024 Location Resource')
