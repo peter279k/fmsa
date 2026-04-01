@@ -439,6 +439,126 @@ async def track8_2024_document_reference_resource(request: Request, response: Re
 async def track8_2024_care_plan_resource(request: Request, response: Response):
     pass
 
+@route(
+    request_method=fhir_generator_router.post,
+    service_url=SERVICE_URLS[2],
+    gateway_path='/ltc_tw_2025_patient',
+    service_path='/api/v1/ltc_tw_2025_patient',
+    status_code=status.HTTP_200_OK,
+    tags=['Generate Patient Resource for LTC TW with the fhir_generator'],
+    dependencies=[Depends(check_api_key)],
+)
+async def ltc_tw_2025_patient(request: Request, response: Response):
+    pass
+
+@route(
+    request_method=fhir_generator_router.post,
+    service_url=SERVICE_URLS[2],
+    gateway_path='/ltc_tw_2025_organization',
+    service_path='/api/v1/ltc_tw_2025_organization',
+    status_code=status.HTTP_200_OK,
+    tags=['Generate Organization Resource for LTC TW with the fhir_generator'],
+    dependencies=[Depends(check_api_key)],
+)
+async def ltc_tw_2025_organization(request: Request, response: Response):
+    pass
+
+@route(
+    request_method=fhir_generator_router.post,
+    service_url=SERVICE_URLS[2],
+    gateway_path='/ltc_tw_2025_practitioner',
+    service_path='/api/v1/ltc_tw_2025_practitioner',
+    status_code=status.HTTP_200_OK,
+    tags=['Generate Practitioner Resource for LTC TW with the fhir_generator'],
+    dependencies=[Depends(check_api_key)],
+)
+async def ltc_tw_2025_practitioner(request: Request, response: Response):
+    pass
+
+@route(
+    request_method=fhir_generator_router.post,
+    service_url=SERVICE_URLS[2],
+    gateway_path='/ltc_tw_2025_observation_blood_pressure',
+    service_path='/api/v1/ltc_tw_2025_observation_blood_pressure',
+    status_code=status.HTTP_200_OK,
+    tags=['Generate Observation Blood Pressure Resource for LTC TW with the fhir_generator'],
+    dependencies=[Depends(check_api_key)],
+)
+async def ltc_tw_2025_observation_blood_pressure(request: Request, response: Response):
+    pass
+
+@route(
+    request_method=fhir_generator_router.post,
+    service_url=SERVICE_URLS[2],
+    gateway_path='/ltc_tw_2025_practitioner_role',
+    service_path='/api/v1/ltc_tw_2025_practitioner_role',
+    status_code=status.HTTP_200_OK,
+    tags=['Generate PractitionerRole Resource for LTC TW with the fhir_generator'],
+    dependencies=[Depends(check_api_key)],
+)
+async def ltc_tw_2025_practitioner_role(request: Request, response: Response):
+    pass
+
+@route(
+    request_method=fhir_generator_router.post,
+    service_url=SERVICE_URLS[2],
+    gateway_path='/ltc_tw_2025_procedure',
+    service_path='/api/v1/ltc_tw_2025_procedure',
+    status_code=status.HTTP_200_OK,
+    tags=['Generate Procedure Resource for LTC TW with the fhir_generator'],
+    dependencies=[Depends(check_api_key)],
+)
+async def ltc_tw_2025_procedure(request: Request, response: Response):
+    pass
+
+@route(
+    request_method=fhir_generator_router.post,
+    service_url=SERVICE_URLS[2],
+    gateway_path='/ltc_tw_2025_medication_administration',
+    service_path='/api/v1/ltc_tw_2025_medication_administration',
+    status_code=status.HTTP_200_OK,
+    tags=['Generate MedicationAdministration Resource for LTC TW with the fhir_generator'],
+    dependencies=[Depends(check_api_key)],
+)
+async def ltc_tw_2025_medication_administration(request: Request, response: Response):
+    pass
+
+@route(
+    request_method=fhir_generator_router.post,
+    service_url=SERVICE_URLS[2],
+    gateway_path='/ltc_tw_2025_location',
+    service_path='/api/v1/ltc_tw_2025_location',
+    status_code=status.HTTP_200_OK,
+    tags=['Generate Location Resource for LTC TW with the fhir_generator'],
+    dependencies=[Depends(check_api_key)],
+)
+async def ltc_tw_2025_location(request: Request, response: Response):
+    pass
+
+@route(
+    request_method=fhir_generator_router.post,
+    service_url=SERVICE_URLS[2],
+    gateway_path='/ltc_tw_2025_adverse_event',
+    service_path='/api/v1/ltc_tw_2025_adverse_event',
+    status_code=status.HTTP_200_OK,
+    tags=['Generate AdverseEvent Resource for LTC TW with the fhir_generator'],
+    dependencies=[Depends(check_api_key)],
+)
+async def ltc_tw_2025_adverse_event(request: Request, response: Response):
+    pass
+
+@route(
+    request_method=fhir_generator_router.post,
+    service_url=SERVICE_URLS[2],
+    gateway_path='/ltc_tw_2025_questionnaire_response',
+    service_path='/api/v1/ltc_tw_2025_questionnaire_response',
+    status_code=status.HTTP_200_OK,
+    tags=['Generate QuestionnaireResponse Resource for LTC TW with the fhir_generator'],
+    dependencies=[Depends(check_api_key)],
+)
+async def ltc_tw_2025_questionnaire_response(request: Request, response: Response):
+    pass
+
 class OriginalPayload(BaseModel):
     module_name: str
     original_data: List
