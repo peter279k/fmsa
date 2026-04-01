@@ -9,10 +9,8 @@ def test_create_ltc_tw_2025_patient_resource_on_ltc_type():
     headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
     payload = {
         'resourceType': 'Patient',
-        'meta': {
-            'profile': ['http://ltc-ig.fhir.tw/StructureDefinition/LTCPatient']
-        },
-        'identifier': [{
+        'profile_urls': ['http://ltc-ig.fhir.tw/StructureDefinition/LTCPatient'],
+        'identifiers': [{
             'use': 'official',
             'type': {
                 'coding': [{
@@ -38,7 +36,7 @@ def test_create_ltc_tw_2025_patient_resource_on_ltc_type():
             'value': 'A123456789'
         }],
         'active': True,
-        'name': [{
+        'names': [{
             'use': 'official',
             'text': 'Chen Ming Hui'
         },
