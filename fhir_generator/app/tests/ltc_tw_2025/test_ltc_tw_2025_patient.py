@@ -122,7 +122,6 @@ def test_create_ltc_tw_2025_patient_resource_on_cs100():
     headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
     payload = {
         'resourceType': 'Patient',
-        'id': 'ltc-patient-cs100-example',
         'identifier': [{
             'system': 'https://example.org/mrn',
             'value': 'A0001'
