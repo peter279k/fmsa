@@ -83,7 +83,7 @@ async def generate_ltc_tw_patient(request: Request, item: PatientLTC):
 
     try:
         patient = PatientResourceLtc.PatientResourceLtc(resource_name, item_dict)
-        patient_resource =patient.generate_patient_resource()
+        patient_resource = patient.generate_patient_resource()
     except Exception as e:
         status_code = 500
 
