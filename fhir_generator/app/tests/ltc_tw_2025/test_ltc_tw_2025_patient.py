@@ -102,6 +102,7 @@ def test_create_ltc_tw_2025_patient_resource_on_ltc_type():
 
     expected_json = json.loads(expected_json_str)
     del expected_json['text']
+    del expected_json['id']
 
     json_dict = {}
     json_dict['payload'] = payload
@@ -110,7 +111,8 @@ def test_create_ltc_tw_2025_patient_resource_on_ltc_type():
 
     response_json = response.json()
     del response_json['data'][0]['id']
-    response_json['data'][0]['identifier'] = response_json['data'][0]['identifier'][0:-1]
+
+    assert len(response_json['data'][0]['identifier']) == 2
 
     assert response.status_code == 200
     assert len(response_json['data']) == 1
