@@ -117,3 +117,38 @@ def test_create_ltc_tw_2025_patient_resource_on_ltc_type():
     assert response.status_code == 200
     assert len(response_json['data']) == 1
     assert response_json['data'][0] == expected_json
+
+def test_create_ltc_tw_2025_patient_resource_on_cs100():
+    headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+    payload = {
+        'resourceType': 'Patient',
+        'id': 'ltc-patient-cs100-example',
+        'identifier': [{
+            'system': 'https://example.org/mrn',
+            'value': 'A0001'
+        }],
+        'name': [{
+            'text': '王小明'
+        }]
+    }
+
+    with open('/app/app/tests/ltc_tw_2025/Patient-ltc-patient-cs100-example.json', 'r', encoding='utf-8') as f:
+        expected_json_str = f.read()
+
+    expected_json = json.loads(expected_json_str)
+    del expected_json['text']
+    del expected_json['id']
+
+    json_dict = {}
+    json_dict['payload'] = payload
+    json_dict['type'] = 'cs100'
+    response = client.post('/api/v1/ltc_tw_2025_patient', headers=headers, json=json_dict)
+
+    response_json = response.json()
+    del response_json['data'][0]['id']
+
+    assert len(response_json['data'][0]['identifier']) == 1
+
+    assert response.status_code == 200
+    assert len(response_json['data']) == 1
+    assert response_json['data'][0] == expected_json
