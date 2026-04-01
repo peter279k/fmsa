@@ -144,6 +144,7 @@ def test_create_ltc_tw_2025_patient_resource_on_cs100():
     response = client.post('/api/v1/ltc_tw_2025_patient', headers=headers, json=json_dict)
 
     response_json = response.json()
+    del response_json['data'][0]['id']
 
     assert len(response_json['data'][0]['identifier']) == 1
 
