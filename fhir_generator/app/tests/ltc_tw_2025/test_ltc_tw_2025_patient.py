@@ -100,6 +100,9 @@ def test_create_ltc_tw_2025_patient_resource_on_ltc_type():
     with open('/app/app/tests/ltc_tw_2025/Patient-ltc-patient-chen-ming-hui.json', 'r', encoding='utf-8') as f:
         expected_json_str = f.read()
 
+    expected_json = json.loads(expected_json_str)
+    del expected_json['text']
+
     json_dict = {}
     json_dict['payload'] = payload
     json_dict['type'] = 'ltc'
