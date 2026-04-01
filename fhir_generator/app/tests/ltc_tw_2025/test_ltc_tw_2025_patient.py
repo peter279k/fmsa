@@ -114,4 +114,4 @@ def test_create_ltc_tw_2025_patient_resource_on_ltc_type():
 
     assert response.status_code == 200
     assert len(response_json['data']) == 1
-    assert response_json['data'][0] == json.loads(expected_json_str)
+    assert response_json['data'][0] == expected_json
