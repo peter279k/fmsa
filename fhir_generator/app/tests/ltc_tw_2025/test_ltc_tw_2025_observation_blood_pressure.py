@@ -75,7 +75,7 @@ def test_create_ltc_tw_2025_observation_resource_on_blood_pressure():
     response_json = response.json()
     del response_json['data'][0]['id']
 
-    assert len(response_json['data'][0]['category']['coding']) == 1
+    assert len(response_json['data'][0]['category']) == 1
     assert len(response_json['data'][0]['code']['coding']) == 1
 
     assert response.status_code == 200
