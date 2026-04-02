@@ -787,13 +787,13 @@ def test_create_ltc_tw_2025_questionnaire_response_resource():
     expected['authored'] = authored_lists[2]
     expected['item'] = cdr_items[2]
     expected['meta']['profile'] = profile_urls[1]
-    expected['questionnaire'] = questionnaires[2]
+    expected['questionnaire'] = questionnaires[1]
 
     payload = dict(payload_template)
 
     payload['profile_urls'] = profile_urls[1]
     payload['extensions'] = extensions[2]
-    payload['questionnaires'] = questionnaires[2]
+    payload['questionnaires'] = questionnaires[1]
     payload['status'] = 'completed'
     payload['subject'] = {
         'reference': 'Patient/ltc-patient-chen-ming-hui'
