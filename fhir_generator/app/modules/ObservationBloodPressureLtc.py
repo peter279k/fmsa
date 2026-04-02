@@ -21,20 +21,13 @@ class ObservationBloodPressureLtc:
         observation_class.set_category_coding(self.observation_payload['category_coding'])
 
         observation_class.set_code_coding(self.observation_payload['code_coding'])
+        observation_class.set_code_text(self.observation_payload['code_text'])
 
         observation_class.set_subject(self.observation_payload['subject'])
 
         observation_class.set_effective_datetime(self.observation_payload['effective_datetime'])
 
         observation_class.set_performer(self.observation_payload['performer'])
-
-        observation_class.set_interpretation(self.observation_payload['interpretation'])
-
-        observation_class.set_note(self.observation_payload['note'])
-
-        observation_class.set_body_site_coding(self.observation_payload['body_site_coding'])
-
-        observation_class.set_method_coding(self.observation_payload['method_coding'])
 
         observation_class.set_component(self.observation_payload['component'])
 
