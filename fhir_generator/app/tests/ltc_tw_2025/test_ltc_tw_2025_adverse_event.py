@@ -178,7 +178,6 @@ def test_create_ltc_tw_2025_adverse_event_resource():
     del expected['extension']
 
     payload = dict(payload_template)
-    payload['extension'] = extension
     payload['identifier'] = identifiers[1]
     payload['actuality'] = actuality
     payload['event'] = events[1]
@@ -200,7 +199,7 @@ def test_create_ltc_tw_2025_adverse_event_resource():
     response_json = response.json()
     del response_json['data'][0]['id']
 
-    assert len(response_json['data'][0]['extension']) == 1
+    assert len(response_json['data'][0]['outcome']['coding']) == 1
 
     assert response.status_code == 200
     assert len(response_json['data']) == 1
