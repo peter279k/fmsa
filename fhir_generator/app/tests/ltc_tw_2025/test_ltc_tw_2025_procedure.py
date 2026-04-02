@@ -94,8 +94,8 @@ def test_create_ltc_tw_2025_procedure_resource():
         payload_template['code_texts'] = code_texts[index]
 
         expected_json = json.loads(expected_json_str)
-        expected_json['code_codings'] = code_codings[index]
-        expected_json['code_texts'] = code_texts[index]
+        expected_json['code']['coding'] = code_codings[index]
+        expected_json['code']['text'] = code_texts[index]
         del expected_json['text']
         del expected_json['id']
 
