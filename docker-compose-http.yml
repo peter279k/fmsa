@@ -70,13 +70,13 @@ services:
     restart: always
 
   analysis_db:
-    image: bitnami/clickhouse:24
+    image: clickhouse:25.8
     volumes:
-      - clickhouse_analysis_data:/bitnami/clickhouse
+      - clickhouse_analysis_data:/var/lib/clickhouse/
+      - clickhouse_analysis_data_log:/var/lib/clickhouse-server/
     environment:
-      - ALLOW_EMPTY_PASSWORD=no
-      - CLICKHOUSE_ADMIN_USER=${ANALYSIS_DB_CLICKHOUSE_ADMIN_USER}
-      - CLICKHOUSE_ADMIN_PASSWORD=${ANALYSIS_DB_CLICKHOUSE_ADMIN_PASSWORD}
+      - CLICKHOUSE_USER=${ANALYSIS_DB_CLICKHOUSE_ADMIN_USER}
+      - CLICKHOUSE_PASSWORD=${ANALYSIS_DB_CLICKHOUSE_ADMIN_PASSWORD}
     restart: always
 
   ioht_data_collector:
@@ -93,9 +93,10 @@ services:
     restart: always
 
   ioht_db:
-    image: bitnami/clickhouse:24
+    image: clickhouse:25.8
     volumes:
-      - clickhouse_ioht_data:/bitnami/clickhouse
+      - clickhouse_ioht_data:/var/lib/clickhouse/
+      - clickhouse_ioht_data_log:/var/lib/clickhouse-server/
     environment:
       - ALLOW_EMPTY_PASSWORD=no
       - CLICKHOUSE_ADMIN_USER=${IOHT_DB_CLICKHOUSE_ADMIN_USER}
@@ -253,7 +254,9 @@ services:
 volumes:
   redis_api_gateway_access_token_storage:
   clickhouse_analysis_data:
+  clickhouse_analysis_data_log:
   clickhouse_ioht_data:
+  clickhouse_ioht_data_log:
   keycloak_adapter_postgres_data:
   fhir_server_adapter_postgres_data:
   fhir_data_manager_data:
