@@ -63,7 +63,7 @@ def test_create_ltc_tw_2025_practitioner_role_resource_on_nurse():
 
     json_dict = {}
     json_dict['payload'] = payload
-    response = client.post('/api/v1/ltc_tw_2025_practitioner', headers=headers, json=json_dict)
+    response = client.post('/api/v1/ltc_tw_2025_practitioner_role', headers=headers, json=json_dict)
 
     response_json = response.json()
     del response_json['data'][0]['id']
