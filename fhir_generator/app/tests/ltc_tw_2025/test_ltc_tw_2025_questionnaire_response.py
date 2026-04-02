@@ -9,7 +9,6 @@ def test_create_ltc_tw_2025_questionnaire_response_resource():
     headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
     payload_template = {
         'resourceType': 'QuestionnaireResponse',
-        'id': '',
         'profile_urls': [],
         'extension': [],
         'questionnaire': '',
@@ -28,7 +27,6 @@ def test_create_ltc_tw_2025_questionnaire_response_resource():
     }
     expected_payload_template = {
         'resourceType': 'QuestionnaireResponse',
-        'id': '',
         'meta': {
             'profile': []
         },
