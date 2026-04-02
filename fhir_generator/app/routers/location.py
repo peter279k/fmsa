@@ -44,7 +44,7 @@ async def generate_ltc_tw_location(item: LocationLTC):
     location_resource = {}
 
     try:
-        track8_for_location = Track8ForLocation.Track8ForLocation(resource_name, item_dict)
+        track8_for_location = LocationResourceLtc.LocationResourceLtc(resource_name, item_dict)
         location_resource = track8_for_location.generate_location_resource()
     except Exception as e:
         status_code = 500
