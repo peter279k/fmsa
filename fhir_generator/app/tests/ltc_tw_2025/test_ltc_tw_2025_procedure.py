@@ -101,7 +101,7 @@ def test_create_ltc_tw_2025_procedure_resource():
 
         json_dict = {}
         json_dict['payload'] = payload_template
-        response = client.post('/api/v1/ltc_tw_2025_practitioner_role', headers=headers, json=json_dict)
+        response = client.post('/api/v1/ltc_tw_2025_procedure', headers=headers, json=json_dict)
 
         response_json = response.json()
         del response_json['data'][0]['id']
