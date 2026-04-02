@@ -819,3 +819,120 @@ def test_create_ltc_tw_2025_questionnaire_response_resource():
     assert response.status_code == 200
     assert len(response_json['data']) == 1
     assert response_json['data'][0] == expected
+
+    expected = dict(expected_payload_template)
+
+    expected['extension'] = extensions[3]
+    expected['authored'] = authored_lists[3]
+    expected['item'] = mmse_items[0]
+    expected['meta']['profile'] = profile_urls[1]
+    expected['questionnaire'] = questionnaires[1]
+
+    payload = dict(payload_template)
+
+    payload['profile_urls'] = profile_urls[1]
+    payload['extensions'] = extensions[3]
+    payload['questionnaires'] = questionnaires[1]
+    payload['status'] = 'completed'
+    payload['subject'] = {
+        'reference': 'Patient/ltc-patient-chen-ming-hui'
+    }
+    payload['authored_lists'] = authored_lists[3]
+    payload['author'] = {
+        'reference': 'Practitioner/ltc-practitioner-physician-aa12-example'
+    }
+    payload['source'] = {
+        'reference': 'Patient/ltc-patient-chen-ming-hui'
+    }
+    payload['items'] = mmse_items[0]
+
+    json_dict = {}
+    json_dict['payload'] = payload
+    response = client.post('/api/v1/ltc_tw_2025_questionnaire_response', headers=headers, json=json_dict)
+
+    response_json = response.json()
+    del response_json['data'][0]['id']
+
+    assert len(response_json['data'][0]['extension']) == 1
+
+    assert response.status_code == 200
+    assert len(response_json['data']) == 1
+    assert response_json['data'][0] == expected
+
+    expected = dict(expected_payload_template)
+
+    expected['extension'] = extensions[4]
+    expected['authored'] = authored_lists[4]
+    expected['item'] = mmse_items[1]
+    expected['meta']['profile'] = profile_urls[1]
+    expected['questionnaire'] = questionnaires[1]
+
+    payload = dict(payload_template)
+
+    payload['profile_urls'] = profile_urls[1]
+    payload['extensions'] = extensions[4]
+    payload['questionnaires'] = questionnaires[1]
+    payload['status'] = 'completed'
+    payload['subject'] = {
+        'reference': 'Patient/ltc-patient-chen-ming-hui'
+    }
+    payload['authored_lists'] = authored_lists[4]
+    payload['author'] = {
+        'reference': 'Practitioner/ltc-practitioner-physician-aa12-example'
+    }
+    payload['source'] = {
+        'reference': 'Patient/ltc-patient-chen-ming-hui'
+    }
+    payload['items'] = mmse_items[1]
+
+    json_dict = {}
+    json_dict['payload'] = payload
+    response = client.post('/api/v1/ltc_tw_2025_questionnaire_response', headers=headers, json=json_dict)
+
+    response_json = response.json()
+    del response_json['data'][0]['id']
+
+    assert len(response_json['data'][0]['extension']) == 1
+
+    assert response.status_code == 200
+    assert len(response_json['data']) == 1
+    assert response_json['data'][0] == expected
+
+    expected = dict(expected_payload_template)
+
+    expected['extension'] = extensions[5]
+    expected['authored'] = authored_lists[5]
+    expected['item'] = mmse_items[2]
+    expected['meta']['profile'] = profile_urls[1]
+    expected['questionnaire'] = questionnaires[1]
+
+    payload = dict(payload_template)
+
+    payload['profile_urls'] = profile_urls[1]
+    payload['extensions'] = extensions[5]
+    payload['questionnaires'] = questionnaires[1]
+    payload['status'] = 'completed'
+    payload['subject'] = {
+        'reference': 'Patient/ltc-patient-chen-ming-hui'
+    }
+    payload['authored_lists'] = authored_lists[5]
+    payload['author'] = {
+        'reference': 'Practitioner/ltc-practitioner-physician-aa12-example'
+    }
+    payload['source'] = {
+        'reference': 'Patient/ltc-patient-chen-ming-hui'
+    }
+    payload['items'] = mmse_items[2]
+
+    json_dict = {}
+    json_dict['payload'] = payload
+    response = client.post('/api/v1/ltc_tw_2025_questionnaire_response', headers=headers, json=json_dict)
+
+    response_json = response.json()
+    del response_json['data'][0]['id']
+
+    assert len(response_json['data'][0]['extension']) == 1
+
+    assert response.status_code == 200
+    assert len(response_json['data']) == 1
+    assert response_json['data'][0] == expected
