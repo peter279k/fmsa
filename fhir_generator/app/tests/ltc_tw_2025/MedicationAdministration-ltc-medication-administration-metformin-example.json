@@ -1,0 +1,49 @@
+{
+  "resourceType" : "MedicationAdministration",
+  "id" : "ltc-medication-administration-metformin-example",
+  "meta" : {
+    "profile" : ["http://ltc-ig.fhir.tw/StructureDefinition/LTCMedicationAdministration"]
+  },
+  "text" : {
+    "status" : "generated",
+    "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p class=\"res-header-id\"><b>Generated Narrative: MedicationAdministration ltc-medication-administration-metformin-example</b></p><a name=\"ltc-medication-administration-metformin-example\"> </a><a name=\"hcltc-medication-administration-metformin-example\"> </a><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\"/><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-LTCMedicationAdministration.html\">長期照顧－用藥資料</a></p></div><p><b>status</b>: Completed</p><p><b>medication</b>: <span title=\"Codes:{http://snomed.info/sct 323402006}\">Product containing benethamine penicillin (medicinal product)</span></p><p><b>subject</b>: <a href=\"Patient-ltc-patient-chen-ming-hui.html\">陳明慧 Female, DoB: 1945-03-15 ( National Person Identifier (TWN):\u00a0A123456789\u00a0(use:\u00a0official,\u00a0))</a></p><p><b>effective</b>: 2024-01-15 08:00:00+0800</p><h3>Performers</h3><table class=\"grid\"><tr><td style=\"display: none\">-</td><td><b>Actor</b></td></tr><tr><td style=\"display: none\">*</td><td><a href=\"PractitionerRole-ltc-practitioner-role-nurse-example.html\">PractitionerRole Registered nurse</a></td></tr></table><p><b>note</b>: @2024-01-15 08:00:00+0800</p><blockquote><div><p>住民按時服藥，無不良反應</p>\n</div></blockquote><h3>Dosages</h3><table class=\"grid\"><tr><td style=\"display: none\">-</td><td><b>Route</b></td><td><b>Dose</b></td></tr><tr><td style=\"display: none\">*</td><td><span title=\"Codes:{http://snomed.info/sct 26643006}\">口服</span></td><td>500 mg<span style=\"background: LightGoldenRodYellow\"> (Details: UCUM  codemg = 'mg')</span></td></tr></table></div>"
+  },
+  "status" : "completed",
+  "medicationCodeableConcept" : {
+    "coding" : [{
+      "system" : "http://snomed.info/sct",
+      "code" : "323402006",
+      "display" : "Product containing benethamine penicillin (medicinal product)"
+    }],
+    "text" : "Product containing benethamine penicillin (medicinal product)"
+  },
+  "subject" : {
+    "reference" : "Patient/ltc-patient-chen-ming-hui"
+  },
+  "effectiveDateTime" : "2024-01-15T08:00:00+08:00",
+  "performer" : [{
+    "actor" : {
+      "reference" : "PractitionerRole/ltc-practitioner-role-nurse-example"
+    }
+  }],
+  "note" : [{
+    "time" : "2024-01-15T08:00:00+08:00",
+    "text" : "住民按時服藥，無不良反應"
+  }],
+  "dosage" : {
+    "route" : {
+      "coding" : [{
+        "system" : "http://snomed.info/sct",
+        "code" : "26643006",
+        "display" : "Oral route"
+      }],
+      "text" : "口服"
+    },
+    "dose" : {
+      "value" : 500,
+      "unit" : "mg",
+      "system" : "http://unitsofmeasure.org",
+      "code" : "mg"
+    }
+  }
+}
