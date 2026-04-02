@@ -29,10 +29,12 @@ app = FastAPI(
 
 app.include_router(claim_router)
 app.include_router(location_router)
+app.include_router(adverse_event_router)
 app.include_router(document_reference_router)
 app.include_router(imaging_study_router)
 app.include_router(procedure_router)
 app.include_router(medication_request_router)
+app.include_router(medication_administration_router)
 app.include_router(composition_router)
 app.include_router(coverage_router)
 app.include_router(care_plan_router)
