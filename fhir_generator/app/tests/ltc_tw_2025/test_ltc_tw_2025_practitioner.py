@@ -160,9 +160,7 @@ def test_create_ltc_tw_2025_practitioner_resource_on_nurse():
     headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
     payload = {
         'resourceType': 'Practitioner',
-        'meta': {
-            'profile': ['http://ltc-ig.fhir.tw/StructureDefinition/LTCPractitioner']
-        },
+        'profile_urls': ['http://ltc-ig.fhir.tw/StructureDefinition/LTCPractitioner'],
         'identifier': [{
             'use': 'official',
             'type': {
