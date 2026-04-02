@@ -82,7 +82,7 @@ def test_create_ltc_tw_2025_practitioner_resource_on_aa12():
     response_json = response.json()
     del response_json['data'][0]['id']
 
-    assert len(response_json['data'][0]['identifier']) == 1
+    assert len(response_json['data'][0]['identifier']) == 2
 
     assert response.status_code == 200
     assert len(response_json['data']) == 1
@@ -150,7 +150,7 @@ def test_create_ltc_tw_2025_practitioner_resource_on_ltc():
     response_json = response.json()
     del response_json['data'][0]['id']
 
-    assert len(response_json['data'][0]['identifier']) == 2
+    assert len(response_json['data'][0]['identifier']) == 1
 
     assert response.status_code == 200
     assert len(response_json['data']) == 1
@@ -161,7 +161,7 @@ def test_create_ltc_tw_2025_practitioner_resource_on_nurse():
     payload = {
         'resourceType': 'Practitioner',
         'profile_urls': ['http://ltc-ig.fhir.tw/StructureDefinition/LTCPractitioner'],
-        'identifier': [{
+        'identifiers': [{
             'use': 'official',
             'type': {
                 'coding': [{
