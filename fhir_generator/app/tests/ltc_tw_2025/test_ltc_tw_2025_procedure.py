@@ -106,8 +106,7 @@ def test_create_ltc_tw_2025_procedure_resource():
         response_json = response.json()
         del response_json['data'][0]['id']
 
-        assert len(response_json['data'][0]['availableTime']) == 1
-        assert len(response_json['data'][0]['telecom']) == 2
+        assert len(response_json['data'][0]['code']['coding']) == 1
 
         assert response.status_code == 200
         assert len(response_json['data']) == 1
