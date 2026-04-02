@@ -7,7 +7,7 @@ client = TestClient(app)
 
 def test_create_ltc_tw_2025_questionnaire_response_resource():
     headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
-    expected_payload_template = {
+    payload_template = {
         'resourceType': 'QuestionnaireResponse',
         'id': '',
         'profile_urls': [],
@@ -26,7 +26,7 @@ def test_create_ltc_tw_2025_questionnaire_response_resource():
         },
         'item': [],
     }
-    payload_template = {
+    expected_payload_template = {
         'resourceType': 'QuestionnaireResponse',
         'id': '',
         'meta': {
