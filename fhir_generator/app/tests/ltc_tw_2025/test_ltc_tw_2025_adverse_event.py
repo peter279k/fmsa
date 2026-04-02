@@ -57,7 +57,9 @@ def test_create_ltc_tw_2025_adverse_event_resource():
         },
     ]
     dates = ['2025-11-05T10:20:00+08:00', '2024-01-15T14:30:00+08:00']
+    detected = '2024-01-15T14:32:00+08:00'
     recorded_dates = ['2025-11-05T10:30:00+08:00', '2024-01-15T14:35:00+08:00']
+    actuality = 'actual'
     location = {
         'reference': 'Location/ltc-location-example'
     }
@@ -150,6 +152,49 @@ def test_create_ltc_tw_2025_adverse_event_resource():
     json_dict = {}
     json_dict['payload'] = payload
     json_dict['type'] = 'cs100'
+    response = client.post('/api/v1/ltc_tw_2025_adverse_event', headers=headers, json=json_dict)
+
+    response_json = response.json()
+    del response_json['data'][0]['id']
+
+    assert len(response_json['data'][0]['extension']) == 1
+
+    assert response.status_code == 200
+    assert len(response_json['data']) == 1
+    assert response_json['data'][0] == expected
+
+    expected = dict(expected_payload)
+    expected['identifier'] = identifiers[1]
+    expected['event'] = events[1]
+    expected['subject'] = subjects[1]
+    expected['date'] = dates[1]
+    expected['detected'] = detected
+    expected['recordedDate'] = recorded_dates[1]
+    expected['location'] = location
+    expected['seriousness'] = seriousness
+    expected['severity'] = severity
+    expected['outcome'] = outcome
+    expected['recorder'] = recorder
+    del expected['extension']
+
+    payload = dict(payload_template)
+    payload['extension'] = extension
+    payload['identifier'] = identifiers[1]
+    payload['actuality'] = actuality
+    payload['event'] = events[1]
+    payload['subject'] = subjects[1]
+    payload['date'] = dates[1]
+    payload['detected'] = detected
+    payload['location'] = location
+    payload['seriousness'] = seriousness
+    payload['severity'] = severity
+    payload['outcome'] = outcome
+    payload['recorder'] = recorder
+    payload['recorded_date'] = recorded_dates[1]
+
+    json_dict = {}
+    json_dict['payload'] = payload
+    json_dict['type'] = 'ltc'
     response = client.post('/api/v1/ltc_tw_2025_adverse_event', headers=headers, json=json_dict)
 
     response_json = response.json()
