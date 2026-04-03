@@ -16,9 +16,9 @@ def test_upload_observation_resource_without_meta_profile_and_text():
     del json_dict['text']
 
     payload = {
-        'resource': json_dict
+        'resource': json_dict,
     }
-    response = client.put('http://fhir_data_manager:8000/api/v1/update/Patient', headers=headers, json=json_dict)
+    response = client.put('http://fhir_data_manager:8000/api/v1/update/Patient', headers=headers, json=payload)
 
     assert response.status_code == 201
 
