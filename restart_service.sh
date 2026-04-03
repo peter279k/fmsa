@@ -1,5 +1,7 @@
 #!/bin/bash
 
+service_name=$1
+
 echo "Restart the ${service_name} is started."
 
 docker compose down $service_name
