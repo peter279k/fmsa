@@ -1,5 +1,4 @@
 from app.routers import *
-
 from fastapi import FastAPI
 from circuit_breaker import CircuitBreakerMiddleware, CircuitBreakerInputDto
 
@@ -25,3 +24,5 @@ app.add_middleware(
         half_open_retry_timeout_seconds=60,
     ),
 )
+
+app.include_router(data_collector_router)
