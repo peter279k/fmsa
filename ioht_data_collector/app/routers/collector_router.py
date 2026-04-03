@@ -11,7 +11,7 @@ async def upload_observation_resource_data(item: DataPayload):
 
     try:
         info = {
-            'url': f'http://fhir_data_manager:8000/api/v1/upload/{resource_name}',
+            'url': f'http://fhir_data_manager:8000/api/v1/update/{resource_name}',
             'body': item_dict['payload'],
             'header': {
                 'Content-Type': 'application/json',
