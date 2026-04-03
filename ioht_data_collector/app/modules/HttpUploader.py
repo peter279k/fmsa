@@ -8,9 +8,9 @@ class HttpUploader(Connector, ResponseProcessor):
         url = info['url']
         request_body = info['body']
         request_header = info['header']
-        httpx.post(url, json=request_body, headers=request_header)
+        response = httpx.post(url, json=request_body, headers=request_header)
 
-        print('Using httpx to connect and send request.')
+        return response
 
     def process(self, response: Response):
         return {
