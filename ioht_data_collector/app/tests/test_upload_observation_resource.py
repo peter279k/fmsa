@@ -19,7 +19,7 @@ def test_upload_observation_resource_without_meta_profile_and_text():
     payload = {
         'resource': json_dict,
     }
-    response = httpx.put('http://fhir_data_manager:8000/api/v1/update/Practiitoner', headers=headers, json=payload)
+    response = httpx.put('http://fhir_data_manager:8000/api/v1/update/Practitioner', headers=headers, json=payload)
 
     assert response.status_code == 201 or response.status_code == 200
 
@@ -33,7 +33,7 @@ def test_upload_observation_resource_without_meta_profile_and_text():
     payload = {
         'resource': json_dict,
     }
-    response = httpx.put('http://fhir_data_manager:8000/api/v1/update/PractiitonerRole', headers=headers, json=payload)
+    response = httpx.put('http://fhir_data_manager:8000/api/v1/update/PractitionerRole', headers=headers, json=payload)
 
     assert response.status_code == 201 or response.status_code == 200
 
