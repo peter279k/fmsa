@@ -10,7 +10,7 @@ class HttpUploader(Connector, ResponseProcessor):
             'resource': info['body'],
         }
         request_header = info['header']
-        response = httpx.post(url, json=request_body, headers=request_header)
+        response = httpx.put(url, json=request_body, headers=request_header)
 
         return response
 
