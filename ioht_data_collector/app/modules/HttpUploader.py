@@ -12,8 +12,6 @@ class HttpUploader(Connector, ResponseProcessor):
         request_header = info['header']
         response = httpx.post(url, json=request_body, headers=request_header)
 
-        print(response.text)
-
         return response
 
     def process(self, response: Response):
