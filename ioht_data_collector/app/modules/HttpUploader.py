@@ -7,7 +7,7 @@ class HttpUploader(Connector, ResponseProcessor):
     def connect(self, info: dict):
         url = info['url']
         request_body = {
-            'resource': info['body'],
+            'payload': info['body'],
         }
         request_header = info['header']
         response = httpx.put(url, json=request_body, headers=request_header)
