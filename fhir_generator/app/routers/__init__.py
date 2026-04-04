@@ -103,5 +103,5 @@ adverse_event_router.add_api_route('/ltc_tw_2025_adverse_event', generate_ltc_tw
 questionnaire_response_router = APIRouter(tags=['Generate QuestionnaireResponse Resource'], prefix='/api/v1')
 questionnaire_response_router.add_api_route('/ltc_tw_2025_questionnaire_response', generate_ltc_tw_questionnaire_response, methods=['POST'], description='Generate QuestionnaireResponse Resource for LTC')
 
-directed_upload_router = APIRouter(tags=['Upload specific resource directly'], prefix='/api/v1')
-directed_upload_router.add_api_route('/directed_upload/{resource_name}', directed_uploading_resource, methods=['POST'], description='Upload the specific resource via FHIR Data Manager directly')
+directed_upload_router = APIRouter(tags=['Upload specific resource with updating approach directly'], prefix='/api/v1')
+directed_upload_router.add_api_route('/directed_upload/{resource_name}', directed_uploading_resource, methods=['PUT'], description='Upload the specific resource via FHIR Data Manager directly')
