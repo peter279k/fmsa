@@ -48,7 +48,10 @@ class MedicationAdministrationLtcConverter(BaseConverter):
 
             dosage = dict(payload['dosage'])
             dosage_info = medication['劑量'].split(' ')
-            dosage_value = int(dosage_info[0])
+            if '%' in dosage_info[0]:
+                dosage_info[0] = dosage_info[0][0:-1]
+                dosage_info += '%',
+            dosage_value = float(dosage_info[0])
             dosage_unit = dosage_info[1]
             dosage = self.convert_dosage_code(medication['用藥途徑'], dosage_value, dosage_unit)
             payload['dosage'] = dosage
