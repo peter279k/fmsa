@@ -9,10 +9,7 @@ class AdverseEventLtcConverter(BaseConverter):
         payload_template = {
             'resourceType': 'AdverseEvent',
             'id': None,
-            'extension': [{
-                'extension': [],
-                'url': 'http://ltc-ig.fhir.tw/StructureDefinition/Ext-TW-LTC-AdverseEvent-Description'
-            }],
+            'extension': [],
             'identifier': {
                 'use': 'official',
                 'system': 'http://ltc-ig.fhir.tw/adverse-event',
@@ -65,9 +62,11 @@ class AdverseEventLtcConverter(BaseConverter):
             payload['id'] = adverse_event_id
 
             extension = list(payload['extension'])
-            extension = dict(extension[0])
-            extension = list(extension['extension'])
-            extension += {
+            extension = [{
+                'extension': [],
+                'url': 'http://ltc-ig.fhir.tw/StructureDefinition/Ext-TW-LTC-AdverseEvent-Description'
+            }]
+            extension[0]['extension'] += {
                 'url': 'textType',
                 'valueCodeableConcept': {
                     'coding': [{
