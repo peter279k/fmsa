@@ -19,10 +19,6 @@ class AdverseEventLtcConverter(BaseConverter):
                             'display': '事件描述'
                         }]
                     }
-                },
-                {
-                    'url': 'text',
-                    'valueString': ''
                 }],
                 'url': 'http://ltc-ig.fhir.tw/StructureDefinition/Ext-TW-LTC-AdverseEvent-Description'
             }],
@@ -80,9 +76,11 @@ class AdverseEventLtcConverter(BaseConverter):
             extension = list(payload['extension'])
             extension = dict(extension[0])
             extension = list(extension['extension'])
-            event_description = dict(extension[1])
-            event_description['valueString'] = adverse_event['事件類型描述']
-            payload['extension'][0]['extension'][1] = event_description
+            extension += {
+                'url': 'text',
+                'valueString': adverse_event['事件類型描述'],
+            },
+            payload['extension'][0]['extension'] = list(extension)
 
             event = dict(payload['event'])
             event['text'] = adverse_event['結果狀況']
