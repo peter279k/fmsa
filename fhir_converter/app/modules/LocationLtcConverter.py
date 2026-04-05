@@ -44,7 +44,7 @@ class LocationLtcConverter(BaseConverter):
             payload['position']['longitude'] = location_info['longitude']
             payload['position']['latitude'] = location_info['latitude']
 
-            converted_result += payload,
+            converted_result += dict(payload),
             address_number += 1
 
         return converted_result
