@@ -77,7 +77,10 @@ class AdverseEventLtcConverter(BaseConverter):
             adverse_event_id = hashlib.sha3_224(adverse_event_id.encode('utf-8')).hexdigest()
             payload['id'] = adverse_event_id
 
-            event_description = dict(payload['extension'][0]['extension'][1])
+            extension = list(payload['extension'])
+            extension = dict(extension[0])
+            extension = list(extension['extension'])
+            event_description = dict(extension[1])
             event_description['valueString'] = adverse_event['事件類型描述']
             payload['extension'][0]['extension'][1] = event_description
 
