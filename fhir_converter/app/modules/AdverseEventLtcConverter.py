@@ -76,7 +76,7 @@ class AdverseEventLtcConverter(BaseConverter):
                     }]
                 }
             },
-            extension += {
+            extension[0]['extension'] += {
                 'url': 'text',
                 'valueString': adverse_event['事件類型描述'],
             },
