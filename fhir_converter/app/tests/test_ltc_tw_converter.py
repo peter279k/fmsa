@@ -142,6 +142,48 @@ def test_convert_medication_administration_data():
     assert response_json_data[0]['effectiveDateTime'] == '2025-03-01T00:00+08:00'
     assert response_json_data[-1]['effectiveDateTime'] == '2022-12-01T00:00+08:00'
 
+    assert response_json_data[0]['dosage'] == {
+        'route': {
+            'coding': [{
+                'system': 'http://snomed.info/sct',
+                'code': '26643006',
+                'display': 'Oral route'
+            }],
+            'text': '口服'
+        },
+        'dose': {
+            'value': 500,
+            'unit': 'mg',
+            'system': 'http://unitsofmeasure.org',
+            'code': 'mg',
+        },
+    }
+    assert response_json_data[-1]['dosage'] == {
+        'route': {
+            'coding': [{
+                'system': 'http://snomed.info/sct',
+                'code': '26643006',
+                'display': 'Oral route'
+            }],
+            'text': '口服'
+        },
+        'dose': {
+            'value': 75,
+            'unit': 'μg',
+            'system': 'http://unitsofmeasure.org',
+            'code': 'μg',
+        },
+    }
+
+    assert response_json_data[0]['note'] == [{
+        'time': '2025-03-01T00:00+08:00',
+        'text': '飯後服用，治療呼吸道感染',
+    }]
+    assert response_json_data[-1]['note'] == [{
+        'time': '2022-12-01T00:00+08:00',
+        'text': '甲狀腺低下，空腹服用',
+    }]
+
     assert response_json_data[0]['medicationCodeableConcept'] == {
         'coding': [{
             'system': 'http://snomed.info/sct',
