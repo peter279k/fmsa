@@ -33,7 +33,7 @@ class MedicationAdministrationLtcConverter(BaseConverter):
 
             medication_codeable = dict(payload['medicationCodeableConcept'])
             medication_codeable = self.convert_medication_code(medication['藥品名稱'])
-            payload['code'] = medication_codeable
+            payload['medicationCodeableConcept'] = medication_codeable
 
             effective_datetime = medication['開始日期'] + ' ' + '00:00'
             effective_datetime = self.convert_to_iso_datetime(effective_datetime)
