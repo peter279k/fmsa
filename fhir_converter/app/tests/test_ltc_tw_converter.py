@@ -39,3 +39,24 @@ def test_convert_location_data():
 
     assert response_json_data[0]['position']['latitude'] == 25.0478
     assert response_json_data[-1]['position']['latitude'] == 25.0712
+
+@pytest.mark.dependency
+def test_convert_adverse_event_data():
+    with open('/app/app/tests/ltc_tw_2025/adverse_event.json') as f:
+        adverse_event_data = f.read()
+
+    module_name = 'AdverseEventLtcConverter'
+    payload = {
+        'module_name': module_name,
+        'original_data': json.loads(adverse_event_data),
+    }
+    headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+
+    response = client.post(f'/api/v1/convert', headers=headers, json=payload)
+    response_json = response.json()
+    response_json_data = response_json['data'][0]
+
+    assert response.status_code == 200
+
+    assert response_json_data[0]['extension'][0]['extension'][1]['valueString'] == '患者深夜獨自離開病房，試圖搭乘電梯返家'
+    assert response_json_data[-1]['extension'][0]['extension'][1]['valueString'] == '患者對著鏡子持續與「陌生人」對話，出現明顯鏡像幻覺'
