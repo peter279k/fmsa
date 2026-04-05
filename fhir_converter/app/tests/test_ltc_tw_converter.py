@@ -61,8 +61,8 @@ def test_convert_adverse_event_data():
     assert response_json_data[0]['extension'][0]['extension'][1]['valueString'] == '患者深夜獨自離開病房，試圖搭乘電梯返家'
     assert response_json_data[-1]['extension'][0]['extension'][1]['valueString'] == '患者對著鏡子持續與「陌生人」對話，出現明顯鏡像幻覺'
 
-    assert response_json_data[0]['event'] == '保全人員即時攔截，患者平安返回病房，已通知值班醫師及家屬，加裝手環定位追蹤'
-    assert response_json_data[-1]['event'] == '護理師移除鏡子或以布遮蓋，症狀緩解，回報醫師後記錄為鏡像幻覺，納入照護計畫調整'
+    assert response_json_data[0]['event']['text'] == '保全人員即時攔截，患者平安返回病房，已通知值班醫師及家屬，加裝手環定位追蹤'
+    assert response_json_data[-1]['event']['text'] == '護理師移除鏡子或以布遮蓋，症狀緩解，回報醫師後記錄為鏡像幻覺，納入照護計畫調整'
 
     assert response_json_data[0]['date'] == '2024-04-01T01:22:00+08:00'
     assert response_json_data[-1]['date'] == '2024-04-10T22:50:00+08:00'
