@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "name": "王大明",
+    "location_name": "日照中心",
+    "latitude": 25.0478,
+    "longitude": 121.5170
+  },
+  {
+    "id": 2,
+    "name": "李美珍",
+    "location_name": "家裡",
+    "latitude": 25.0330,
+    "longitude": 121.5654
+  },
+  {
+    "id": 3,
+    "name": "陳志豪",
+    "location_name": "公園",
+    "latitude": 25.0796,
+    "longitude": 121.5773
+  },
+  {
+    "id": 4,
+    "name": "林淑芬",
+    "location_name": "醫院",
+    "latitude": 25.0173,
+    "longitude": 121.5397
+  },
+  {
+    "id": 5,
+    "name": "黃俊傑",
+    "location_name": "長照機構",
+    "latitude": 25.0609,
+    "longitude": 121.5353
+  },
+  {
+    "id": 6,
+    "name": "張雅婷",
+    "location_name": "社區活動中心",
+    "latitude": 25.0452,
+    "longitude": 121.4953
+  },
+  {
+    "id": 7,
+    "name": "吳建國",
+    "location_name": "家裡",
+    "latitude": 25.0891,
+    "longitude": 121.5601
+  },
+  {
+    "id": 8,
+    "name": "劉美惠",
+    "location_name": "復健診所",
+    "latitude": 25.0264,
+    "longitude": 121.5433
+  },
+  {
+    "id": 9,
+    "name": "蔡文雄",
+    "location_name": "老人福利中心",
+    "latitude": 25.0537,
+    "longitude": 121.6012
+  },
+  {
+    "id": 10,
+    "name": "周秀蘭",
+    "location_name": "家裡",
+    "latitude": 25.0712,
+    "longitude": 121.4874
+  }
+]
