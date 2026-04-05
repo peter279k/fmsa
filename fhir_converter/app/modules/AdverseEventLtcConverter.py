@@ -10,16 +10,7 @@ class AdverseEventLtcConverter(BaseConverter):
             'resourceType': 'AdverseEvent',
             'id': None,
             'extension': [{
-                'extension': [{
-                    'url': 'textType',
-                    'valueCodeableConcept': {
-                        'coding': [{
-                            'system': 'http://ltc-ig.fhir.tw/CodeSystem/cs-tw-ltc-incident-texttype',
-                            'code': 'desc',
-                            'display': '事件描述'
-                        }]
-                    }
-                }],
+                'extension': [],
                 'url': 'http://ltc-ig.fhir.tw/StructureDefinition/Ext-TW-LTC-AdverseEvent-Description'
             }],
             'identifier': {
@@ -76,6 +67,16 @@ class AdverseEventLtcConverter(BaseConverter):
             extension = list(payload['extension'])
             extension = dict(extension[0])
             extension = list(extension['extension'])
+            extension += {
+                'url': 'textType',
+                'valueCodeableConcept': {
+                    'coding': [{
+                        'system': 'http://ltc-ig.fhir.tw/CodeSystem/cs-tw-ltc-incident-texttype',
+                        'code': 'desc',
+                        'display': '事件描述'
+                    }]
+                }
+            },
             extension += {
                 'url': 'text',
                 'valueString': adverse_event['事件類型描述'],
