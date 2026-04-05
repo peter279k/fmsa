@@ -42,7 +42,7 @@ class LocationLtcConverter(BaseConverter):
             payload['description'] = location_info['location_name']
 
             address = dict(payload['address'])
-            address = f'新北市中和區安康路二段{address_number}號'
+            address['text'] = f'新北市中和區安康路二段{address_number}號'
             payload['address'] = address
 
             position = dict(payload['position'])
