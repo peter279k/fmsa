@@ -34,8 +34,8 @@ def test_convert_location_data():
     assert response_json_data[0]['address']['text'] == '新北市中和區安康路二段123號'
     assert response_json_data[-1]['address']['text'] == '新北市中和區安康路二段132號'
 
-    assert response_json_data[0]['longitude'] == 121.5170
-    assert response_json_data[-1]['longitude'] == 121.4874
+    assert response_json_data[0]['position']['longitude'] == 121.5170
+    assert response_json_data[-1]['position']['longitude'] == 121.4874
 
-    assert response_json_data[0]['latitude'] == 25.0478
-    assert response_json_data[-1]['latitude'] == 25.0712
+    assert response_json_data[0]['position']['latitude'] == 25.0478
+    assert response_json_data[-1]['position']['latitude'] == 25.0712
