@@ -9,12 +9,12 @@ client = TestClient(app)
 @pytest.mark.dependency()
 def test_convert_location_data():
     with open('/app/app/tests/ltc_tw_2025/location.json') as f:
-        golden_smart_home_data = f.read()
+        ltc_location_data = f.read()
 
     module_name = 'LocationLtcConverter'
     payload = {
         'module_name': module_name,
-        'original_data': json.loads(golden_smart_home_data),
+        'original_data': json.loads(ltc_location_data),
     }
     headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
 
