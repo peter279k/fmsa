@@ -72,3 +72,50 @@ def test_convert_adverse_event_data():
 
     assert response_json_data[0]['recordedDate'] == '2024-04-01T01:22:00+08:00'
     assert response_json_data[-1]['recordedDate'] == '2024-04-10T22:50:00+08:00'
+
+@pytest.mark.dependency
+def test_convert_procedure_data():
+    with open('/app/app/tests/ltc_tw_2025/procedure.json') as f:
+        procedure_data = f.read()
+
+    module_name = 'ProcedureLtcConverter'
+    payload = {
+        'module_name': module_name,
+        'original_data': json.loads(procedure_data),
+    }
+    headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+
+    response = client.post(f'/api/v1/convert', headers=headers, json=payload)
+    response_json = response.json()
+    response_json_data = response_json['data'][0]
+
+    assert response.status_code == 200
+
+    assert response_json_data[0]['performedDateTime'] == '2025-03-01T08:00+08:00'
+    assert response_json_data[-1]['performedDateTime'] == '2025-03-05T19:00+08:00'
+
+    assert response_json_data[0]['code'] == {
+        'coding': [{
+            'system': 'http://snomed.info/sct',
+            'code': '225964003',
+            'display': 'Assisting with personal hygiene'
+        }],
+        'text': '個人衛生協助',
+    }
+    assert response_json_data[-1]['code'] == {
+        'coding': [{
+            'system': 'http://snomed.info/sct',
+            'code': '225964003',
+            'display': 'Assisting with personal hygiene'
+        }],
+        'text': '個人衛生協助',
+    }
+
+    assert response_json_data[0]['note'] == [{
+        'time': '2025-03-01T08:00+08:00',
+        'text': '合作度佳，情緒穩定',
+    }]
+    assert response_json_data[-1]['note'] == [{
+        'time': '2025-03-05T19:00+08:00',
+        'text': '情緒平靜，表示願意休息',
+    }]
