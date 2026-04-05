@@ -125,10 +125,11 @@ def test_convert_medication_administration_data():
     with open('/app/app/tests/ltc_tw_2025/medication_administration.json') as f:
         medication_admin_data = f.read()
 
+    medication_lists = json.loads(medication_admin_data)['用藥紀錄']
     module_name = 'MedicationAdministrationLtcConverter'
     payload = {
         'module_name': module_name,
-        'original_data': json.loads(medication_admin_data),
+        'original_data': medication_lists,
     }
     headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
 
