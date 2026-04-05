@@ -80,7 +80,7 @@ class AdverseEventLtcConverter(BaseConverter):
                 'url': 'text',
                 'valueString': adverse_event['事件類型描述'],
             },
-            payload['extension'][0]['extension'] = list(extension)
+            payload['extension'] = list(extension)
 
             event = dict(payload['event'])
             event['text'] = adverse_event['結果狀況']
