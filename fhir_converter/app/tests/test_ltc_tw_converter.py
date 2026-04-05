@@ -119,3 +119,24 @@ def test_convert_procedure_data():
         'time': '2025-03-05T19:00+08:00',
         'text': '情緒平靜，表示願意休息',
     }]
+
+@pytest.mark.dependency
+def test_convert_medication_administration_data():
+    with open('/app/app/tests/ltc_tw_2025/medication_administration.json') as f:
+        medication_admin_data = f.read()
+
+    module_name = 'MedicationAdministrationLtcConverter'
+    payload = {
+        'module_name': module_name,
+        'original_data': json.loads(medication_admin_data),
+    }
+    headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+
+    response = client.post(f'/api/v1/convert', headers=headers, json=payload)
+    response_json = response.json()
+    response_json_data = response_json['data'][0]
+
+    assert response.status_code == 200
+
+    assert response_json_data[0]['effectiveDateTime'] == '2025-03-01T00:00+08:00'
+    assert response_json_data[-1]['effectiveDateTime'] == '2022-12-01T00:00+08:00'
