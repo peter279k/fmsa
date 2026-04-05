@@ -7,7 +7,7 @@ from fastapi.testclient import TestClient
 client = TestClient(app)
 
 @pytest.mark.dependency()
-def test_import_archived_code_system():
+def test_convert_golden_smart_home_data():
     with open('/app/app/tests/sport.raw_data_goldensmarthome_20241212.json') as f:
         golden_smart_home_data = f.read()
 
