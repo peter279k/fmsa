@@ -141,3 +141,20 @@ def test_convert_medication_administration_data():
 
     assert response_json_data[0]['effectiveDateTime'] == '2025-03-01T00:00+08:00'
     assert response_json_data[-1]['effectiveDateTime'] == '2022-12-01T00:00+08:00'
+
+    assert response_json_data[0]['medicationCodeableConcept'] == {
+        'coding': [{
+            'system': 'http://snomed.info/sct',
+            'code': '323567000',
+            'display': 'Amoxicillin (as amoxicillin sodium) 500 mg and clavulanic acid (as clavulanate potassium) 100 mg powder for solution for injection vial'
+        }],
+        'text': 'Amoxicillin (as amoxicillin sodium) 500 mg and clavulanic acid (as clavulanate potassium) 100 mg powder for solution for injection vial'
+    }
+    assert response_json_data[-1]['medicationCodeableConcept'] == {
+        'coding': [{
+            'system': 'http://snomed.info/sct',
+            'code': '768532006',
+            'display': 'Levothyroxine-containing product'
+        }],
+        'text': 'Levothyroxine-containing product'
+    }
