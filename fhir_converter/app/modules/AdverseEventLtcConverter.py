@@ -77,16 +77,12 @@ class AdverseEventLtcConverter(BaseConverter):
             adverse_event_id = hashlib.sha3_224(adverse_event_id.encode('utf-8')).hexdigest()
             payload['id'] = adverse_event_id
 
-            extension = list(payload['extension'])
-
-            event_value_string = list(extension[0])
-            event_value_string = dict(event_value_string['extension'][1])
-            event_value_string['valueString'] = adverse_event['事件類型描述']
-            payload['extension'][0]['extension'][1]['valueString'] = event_value_string
+            event_description = dict(payload['extension'][0]['extension'][1])
+            event_description['valueString'] = adverse_event['事件類型描述']
+            payload['extension'][0]['extension'][1] = event_description
 
             event = dict(payload['event'])
             event['text'] = adverse_event['結果狀況']
-
             payload['event'] = dict(event)
 
             iso8601_datetime = self.convert_iso_datetime(adverse_event['發生時間'])
