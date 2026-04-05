@@ -40,7 +40,7 @@ class LocationLtcConverter(BaseConverter):
             payload['id'] = location_id
             payload['name'] = location_info['name']
             payload['description'] = location_info['location_name']
-            payload['address']['text'] = '新北市中和區安康路二段address_number號'.replace('address_number', address_number)
+            payload['address']['text'] = '新北市中和區安康路二段address_number號'.replace('address_number', str(address_number))
             payload['position']['longitude'] = location_info['longitude']
             payload['position']['latitude'] = location_info['latitude']
 
