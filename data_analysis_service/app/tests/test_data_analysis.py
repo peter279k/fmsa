@@ -1,3 +1,4 @@
+import json
 from app.main import app
 from fastapi.testclient import TestClient
 
@@ -171,3 +172,31 @@ def test_stdev_mode_with_xbar_float():
     assert response.status_code == 200
     assert response_json['message'] == f'Analyzing data with {module_name} is successful.'
     assert round(response_json['data'][0], precision) == expected_rounded_value
+
+def test_cdr_statistics():
+    module_name = 'CdrStatistics'
+    json_data = []
+    cdr_files = [
+        'QuestionnaireResponse-ltc-questionnaire-response-cdr-complete-example.json',
+        'QuestionnaireResponse-ltc-questionnaire-response-cdr-example.json',
+        'QuestionnaireResponse-ltc-questionnaire-response-cdr-moderate-example.json',
+    ]
+    for cdr_file in cdr_files:
+        with open(f'/app/app/tests/ltc_tw_2025/{cdr_file}') as f:
+            contents = f.read()
+            json_data += json.loads(contents),
+    payload = {
+        'module_name': module_name,
+        'data': json_data,
+    }
+
+    headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+
+    response = client.post(f'/api/v1/analyze', headers=headers, json=payload)
+    response_json = response.json()
+
+    assert response.status_code == 200
+    assert len(response_json['data']) == 3
+    assert response_json['data'][0] == 'Mild'
+    assert response_json['data'][1] == 'Mild'
+    assert response_json['data'][2] == 'Moderate'
