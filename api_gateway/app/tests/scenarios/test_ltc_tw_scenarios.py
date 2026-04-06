@@ -6,7 +6,12 @@ from fastapi.testclient import TestClient
 client = TestClient(app)
 
 def test_upload_observation_scenario1():
-    headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+    headers = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'x-api-key': 'API Key',
+        'x-user': 'User',
+    }
     payload = {
         'resourceType': 'Observation',
         'profile_urls': ['http://ltc-ig.fhir.tw/StructureDefinition/LTCObservationVitalSigns'],

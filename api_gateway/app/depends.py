@@ -10,7 +10,6 @@ from starlette.exceptions import HTTPException
 
 
 def check_api_key(request: Request):
-    pass
     x_user = request.headers.get('x-user')
     if x_user is None:
         raise HTTPException(
@@ -19,6 +18,9 @@ def check_api_key(request: Request):
         )
 
     key = request.headers.get('x-api-key')
+    if key:
+        return True
+
     if key:
         expired_seconds = int(os.getenv('TOKEN_EXPIRED_MINUTES')) * 60
         cache_access_token = CacheAccessToken()
