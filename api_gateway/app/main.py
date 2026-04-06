@@ -572,12 +572,12 @@ class OriginalPayload(BaseModel):
     service_url=SERVICE_URLS[4],
     gateway_path='/convert',
     service_path='/api/v1/convert',
-    body_params=['convert_payload'],
+    body_params=['payload'],
     status_code=status.HTTP_200_OK,
     tags=['Convert original data to FHIR-based standard with the specific converter'],
     dependencies=[],
 )
-async def convert_data(convert_payload: OriginalPayload, request: Request, response: Response):
+async def convert_data(payload: OriginalPayload, request: Request, response: Response):
     pass
 
 @route(
