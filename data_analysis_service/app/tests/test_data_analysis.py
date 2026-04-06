@@ -198,6 +198,6 @@ def test_cdr_statistics():
 
     assert response.status_code == 200
     assert len(response_json['data'][0]) == 3
-    assert response_json['data'][0][0] == 'Mild'
-    assert response_json['data'][0][1] == 'Mild'
-    assert response_json['data'][0][2] == 'Moderate'
+    assert response_json['data'][0][0]['result'] == 'Mild'
+    assert response_json['data'][0][1]['result'] == 'Mild'
+    assert response_json['data'][0][2]['result'] == 'Moderate'
