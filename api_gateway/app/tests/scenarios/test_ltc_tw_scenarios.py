@@ -337,7 +337,7 @@ def test_convert_upload_retrieve_medication_administration_data():
     assert response.status_code == 200
 
 @pytest.mark.dependency(depends=['test_upload_required_references'])
-def test_analyze_upload_retrieve_questionnaire_response_data():
+def test_analyze_upload_retrieve_questionnaire_response_cdr_data():
     module_name = 'CdrStatistics'
     json_data = []
     cdr_files = [
@@ -382,3 +382,58 @@ def test_analyze_upload_retrieve_questionnaire_response_data():
 
     response = client.get(f'/api/v1/retrieve/QuestionnaireResponse?_id={questionnaire_response_id}', headers=headers)
     assert response.status_code == 200
+
+@pytest.mark.dependency(depends=['test_upload_required_references'])
+def test_convert_upload_retrieve_location_data():
+    with open('/app/app/tests/scenarios/location.json') as f:
+        ltc_location_data = f.read()
+
+    module_name = 'LocationLtcConverter'
+    payload = {
+        'module_name': module_name,
+        'original_data': json.loads(ltc_location_data),
+    }
+    headers = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'x-api-key': 'API Key',
+        'x-user': 'User',
+    }
+
+    response = client.post(f'/api/v1/convert', headers=headers, json=payload)
+    response_json = response.json()
+    response_json_data = response_json['data'][0]
+
+    assert response.status_code == 200
+    assert response_json['message'] == f'Converting data with {module_name} is successful.'
+    assert len(response_json_data) == 10
+    assert response_json_data[0]['name'] == '王大明'
+    assert response_json_data[-1]['name'] == '周秀蘭'
+
+    assert response_json_data[0]['description'] == '日照中心'
+    assert response_json_data[-1]['description'] == '家裡'
+
+    assert response_json_data[0]['address']['text'] == '新北市中和區安康路二段123號'
+    assert response_json_data[-1]['address']['text'] == '新北市中和區安康路二段132號'
+
+    assert response_json_data[0]['position']['longitude'] == 121.5170
+    assert response_json_data[-1]['position']['longitude'] == 121.4874
+
+    assert response_json_data[0]['position']['latitude'] == 25.0478
+    assert response_json_data[-1]['position']['latitude'] == 25.0712
+
+    location_id = hashlib.sha3_224(secrets.token_urlsafe(5).encode('utf-8')).hexdigest()
+    response_json_data[0]['id'] = location_id
+    payload = {
+        'resource': response_json_data[0],
+    }
+
+    response = client.put('/api/v1/update/Location', headers=headers, json=payload)
+    assert response.status_code == 201
+
+    response = client.get(f'/api/v1/retrieve/Location?_id={location_id}', headers=headers)
+    assert response.status_code == 200
+
+@pytest.mark.dependency(depends=['test_upload_required_references'])
+def test_convert_upload_retrieve_adverse_event_data():
+    pass
