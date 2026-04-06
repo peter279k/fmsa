@@ -21,10 +21,10 @@ class CdrStatistics(BaseStatistics):
             for item in items:
                 if item['linkId'] == 'CDR-Total':
                     cdr_total_score = item['answer'][0]['valueInteger']
-                res += {
-                    'id': questionnaire_response.get('id'),
-                    'score': cdr_total_score,
-                    'result': cdr_mapping_score.get(str(cdr_total_score)),
-                },
+                    res += {
+                        'id': questionnaire_response.get('id'),
+                        'score': cdr_total_score,
+                        'result': cdr_mapping_score.get(str(cdr_total_score)),
+                    },
 
         return res
