@@ -196,3 +196,84 @@ def test_upload_procedure_scenario2():
         'time': '2025-03-05T19:00+08:00',
         'text': '情緒平靜，表示願意休息',
     }]
+
+@pytest.mark.dependency(depends=['test_upload_required_references'])
+def test_convert_medication_administration_data():
+    with open('/app/app/tests/ltc_tw_2025/medication_administration.json') as f:
+        medication_admin_data = f.read()
+
+    medication_lists = json.loads(medication_admin_data)['用藥紀錄']
+    module_name = 'MedicationAdministrationLtcConverter'
+    payload = {
+        'module_name': module_name,
+        'original_data': medication_lists,
+    }
+    headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+
+    response = client.post(f'/api/v1/convert', headers=headers, json=payload)
+    response_json = response.json()
+    response_json_data = response_json['data'][0]
+
+    assert response.status_code == 200
+
+    assert response_json_data[0]['effectiveDateTime'] == '2025-03-01T00:00+08:00'
+    assert response_json_data[-1]['effectiveDateTime'] == '2022-12-01T00:00+08:00'
+
+    assert response_json_data[0]['dosage'] == {
+        'route': {
+            'coding': [{
+                'system': 'http://snomed.info/sct',
+                'code': '26643006',
+                'display': 'Oral route'
+            }],
+            'text': '口服'
+        },
+        'dose': {
+            'value': 500,
+            'unit': 'mg',
+            'system': 'http://unitsofmeasure.org',
+            'code': 'mg',
+        },
+    }
+    assert response_json_data[-1]['dosage'] == {
+        'route': {
+            'coding': [{
+                'system': 'http://snomed.info/sct',
+                'code': '26643006',
+                'display': 'Oral route'
+            }],
+            'text': '口服'
+        },
+        'dose': {
+            'value': 75,
+            'unit': 'μg',
+            'system': 'http://unitsofmeasure.org',
+            'code': 'μg',
+        },
+    }
+
+    assert response_json_data[0]['note'] == [{
+        'time': '2025-03-01T00:00+08:00',
+        'text': '飯後服用，治療呼吸道感染',
+    }]
+    assert response_json_data[-1]['note'] == [{
+        'time': '2022-12-01T00:00+08:00',
+        'text': '甲狀腺低下，空腹服用',
+    }]
+
+    assert response_json_data[0]['medicationCodeableConcept'] == {
+        'coding': [{
+            'system': 'http://snomed.info/sct',
+            'code': '323567000',
+            'display': 'Amoxicillin (as amoxicillin sodium) 500 mg and clavulanic acid (as clavulanate potassium) 100 mg powder for solution for injection vial'
+        }],
+        'text': 'Amoxicillin (as amoxicillin sodium) 500 mg and clavulanic acid (as clavulanate potassium) 100 mg powder for solution for injection vial'
+    }
+    assert response_json_data[-1]['medicationCodeableConcept'] == {
+        'coding': [{
+            'system': 'http://snomed.info/sct',
+            'code': '768532006',
+            'display': 'Levothyroxine-containing product'
+        }],
+        'text': 'Levothyroxine-containing product'
+    }

@@ -40,7 +40,7 @@ def test_convert_location_data():
     assert response_json_data[0]['position']['latitude'] == 25.0478
     assert response_json_data[-1]['position']['latitude'] == 25.0712
 
-@pytest.mark.dependency
+@pytest.mark.dependency()
 def test_convert_adverse_event_data():
     with open('/app/app/tests/ltc_tw_2025/adverse_event.json') as f:
         adverse_event_data = f.read()
@@ -73,7 +73,7 @@ def test_convert_adverse_event_data():
     assert response_json_data[0]['recordedDate'] == '2024-04-01T01:22:00+08:00'
     assert response_json_data[-1]['recordedDate'] == '2024-04-10T22:50:00+08:00'
 
-@pytest.mark.dependency
+@pytest.mark.dependency()
 def test_convert_procedure_data():
     with open('/app/app/tests/ltc_tw_2025/procedure.json') as f:
         procedure_data = f.read()
@@ -120,7 +120,7 @@ def test_convert_procedure_data():
         'text': '情緒平靜，表示願意休息',
     }]
 
-@pytest.mark.dependency
+@pytest.mark.dependency()
 def test_convert_medication_administration_data():
     with open('/app/app/tests/ltc_tw_2025/medication_administration.json') as f:
         medication_admin_data = f.read()
