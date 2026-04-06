@@ -881,7 +881,7 @@ async def upload_resource(request: Request, response: Response):
     pass
 
 class ResourcePayload(BaseModel):
-    payload: Dict
+    resource: Dict
 
 @route(
     request_method=fhir_data_manager_router.put,
