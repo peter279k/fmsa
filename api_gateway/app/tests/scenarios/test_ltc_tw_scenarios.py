@@ -205,7 +205,7 @@ def test_upload_procedure_scenario2():
     }]
 
     procedure_id = hashlib.sha3_224(secrets.token_urlsafe(5).encode('utf-8')).hexdigest()
-    response_json_data['id'] = procedure_id
+    response_json_data[0]['id'] = procedure_id
     payload = {
         'resource': response_json_data[0],
     }
