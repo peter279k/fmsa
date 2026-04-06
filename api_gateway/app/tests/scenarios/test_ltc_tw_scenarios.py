@@ -167,7 +167,12 @@ def test_upload_procedure_scenario2():
         'module_name': module_name,
         'original_data': json.loads(procedure_data),
     }
-    headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+    headers = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'x-api-key': 'API Key',
+        'x-user': 'User',
+    }
 
     response = client.post(f'/api/v1/convert', headers=headers, json=payload)
     response_json = response.json()
