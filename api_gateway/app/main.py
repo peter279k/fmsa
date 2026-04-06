@@ -580,16 +580,22 @@ class OriginalPayload(BaseModel):
 async def convert_data(payload: OriginalPayload, request: Request, response: Response):
     pass
 
+class DataAnalysisPayload(BaseModel):
+    module_name: str
+    data: List
+    params: Dict
+
 @route(
     request_method=data_analysis_router.post,
     service_url=SERVICE_URLS[1],
     gateway_path='/analyze',
     service_path='/api/v1/analyze',
+    body_params=['payload'],
     status_code=status.HTTP_200_OK,
     tags=['Analyze numeric data array with the specific statistic calculator'],
     dependencies=[Depends(check_api_key)],
 )
-async def analyze(request: Request, response: Response):
+async def analyze(payload: DataAnalysisPayload, request: Request, response: Response):
     pass
 
 @route(

@@ -70,7 +70,7 @@ def test_upload_required_references():
     assert response.status_code == 201 or response.status_code == 200
 
 @pytest.mark.dependency(depends=['test_upload_required_references'])
-def test_upload_retrieve_observation_scenario1():
+def test_convert_upload_retrieve_observation_scenario1():
     headers = {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -158,7 +158,7 @@ def test_upload_retrieve_observation_scenario1():
     assert response.status_code == 200
 
 @pytest.mark.dependency(depends=['test_upload_required_references'])
-def test_upload_procedure_scenario2():
+def test_convert_upload_retrieve_procedure_scenario2():
     with open('/app/app/tests/scenarios/procedure.json') as f:
         procedure_data = f.read()
 
@@ -223,7 +223,7 @@ def test_upload_procedure_scenario2():
     assert response.status_code == 200
 
 @pytest.mark.dependency(depends=['test_upload_required_references'])
-def test_convert_medication_administration_data():
+def test_convert_upload_retrieve_medication_administration_data():
     with open('/app/app/tests/scenarios/medication_administration.json') as f:
         medication_admin_data = f.read()
 
