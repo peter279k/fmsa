@@ -10,6 +10,7 @@ from starlette.exceptions import HTTPException
 
 
 def check_api_key(request: Request):
+    pass
     x_user = request.headers.get('x-user')
     if x_user is None:
         raise HTTPException(
