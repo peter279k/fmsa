@@ -888,12 +888,12 @@ class ResourcePayload(BaseModel):
     service_url=SERVICE_URLS[7],
     gateway_path='/update/{resource_name}',
     service_path='/api/v1/update/{resource_name}',
-    body_params=['payload'],
+    body_params=['resource'],
     status_code=status.HTTP_200_OK,
     tags=['Update FHIR resource with the fhir_data_manager'],
     dependencies=[Depends(check_api_key)],
 )
-async def update_resource(payload: ResourcePayload, request: Request, response: Response):
+async def update_resource(resource: ResourcePayload, request: Request, response: Response):
     pass
 
 @route(
