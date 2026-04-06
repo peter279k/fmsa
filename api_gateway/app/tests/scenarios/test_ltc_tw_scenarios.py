@@ -84,6 +84,34 @@ def test_upload_required_references():
 
     assert response.status_code == 201 or response.status_code == 200
 
+    with open('/app/app/tests/scenarios/Practitioner-ltc-practitioner-example.json') as f:
+        json_str = f.read()
+
+    json_dict = json.loads(json_str)
+    del json_dict['meta']
+    del json_dict['text']
+
+    payload = {
+        'resource': json_dict,
+    }
+    response = httpx.put('http://fhir_data_manager:8000/api/v1/update/Practitioner', headers=headers, json=payload)
+
+    assert response.status_code == 201 or response.status_code == 200
+
+    with open('/app/app/tests/scenarios/Location-ltc-location-example.json') as f:
+        json_str = f.read()
+
+    json_dict = json.loads(json_str)
+    del json_dict['meta']
+    del json_dict['text']
+
+    payload = {
+        'resource': json_dict,
+    }
+    response = httpx.put('http://fhir_data_manager:8000/api/v1/update/Location', headers=headers, json=payload)
+
+    assert response.status_code == 201 or response.status_code == 200
+
 @pytest.mark.dependency(depends=['test_upload_required_references'])
 def test_convert_upload_retrieve_observation_scenario1():
     headers = {
@@ -436,4 +464,50 @@ def test_convert_upload_retrieve_location_data():
 
 @pytest.mark.dependency(depends=['test_upload_required_references'])
 def test_convert_upload_retrieve_adverse_event_data():
-    pass
+    with open('/app/app/tests/ltc_tw_2025/adverse_event.json') as f:
+        adverse_event_data = f.read()
+
+    module_name = 'AdverseEventLtcConverter'
+    payload = {
+        'module_name': module_name,
+        'original_data': json.loads(adverse_event_data),
+    }
+    headers = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'x-api-key': 'API Key',
+        'x-user': 'User',
+    }
+
+    response = client.post(f'/api/v1/convert', headers=headers, json=payload)
+    response_json = response.json()
+    response_json_data = response_json['data'][0]
+
+    assert response.status_code == 200
+
+    assert response_json_data[0]['extension'][0]['extension'][1]['valueString'] == '患者深夜獨自離開病房，試圖搭乘電梯返家'
+    assert response_json_data[-1]['extension'][0]['extension'][1]['valueString'] == '患者對著鏡子持續與「陌生人」對話，出現明顯鏡像幻覺'
+
+    assert response_json_data[0]['event']['text'] == '保全人員即時攔截，患者平安返回病房，已通知值班醫師及家屬，加裝手環定位追蹤'
+    assert response_json_data[-1]['event']['text'] == '護理師移除鏡子或以布遮蓋，症狀緩解，回報醫師後記錄為鏡像幻覺，納入照護計畫調整'
+
+    assert response_json_data[0]['date'] == '2024-04-01T01:22:00+08:00'
+    assert response_json_data[-1]['date'] == '2024-04-10T22:50:00+08:00'
+
+    assert response_json_data[0]['detected'] == '2024-04-01T01:22:00+08:00'
+    assert response_json_data[-1]['detected'] == '2024-04-10T22:50:00+08:00'
+
+    assert response_json_data[0]['recordedDate'] == '2024-04-01T01:22:00+08:00'
+    assert response_json_data[-1]['recordedDate'] == '2024-04-10T22:50:00+08:00'
+
+    adverse_event_id = hashlib.sha3_224(secrets.token_urlsafe(5).encode('utf-8')).hexdigest()
+    response_json_data[0]['id'] = adverse_event_id
+    payload = {
+        'resource': response_json_data[0],
+    }
+
+    response = client.put('/api/v1/update/AdverseEvent', headers=headers, json=payload)
+    assert response.status_code == 201
+
+    response = client.get(f'/api/v1/retrieve/AdverseEvent?_id={adverse_event_id}', headers=headers)
+    assert response.status_code == 200
