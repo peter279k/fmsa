@@ -483,6 +483,7 @@ class ObservationLtcTWPayload(BaseModel):
     service_url=SERVICE_URLS[2],
     gateway_path='/ltc_tw_2025_observation_blood_pressure',
     service_path='/api/v1/ltc_tw_2025_observation_blood_pressure',
+    body_params=['payload'],
     status_code=status.HTTP_200_OK,
     tags=['Generate Observation Blood Pressure Resource for LTC TW with the fhir_generator'],
     dependencies=[Depends(check_api_key)],
