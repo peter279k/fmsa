@@ -464,7 +464,7 @@ def test_convert_upload_retrieve_location_data():
 
 @pytest.mark.dependency(depends=['test_upload_required_references'])
 def test_convert_upload_retrieve_adverse_event_data():
-    with open('/app/app/tests/ltc_tw_2025/adverse_event.json') as f:
+    with open('/app/app/tests/scenarios/adverse_event.json') as f:
         adverse_event_data = f.read()
 
     module_name = 'AdverseEventLtcConverter'
