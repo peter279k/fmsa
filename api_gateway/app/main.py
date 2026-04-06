@@ -1,5 +1,5 @@
 import json
-from typing import List
+from typing import List, Dict
 from pydantic import BaseModel
 
 from fastapi import APIRouter
@@ -475,6 +475,9 @@ async def ltc_tw_2025_organization(request: Request, response: Response):
 async def ltc_tw_2025_practitioner(request: Request, response: Response):
     pass
 
+class ObservationLtcTWPayload:
+    payload: Dict
+
 @route(
     request_method=fhir_generator_router.post,
     service_url=SERVICE_URLS[2],
@@ -484,7 +487,7 @@ async def ltc_tw_2025_practitioner(request: Request, response: Response):
     tags=['Generate Observation Blood Pressure Resource for LTC TW with the fhir_generator'],
     dependencies=[Depends(check_api_key)],
 )
-async def ltc_tw_2025_observation_blood_pressure(request: Request, response: Response):
+async def ltc_tw_2025_observation_blood_pressure(payload: ObservationLtcTWPayload, request: Request, response: Response):
     pass
 
 @route(
