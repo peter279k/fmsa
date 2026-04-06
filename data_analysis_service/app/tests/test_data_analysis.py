@@ -188,6 +188,7 @@ def test_cdr_statistics():
     payload = {
         'module_name': module_name,
         'data': json_data,
+        'params': {},
     }
 
     headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
