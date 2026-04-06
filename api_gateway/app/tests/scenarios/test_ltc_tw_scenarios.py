@@ -233,7 +233,12 @@ def test_convert_medication_administration_data():
         'module_name': module_name,
         'original_data': medication_lists,
     }
-    headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+    headers = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'x-api-key': 'API Key',
+        'x-user': 'User',
+    }
 
     response = client.post(f'/api/v1/convert', headers=headers, json=payload)
     response_json = response.json()
@@ -302,3 +307,16 @@ def test_convert_medication_administration_data():
         }],
         'text': 'Levothyroxine-containing product'
     }
+
+    medication_admin_id = hashlib.sha3_224(secrets.token_urlsafe(5).encode('utf-8')).hexdigest()
+    response_json_data[0]['id'] = medication_admin_id
+    payload = {
+        'resource': response_json_data[0],
+    }
+    response = client.put(f'/api/v1/update/MedicationAdministration', headers=headers, json=payload)
+
+    assert response.status_code == 201
+
+    response = client.get(f'/api/v1/retrieve/MedicationAdministration?_id={medication_admin_id}', headers=headers)
+
+    assert response.status_code == 200
