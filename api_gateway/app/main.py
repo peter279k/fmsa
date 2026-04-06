@@ -880,16 +880,20 @@ async def import_archived_code_system(request: Request, response: Response):
 async def upload_resource(request: Request, response: Response):
     pass
 
+class ResourcePayload(BaseModel):
+    payload: Dict
+
 @route(
     request_method=fhir_data_manager_router.put,
     service_url=SERVICE_URLS[7],
     gateway_path='/update/{resource_name}',
     service_path='/api/v1/update/{resource_name}',
+    body_params=['payload'],
     status_code=status.HTTP_200_OK,
     tags=['Update FHIR resource with the fhir_data_manager'],
     dependencies=[Depends(check_api_key)],
 )
-async def update_resource(request: Request, response: Response):
+async def update_resource(payload: ResourcePayload, request: Request, response: Response):
     pass
 
 @route(

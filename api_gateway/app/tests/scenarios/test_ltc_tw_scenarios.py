@@ -209,7 +209,7 @@ def test_upload_procedure_scenario2():
     payload = {
         'resource': response_json_data[0],
     }
-    response = client.put(f'/api/v1/upload/Procedure', headers=headers, json=payload)
+    response = client.put(f'/api/v1/update/Procedure', headers=headers, json=payload)
 
     assert response.status_code == 201
 
