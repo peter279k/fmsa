@@ -1,6 +1,8 @@
 import json
 import httpx
 import pytest
+import hashlib
+import secrets
 from app.main import app
 from fastapi.testclient import TestClient
 
@@ -201,6 +203,19 @@ def test_upload_procedure_scenario2():
         'time': '2025-03-05T19:00+08:00',
         'text': '情緒平靜，表示願意休息',
     }]
+
+    procedure_id = hashlib.sha3_224(secrets.token_urlsafe(5).encode('utf-8')).hexdigest()
+    response_json_data['id'] = procedure_id
+    payload = {
+        'resource': response_json_data[0],
+    }
+    response = client.post(f'/api/v1/retrieve/Procedure', headers=headers, json=payload)
+
+    assert response.status_code == 201
+
+    response = client.get(f'/api/v1/retrieve/Procedure?_id={procedure_id}', headers=headers)
+
+    assert response.status_code == 200
 
 @pytest.mark.dependency(depends=['test_upload_required_references'])
 def test_convert_medication_administration_data():
