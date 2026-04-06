@@ -201,3 +201,32 @@ def test_cdr_statistics():
     assert response_json['data'][0][0]['result'] == 'Mild'
     assert response_json['data'][0][1]['result'] == 'Mild'
     assert response_json['data'][0][2]['result'] == 'Moderate'
+
+def test_mmse_statistics():
+    module_name = 'MmseStatistics'
+    json_data = []
+    mmse_files = [
+        'QuestionnaireResponse-ltc-questionnaire-response-mmse-complete-example.json',
+        'QuestionnaireResponse-ltc-questionnaire-response-mmse-example.json',
+        'QuestionnaireResponse-ltc-questionnaire-response-mmse-impaired-example.json',
+    ]
+    for mmse_file in mmse_files:
+        with open(f'/app/app/tests/ltc_tw_2025/{mmse_file}') as f:
+            contents = f.read()
+            json_data += json.loads(contents),
+    payload = {
+        'module_name': module_name,
+        'data': json_data,
+        'params': {},
+    }
+
+    headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+
+    response = client.post(f'/api/v1/analyze', headers=headers, json=payload)
+    response_json = response.json()
+
+    assert response.status_code == 200
+    assert len(response_json['data'][0]) == 3
+    assert response_json['data'][0][0]['result'] == 'Normal/No Cognitive Impairment'
+    assert response_json['data'][0][1]['result'] == 'Normal/No Cognitive Impairment'
+    assert response_json['data'][0][2]['result'] == 'Mild Dementia/Moderate Dementia/Severe Dementia'
