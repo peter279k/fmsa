@@ -475,7 +475,7 @@ async def ltc_tw_2025_organization(request: Request, response: Response):
 async def ltc_tw_2025_practitioner(request: Request, response: Response):
     pass
 
-class ObservationLtcTWPayload:
+class ObservationLtcTWPayload(BaseModel):
     payload: Dict
 
 @route(
