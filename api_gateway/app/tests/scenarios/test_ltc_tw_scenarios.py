@@ -13,6 +13,21 @@ client = TestClient(app)
 def test_upload_required_references():
     headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
 
+    with open('/app/app/tests/scenarios/Practitioner-ltc-practitioner-physician-aa12-example.json')as f:
+        json_str = f.read()
+
+    json_dict = json.loads(json_str)
+    del json_dict['meta']
+    del json_dict['text']
+
+    payload = {
+        'resource': json_dict,
+    }
+    response = httpx.put('http://fhir_data_manager:8000/api/v1/update/Practitioner', headers=headers, json=payload)
+
+    assert response.status_code == 201 or response.status_code == 200
+
+
     with open('/app/app/tests/scenarios/Practitioner-ltc-practitioner-nurse-example.json') as f:
         json_str = f.read()
 
@@ -319,4 +334,51 @@ def test_convert_upload_retrieve_medication_administration_data():
 
     response = client.get(f'/api/v1/retrieve/MedicationAdministration?_id={medication_admin_id}', headers=headers)
 
+    assert response.status_code == 200
+
+@pytest.mark.dependency(depends=['test_upload_required_references'])
+def test_analyze_upload_retrieve_questionnaire_response_data():
+    module_name = 'CdrStatistics'
+    json_data = []
+    cdr_files = [
+        'QuestionnaireResponse-ltc-questionnaire-response-cdr-complete-example.json',
+        'QuestionnaireResponse-ltc-questionnaire-response-cdr-example.json',
+        'QuestionnaireResponse-ltc-questionnaire-response-cdr-moderate-example.json',
+    ]
+    for cdr_file in cdr_files:
+        with open(f'/app/app/tests/scenarios/{cdr_file}') as f:
+            contents = f.read()
+            json_data += json.loads(contents),
+    payload = {
+        'module_name': module_name,
+        'data': json_data,
+        'params': {},
+    }
+
+    headers = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'x-api-key': 'API Key',
+        'x-user': 'User',
+    }
+
+    response = client.post(f'/api/v1/analyze', headers=headers, json=payload)
+    response_json = response.json()
+
+    assert response.status_code == 200
+    assert len(response_json['data'][0]) == 3
+    assert response_json['data'][0][0]['result'] == 'Mild'
+    assert response_json['data'][0][1]['result'] == 'Mild'
+    assert response_json['data'][0][2]['result'] == 'Moderate'
+
+    questionnaire_response_id = hashlib.sha3_224(secrets.token_urlsafe(5).encode('utf-8')).hexdigest()
+    json_data[0]['id'] = questionnaire_response_id
+    payload = {
+        'resource': json_data[0],
+    }
+
+    response = client.put('/api/v1/update/QuestionnaireResponse', headers=headers, json=payload)
+    assert response.status_code == 201
+
+    response = client.get(f'/api/v1/retrieve/QuestionnaireResponse?_id={questionnaire_response_id}', headers=headers)
     assert response.status_code == 200
