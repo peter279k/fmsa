@@ -68,7 +68,7 @@ def test_upload_required_references():
     assert response.status_code == 201 or response.status_code == 200
 
 @pytest.mark.dependency(depends=['test_upload_required_references'])
-def test_upload_observation_scenario1():
+def test_upload_retrieve_observation_scenario1():
     headers = {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -141,6 +141,7 @@ def test_upload_observation_scenario1():
     response = client.post('/api/v1/ltc_tw_2025_observation_blood_pressure', headers=headers, json=json_dict)
 
     response_json = response.json()
+    observation_id = response_json['data'][0]['id']
     del response_json['data'][0]['id']
 
     assert len(response_json['data'][0]['category']) == 1
@@ -149,6 +150,10 @@ def test_upload_observation_scenario1():
     assert response.status_code == 200
     assert len(response_json['data']) == 1
     assert response_json['data'][0] == expected_json
+
+    response = client.get(f'/api/v1/retrieve/Observation?_id={observation_id}', headers=headers)
+
+    assert response.status_code == 200
 
 @pytest.mark.dependency(depends=['test_upload_required_references'])
 def test_upload_procedure_scenario2():
