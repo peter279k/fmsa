@@ -199,7 +199,7 @@ def test_upload_procedure_scenario2():
 
 @pytest.mark.dependency(depends=['test_upload_required_references'])
 def test_convert_medication_administration_data():
-    with open('/app/app/tests/ltc_tw_2025/medication_administration.json') as f:
+    with open('/app/app/tests/scenarios/medication_administration.json') as f:
         medication_admin_data = f.read()
 
     medication_lists = json.loads(medication_admin_data)['用藥紀錄']
