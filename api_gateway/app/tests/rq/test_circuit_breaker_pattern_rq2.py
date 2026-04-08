@@ -211,7 +211,7 @@ def test_half_open_state_convert_upload_retrieve_observation_scenario1():
     del expected_json['id']
 
     json_dict = {}
-    json_dict['undefined_field'] = {}
+    json_dict['payload'] = {}
     response = httpx.post('http://api_gateway:8000/api/v1/ltc_tw_2025_observation_blood_pressure', headers=headers, json=json_dict)
 
     response_json = response.json()
