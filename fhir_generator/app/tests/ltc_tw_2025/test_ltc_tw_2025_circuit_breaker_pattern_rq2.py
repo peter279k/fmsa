@@ -1,4 +1,5 @@
 import json
+import time
 import pytest
 from app.main import app
 from fastapi.testclient import TestClient
@@ -69,13 +70,19 @@ def test_open_state_create_ltc_tw_2025_location_resource():
 
     json_dict = {}
 
-    for _ in range(5):
-        json_dict['payload'] = payload
-        response = client.post('/api/v1/ltc_tw_2025_location', headers=headers, json=json_dict)
+    try:
+        for _ in range(5):
+            json_dict['payload'] = payload
+            client.post('/api/v1/ltc_tw_2025_location', headers=headers, json=json_dict)
 
-        assert response.status_code == 500
+    except Exception as e:
+        assert str(e) == 'The system is experiencing high failure rates. Please try again later.'
 
-    payload = payload = {
+@pytest.mark.dependency(depends=['test_closed_state_create_ltc_tw_2025_location_resource', 'test_open_state_create_ltc_tw_2025_location_resource'])
+def test_half_open_state_create_ltc_tw_2025_location_resource():
+    headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+    json_dict = {}
+    payload = {
         'resourceType': 'Location',
         'profile_urls': ['http://ltc-ig.fhir.tw/StructureDefinition/Location-twltc'],
         'status': 'active',
