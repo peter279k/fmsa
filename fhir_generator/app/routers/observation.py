@@ -7,6 +7,7 @@ from app.modules import ObservationBloodPressureLtc
 
 from fastapi.requests import Request
 from fastapi.responses import JSONResponse
+from fastapi.exceptions import HTTPException
 
 
 async def generate_track13_2024_for_observation(item: Track13ForObservationModel):
@@ -56,13 +57,13 @@ async def generate_track8_2024_for_observation(request: Request, item: Track8For
     except Exception as e:
         status_code = 500
 
-        return JSONResponse(
-            {
+        raise HTTPException(
+            status_code=status_code,
+            detail={
                 'status': status_code,
                 'message': str(e),
                 'data': [item_dict],
-            },
-            status_code=status_code
+            }
         )
 
 
@@ -87,13 +88,13 @@ async def generate_ltc_tw_blood_pressure_observation(request: Request, item: Obs
     except Exception as e:
         status_code = 500
 
-        return JSONResponse(
-            {
+        raise HTTPException(
+            status_code=status_code,
+            detail={
                 'status': status_code,
                 'message': str(e),
                 'data': [item_dict],
-            },
-            status_code=status_code
+            }
         )
 
 
