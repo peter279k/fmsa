@@ -1,5 +1,4 @@
 import json
-import time
 import pytest
 from app.main import app
 from fastapi.testclient import TestClient
@@ -69,14 +68,12 @@ def test_open_state_create_ltc_tw_2025_location_resource():
     del expected_json['id']
 
     json_dict = {}
+    json_dict['payload'] = payload
+    exception_msg = '503: The system is experiencing high failure rates. Please try again later.'
 
-    try:
-        for _ in range(5):
-            json_dict['payload'] = payload
+    for _ in range(5):
+        with pytest.raises(Exception, match=exception_msg):
             client.post('/api/v1/ltc_tw_2025_location', headers=headers, json=json_dict)
-
-    except Exception as e:
-        assert str(e) == '503: The system is experiencing high failure rates. Please try again later.'
 
     json_dict = {}
     payload = {
