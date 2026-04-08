@@ -1,4 +1,5 @@
 import json
+import time
 import pytest
 from app.main import app
 from fastapi.testclient import TestClient
@@ -58,7 +59,7 @@ def test_closed_state_create_ltc_tw_2025_location_resource():
 @pytest.mark.dependency(depends=['test_closed_state_create_ltc_tw_2025_location_resource'])
 def test_open_state_create_ltc_tw_2025_location_resource():
     headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
-    payload = {}
+    payload = {'resource': 'invalid FHIR Resource'}
 
     with open('/app/app/tests/ltc_tw_2025/Location-ltc-location-example.json', 'r', encoding='utf-8') as f:
         expected_json_str = f.read()
@@ -71,6 +72,7 @@ def test_open_state_create_ltc_tw_2025_location_resource():
     json_dict['payload'] = payload
     exception_msg = '503: The system is experiencing high failure rates. Please try again later.'
 
+    # open state
     for _ in range(5):
         with pytest.raises(Exception, match=exception_msg):
             client.post('/api/v1/ltc_tw_2025_location', headers=headers, json=json_dict)
@@ -103,6 +105,16 @@ def test_open_state_create_ltc_tw_2025_location_resource():
     }
 
     json_dict['payload'] = payload
+    seconds = 60
+    timeout_exception_msg = '503: Retry after 59 secs'
+
+    # half open state for retry timeout
+    with pytest.raises(Exception, match=timeout_exception_msg):
+        client.post('/api/v1/ltc_tw_2025_location', headers=headers, json=json_dict)
+
+    time.sleep(seconds)
+
+    # change into closed state
     response = client.post('/api/v1/ltc_tw_2025_location', headers=headers, json=json_dict)
 
     assert response.status_code == 200
