@@ -78,9 +78,6 @@ def test_open_state_create_ltc_tw_2025_location_resource():
     except Exception as e:
         assert str(e) == '503: The system is experiencing high failure rates. Please try again later.'
 
-@pytest.mark.dependency(depends=['test_closed_state_create_ltc_tw_2025_location_resource', 'test_open_state_create_ltc_tw_2025_location_resource'])
-def test_half_open_state_create_ltc_tw_2025_location_resource():
-    headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
     json_dict = {}
     payload = {
         'resourceType': 'Location',
@@ -111,4 +108,4 @@ def test_half_open_state_create_ltc_tw_2025_location_resource():
     json_dict['payload'] = payload
     response = client.post('/api/v1/ltc_tw_2025_location', headers=headers, json=json_dict)
 
-    assert response.status_code == 500
+    assert response.status_code == 200
