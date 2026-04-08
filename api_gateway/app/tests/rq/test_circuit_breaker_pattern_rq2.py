@@ -221,7 +221,7 @@ def test_half_open_state_convert_upload_retrieve_observation_scenario1():
         assert response.status_code == 500
 
 
-    payload = payload = {
+    payload = {
         'resourceType': 'Observation',
         'profile_urls': ['http://ltc-ig.fhir.tw/StructureDefinition/LTCObservationVitalSigns'],
         'status': 'final',
@@ -274,6 +274,8 @@ def test_half_open_state_convert_upload_retrieve_observation_scenario1():
             }
         }]
     }
+
+    json_dict['payload'] = payload
 
     response = httpx.post('http://api_gateway:8000/api/v1/ltc_tw_2025_observation_blood_pressure', headers=headers, json=json_dict)
 
