@@ -12,6 +12,9 @@ def run_background_task():
 
     yield process
 
+    docker = DockerClient(compose_files=['../docker-compose.yml'])
+    docker.compose.start(services=['fhir_generator'], timeout=-1)
+
 @pytest.mark.dependency()
 def test_send_signal_via_python_on_whales_can_be_graceful_shutdown():
     time.sleep(5)
