@@ -1,0 +1,32 @@
+{
+  "resourceType" : "Location",
+  "id" : "ltc-location-example",
+  "meta" : {
+    "profile" : ["http://ltc-ig.fhir.tw/StructureDefinition/Location-twltc"]
+  },
+  "text" : {
+    "status" : "generated",
+    "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p class=\"res-header-id\"><b>Generated Narrative: Location ltc-location-example</b></p><a name=\"ltc-location-example\"> </a><a name=\"hcltc-location-example\"> </a><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\"/><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-Location-twltc.html\">長期照顧－個案位置監測</a></p></div><p><b>status</b>: Active</p><p><b>name</b>: 新北市私立安康老人長期照顧中心（養護型）</p><p><b>description</b>: 失智症個案陳明輝目前所在的日照中心</p><p><b>mode</b>: Instance</p><p><b>type</b>: <span title=\"Codes:{http://terminology.hl7.org/CodeSystem/v3-RoleCode PTRES}\">Patient's Residence</span></p><p><b>address</b>: 新北市中和區安康路二段123號(work)</p><h3>Positions</h3><table class=\"grid\"><tr><td style=\"display: none\">-</td><td><b>Longitude</b></td><td><b>Latitude</b></td><td><b>Altitude</b></td></tr><tr><td style=\"display: none\">*</td><td>121.5089</td><td>24.9936</td><td>25.5</td></tr></table></div>"
+  },
+  "status" : "active",
+  "name" : "新北市私立安康老人長期照顧中心（養護型）",
+  "description" : "失智症個案陳明輝目前所在的日照中心",
+  "mode" : "instance",
+  "type" : [{
+    "coding" : [{
+      "system" : "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "code" : "PTRES",
+      "display" : "Patient's Residence"
+    }]
+  }],
+  "address" : {
+    "use" : "work",
+    "type" : "physical",
+    "text" : "新北市中和區安康路二段123號"
+  },
+  "position" : {
+    "longitude" : 121.5089,
+    "latitude" : 24.9936,
+    "altitude" : 25.5
+  }
+}
