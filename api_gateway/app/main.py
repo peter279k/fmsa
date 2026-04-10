@@ -527,16 +527,20 @@ async def ltc_tw_2025_procedure(request: Request, response: Response):
 async def ltc_tw_2025_medication_administration(request: Request, response: Response):
     pass
 
+class LocationLTC(BaseModel):
+    payload: Dict
+
 @route(
     request_method=fhir_generator_router.post,
     service_url=SERVICE_URLS[2],
     gateway_path='/ltc_tw_2025_location',
     service_path='/api/v1/ltc_tw_2025_location',
+    body_params=['payload'],
     status_code=status.HTTP_200_OK,
     tags=['Generate Location Resource for LTC TW with the fhir_generator'],
     dependencies=[Depends(check_api_key)],
 )
-async def ltc_tw_2025_location(request: Request, response: Response):
+async def ltc_tw_2025_location(payload: LocationLTC, request: Request, response: Response):
     pass
 
 @route(
