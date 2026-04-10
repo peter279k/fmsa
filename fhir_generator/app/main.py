@@ -1,6 +1,8 @@
+import signal
 from app.routers import *
 
 from fastapi import FastAPI
+from contextlib import asynccontextmanager
 from circuit_breaker import CircuitBreakerMiddleware, CircuitBreakerInputDto
 
 
@@ -8,6 +10,23 @@ from circuit_breaker import CircuitBreakerMiddleware, CircuitBreakerInputDto
 description = '''
 FHIR Generator is used to create the specific FHIR resources
 '''
+
+
+def custom_handler(signal_num):
+    app.state.shutting_down = True
+    print(f'FHIR Generator Received signal {signal_num}.')
+
+signal.signal(signal.SIGTERM, custom_handler)
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    print('FHIR Generator Application starting up...')
+
+    yield
+
+    print("FHIR Generator Application shutting down...")
+
+
 app = FastAPI(
     title='FHIR Generator',
     description=description,
@@ -15,7 +34,8 @@ app = FastAPI(
     contact={
         'name': 'Peter',
         'email': 'peter279k@gmail.com',
-    }
+    },
+    lifespan=lifespan
 )
 
 app.add_middleware(
