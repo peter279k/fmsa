@@ -17,5 +17,5 @@ def test_send_signal_via_python_on_whales_can_be_graceful_shutdown():
     docker = DockerClient(compose_files=['../docker-compose.yml'])
 
     docker.compose.start(services=['fhir_generator'])
-    time.sleep(10)
+    time.sleep(60)
     docker.compose.stop(services=['fhir_generator'], timeout=-1)

@@ -51,5 +51,6 @@ while True:
         assert len(response_json['data']) == 1
         assert response_json['data'][0] == expected_json
     except Exception as e:
-        print(e)
+        with open('background_task.log', 'w') as f:
+            f.writelines(str(e))
         break
