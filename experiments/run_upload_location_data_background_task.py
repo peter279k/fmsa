@@ -43,12 +43,14 @@ while True:
     response = httpx.post('http://localhost:8081/api/v1/ltc_tw_2025_location', headers=headers, json=json_dict)
 
     try:
+        print(response.status_code)
         assert response.status_code == 200
         with open('background_task.log', 'w') as f:
             f.writelines('Normal log')
     except Exception as e:
         with open('background_task.log', 'w') as f:
             f.writelines(str(e))
+        print(e)
         break
 
     time.sleep(1)
