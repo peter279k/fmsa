@@ -4,16 +4,12 @@ import subprocess
 from python_on_whales import DockerClient
 
 
-@pytest.fixture
-def run_background_task():
-    process = subprocess.Popen([
+@pytest.mark.dependency()
+def test_send_signal_via_python_on_whales_can_be_graceful_shutdown():
+    subprocess.Popen([
         'python3', 'run_upload_location_data_background_task.py',
     ])
 
-    yield process
-
-@pytest.mark.dependency()
-def test_send_signal_via_python_on_whales_can_be_graceful_shutdown():
     docker = DockerClient(compose_files=['../docker-compose.yml'])
 
     docker.compose.start(services=['fhir_generator'])
