@@ -49,10 +49,10 @@ while True:
 
     try:
         assert response.status_code == 200
-        with open('background_task.log', 'w') as f:
+        with open('background_task.log', 'w+') as f:
             f.writelines('Normal log')
     except Exception as e:
-        with open('background_task.log', 'w') as f:
+        with open('background_task.log', 'w+') as f:
             f.writelines(str(e))
         break
 
