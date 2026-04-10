@@ -51,9 +51,9 @@ while True:
         assert response.status_code == 200
         with open('background_task.log', 'a') as f:
             f.write('Normal log\n')
-    except Exception as e:
+    except Exception:
         with open('background_task.log', 'a') as f:
-            f.write(str(e) + '\n')
+            f.write(f'Error: {response.json()}\n')
         break
 
     time.sleep(1)
