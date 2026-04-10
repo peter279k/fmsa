@@ -4,7 +4,7 @@ import subprocess
 from python_on_whales import DockerClient
 
 
-@pytest.fixture(scope='function')
+@pytest.fixture
 def run_background_task():
     process = subprocess.Popen([
         'python3', 'run_upload_location_data_background_task.py',
