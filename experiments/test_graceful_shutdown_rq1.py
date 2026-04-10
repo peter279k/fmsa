@@ -1,7 +1,6 @@
 import time
 import pytest
 import subprocess
-from app.main import app
 from python_on_whales import DockerClient
 
 
