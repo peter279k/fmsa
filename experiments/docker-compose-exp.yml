@@ -1,0 +1,16 @@
+services:
+  analysis_log_db:
+    image: clickhouse:25.8
+    ports:
+      - 8123:8123
+    volumes:
+      - clickhouse_analysis_data:/var/lib/clickhouse/
+      - clickhouse_analysis_data_log:/var/lib/clickhouse-server/
+    environment:
+      - CLICKHOUSE_USER=${CLICKHOUSE_ADMIN_USER:-fmsa_exp}
+      - CLICKHOUSE_PASSWORD=${CLICKHOUSE_ADMIN_PASSWORD:-fmsa_exp}
+    restart: always
+
+volumes:
+  clickhouse_analysis_data:
+  clickhouse_analysis_data_log:

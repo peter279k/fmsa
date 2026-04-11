@@ -1,6 +1,26 @@
 import time
 import json
 import httpx
+import datetime
+import clickhouse_connect
+
+
+client = clickhouse_connect.get_client(host='localhost', username='fmsa_exp', password='fmsa_exp')
+table_name = 'rq_log_table'
+columns = ['timestamp', 'message_type', 'message']
+log_table = f'''
+CREATE TABLE IF NOT EXISTS {table_name}
+(
+    timestamp DateTime DEFAULT now(),
+    message_type String,
+    message String
+)
+ENGINE = Log
+'''
+clean_log_table = f'TRUNCATE TABLE {table_name}'
+
+client.query(log_table)
+client.query(clean_log_table)
 
 
 while True:
@@ -49,10 +69,17 @@ while True:
 
     try:
         assert response.status_code == 200
-        with open('background_task.log', 'a') as f:
-            f.write('Normal log\n')
+        records = [
+            [datetime.datetime.now(datetime.UTC), 'success', str(response.status_code)],
+        ]
     except Exception:
-        with open('background_task.log', 'a') as f:
-            f.write(f'Error: {response.status_code}\n')
+        records = [
+            [datetime.datetime.now(datetime.UTC), 'error', str(response.status_code)],
+        ]
+
+    client.insert(table_name, records, column_names=columns)
+    record = records[0]
+    record[0] = str(int(record[0].timestamp()))
+    print(f'Data: {",".join(record)} is inserted.')
 
     time.sleep(1)
