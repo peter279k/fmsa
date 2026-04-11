@@ -53,7 +53,6 @@ while True:
             f.write('Normal log\n')
     except Exception:
         with open('background_task.log', 'a') as f:
-            f.write(f'Error: {response.json()}\n')
-        break
+            f.write(f'Error: {response.status_code}\n')
 
     time.sleep(1)
