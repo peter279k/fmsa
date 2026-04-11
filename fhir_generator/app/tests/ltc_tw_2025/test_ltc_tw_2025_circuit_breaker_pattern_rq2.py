@@ -1,11 +1,32 @@
+import os
 import json
 import time
 import pytest
+import datetime
 from app.main import app
+import clickhouse_connect
 from fastapi.testclient import TestClient
 
 
 client = TestClient(app)
+
+host = os.getenv('IP_ADDRESS', 'localhost')
+db_client = clickhouse_connect.get_client(host=host, username='fmsa_exp', password='fmsa_exp')
+table_name = 'rq2_log_table'
+columns = ['timestamp', 'message_type', 'message']
+log_table = f'''
+CREATE TABLE IF NOT EXISTS {table_name}
+(
+    timestamp DateTime64(3, 'UTC') DEFAULT now(),
+    message_type String,
+    message String
+)
+ENGINE = Log
+'''
+clean_log_table = f'TRUNCATE TABLE {table_name}'
+
+db_client.query(log_table)
+db_client.query(clean_log_table)
 
 @pytest.mark.dependency()
 def test_closed_state_create_ltc_tw_2025_location_resource():
@@ -56,6 +77,16 @@ def test_closed_state_create_ltc_tw_2025_location_resource():
     assert len(response_json['data']) == 1
     assert response_json['data'][0] == expected_json
 
+    records = [
+        [datetime.datetime.now(datetime.UTC), 'closed state', str(response.status_code)],
+    ]
+    db_client.insert(table_name, records, column_names=columns)
+
+    record = records[0]
+    record[0] = str(int(record[0].timestamp()));
+
+    print(f'Closed state: {",".join(record)}')
+
 @pytest.mark.dependency(depends=['test_closed_state_create_ltc_tw_2025_location_resource'])
 def test_open_state_create_ltc_tw_2025_location_resource():
     headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
@@ -74,8 +105,19 @@ def test_open_state_create_ltc_tw_2025_location_resource():
 
     # open state
     for _ in range(5):
-        with pytest.raises(Exception, match=exception_msg):
-            client.post('/api/v1/ltc_tw_2025_location', headers=headers, json=json_dict)
+        try: 
+            response = client.post('/api/v1/ltc_tw_2025_location', headers=headers, json=json_dict)
+        except Exception as e:
+            assert exception_msg == str(e)
+
+            records = [
+                    [datetime.datetime.now(datetime.UTC), 'open state', exception_msg],
+            ]
+
+            db_client.insert(table_name, records, column_names=columns)
+            record = records[0]
+            record[0] = str(int(record[0].timestamp()));
+            print(f'Open state: {",".join(record)}')
 
     json_dict = {}
     payload = {
@@ -109,8 +151,19 @@ def test_open_state_create_ltc_tw_2025_location_resource():
     timeout_exception_msg = '503: Retry after 59 secs'
 
     # half open state for retry timeout
-    with pytest.raises(Exception, match=timeout_exception_msg):
+    try:
         client.post('/api/v1/ltc_tw_2025_location', headers=headers, json=json_dict)
+    except Exception as e:
+        assert timeout_exception_msg == str(e)
+
+        records = [
+            [datetime.datetime.now(datetime.UTC), 'half open state', timeout_exception_msg],
+        ]
+
+        db_client.insert(table_name, records, column_names=columns)
+        record = records[0]
+        record[0] = str(int(record[0].timestamp()));
+        print(f'Half open state: {",".join(record)}')
 
     time.sleep(seconds)
 
@@ -118,3 +171,12 @@ def test_open_state_create_ltc_tw_2025_location_resource():
     response = client.post('/api/v1/ltc_tw_2025_location', headers=headers, json=json_dict)
 
     assert response.status_code == 200
+
+    records = [
+        [datetime.datetime.now(datetime.UTC), 'closed state', str(response.status_code)],
+    ]
+
+    db_client.insert(table_name, records, column_names=columns)
+    record = records[0]
+    record[0] = str(int(record[0].timestamp()));
+    print(f'Closed state: {",".join(record)}')

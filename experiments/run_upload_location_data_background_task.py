@@ -6,7 +6,7 @@ import clickhouse_connect
 
 
 client = clickhouse_connect.get_client(host='localhost', username='fmsa_exp', password='fmsa_exp')
-table_name = 'rq_log_table'
+table_name = 'rq1_log_table'
 columns = ['timestamp', 'message_type', 'message']
 log_table = f'''
 CREATE TABLE IF NOT EXISTS {table_name}

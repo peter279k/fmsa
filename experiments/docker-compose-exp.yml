@@ -11,6 +11,12 @@ services:
       - CLICKHOUSE_PASSWORD=${CLICKHOUSE_ADMIN_PASSWORD:-fmsa_exp}
     restart: always
 
+  clickhouse-client:
+    image: clickhouse/clickhouse-client:latest
+    entrypoint: ["tail", "-f", "/dev/null"]
+    depends_on:
+      - analysis_log_db
+
 volumes:
   clickhouse_analysis_data:
   clickhouse_analysis_data_log:

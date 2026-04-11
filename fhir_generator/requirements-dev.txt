@@ -1,3 +1,4 @@
-pytest==8.3.4
-pytest-dependency==0.6.0
 pipdeptree
+pytest==8.3.4
+clickhouse_connect
+pytest-dependency==0.6.0
