@@ -180,3 +180,5 @@ def test_open_state_create_ltc_tw_2025_location_resource():
     record = records[0]
     record[0] = str(int(record[0].timestamp()));
     print(f'Closed state: {",".join(record)}')
+
+    db_client.close()
