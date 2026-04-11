@@ -17,7 +17,7 @@ This experiment is for verifying the microservice has the graceful shutdown feat
 
 - Ensuring the `fmsa` microservice architecture is up-and-running successfully.
 - Running the `docker compose -f docker-compose-exp.yml up -d` to run the ClickHouse database server.
-- Running the `run_unit_tests.sh fhir_generator app/tests/ltc_tw_2025/test_ltc_tw_2025_circuit_breaker_pattern_rq2.py -s 172.17.0.1`
+- Running the `run_unit_tests.sh fhir_generator app/tests/ltc_tw_2025/test_ltc_tw_2025_circuit_breaker_pattern_rq2.py -s 172.17.0.1`. And the `172.17.0.1` is the Docker host network address.
 
 # RQ3 Setup
 
