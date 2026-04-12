@@ -21,5 +21,7 @@ jobs:
           ./run_unit_tests.sh fhir_generator ./app/tests/test_iclaim_imri_resource.py
           ./run_unit_tests.sh fhir_generator ./app/tests/test_pa_sc1.py
 
+          ./run_unit_tests.sh fhir_data_manager ./app/tests/test_upload_resource.py -s
+
           ./run_unit_tests.sh ioht_data_collector
           ./run_unit_tests.sh data_analysis_service
