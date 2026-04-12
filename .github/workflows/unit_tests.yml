@@ -15,4 +15,12 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - run: cp docker-compose-http.yml docker-compose.yml && cp .env.ci .env
       - run: docker compose up -d --build && sleep 5
-      - run: ./run_unit_tests.sh fhir_converter
+      - run: |
+          ./run_unit_tests.sh fhir_converter
+          ./run_unit_tests.sh fhir_data_manager
+          ./run_unit_tests.sh fhir_generator
+          ./run_unit_tests.sh fhir_ig_manager
+          ./run_unit_tests.sh fhir_profile_manager
+          ./run_unit_tests.sh ioht_data_collector
+          ./run_unit_tests.sh terminology_manager
+          ./run_unit_tests.sh data_analysis_service
