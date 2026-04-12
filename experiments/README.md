@@ -29,6 +29,6 @@ This experiment is for verifying the microservice has the graceful shutdown feat
 
 # RQ Data Analysis
 
-- Once RQ1 and RQ2 completed, we can access experimental data from ClickHouse database server.
-- We can also draw line chart for RQ1 and RQ2 result via the SciencePlots.
-- Running the `python rq_data_analysis.py` to draw line plot for RQ1 and RQ2.
+- Once RQ1 and RQ2 completed, we can access experimental data from the ClickHouse database server.
+- We can also draw the plots for RQ1 and RQ2 result via the SciencePlots library.
+- Running the `python rq_data_analysis.py` to draw plots for RQ1 and RQ2.
