@@ -1,0 +1,19 @@
+name: Integration Tests
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.12"]
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: cp docker-compose-http.yml docker-compose.yml && cp .env.ci .env
+      - run: docker compose up -d --build && sleep 5
+      - run: |
+          ./run_unit_tests.sh api_gateway ./app/tests/scenarios/
