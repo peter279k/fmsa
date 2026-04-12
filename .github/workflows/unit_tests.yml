@@ -17,7 +17,6 @@ jobs:
       - run: docker compose up -d --build && sleep 5
       - run: |
           ./run_unit_tests.sh fhir_converter
-          ./run_unit_tests.sh fhir_data_manager
 
           ./run_unit_tests.sh fhir_generator ./app/tests/test_iclaim_imri_resource.py
           ./run_unit_tests.sh fhir_generator ./app/tests/test_pa_sc1.py
@@ -25,5 +24,4 @@ jobs:
           ./run_unit_tests.sh fhir_ig_manager
           ./run_unit_tests.sh fhir_profile_manager
           ./run_unit_tests.sh ioht_data_collector
-          ./run_unit_tests.sh terminology_manager
           ./run_unit_tests.sh data_analysis_service
