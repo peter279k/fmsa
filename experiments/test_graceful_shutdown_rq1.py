@@ -15,8 +15,8 @@ def test_send_signal_via_python_on_whales_can_be_graceful_shutdown():
         'python3', 'run_upload_location_data_background_task.py',
     ])
 
-    time.sleep(62)
+    time.sleep(61)
     docker.compose.down(services=['fhir_generator'], timeout=-1)
 
-    time.sleep(1)
+    time.sleep(2)
     process.terminate()

@@ -2,6 +2,10 @@
 
 This experiment is for verifying the microservice has the graceful shutdown feature.
 
+# Prerequisite
+
+- Ensuring all programs or settings are executed in this `experiments` directory.
+
 # RQ1 Setup
 
 - Ensuring the `fmsa` microservice architecture is up-and-running successfully.
@@ -22,3 +26,9 @@ This experiment is for verifying the microservice has the graceful shutdown feat
 # RQ3 Setup
 
 - Please refer the []().
+
+# RQ Data Analysis
+
+- Once RQ1 and RQ2 completed, we can access experimental data from ClickHouse database server.
+- We can also draw line chart for RQ1 and RQ2 result via the SciencePlots.
+- Running the `python rq_data_analysis.py` to draw line plot for RQ1 and RQ2.

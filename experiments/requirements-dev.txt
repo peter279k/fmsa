@@ -1,3 +1,5 @@
+latex
+SciencePlots
 httpx==0.26.0
 pytest==8.3.4
 clickhouse_connect
