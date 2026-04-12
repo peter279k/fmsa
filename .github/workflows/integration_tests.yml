@@ -16,4 +16,4 @@ jobs:
       - run: cp docker-compose-http.yml docker-compose.yml && cp .env.ci .env
       - run: docker compose up -d --build && sleep 5
       - run: |
-          ./run_unit_tests.sh api_gateway ./app/tests/scenarios/
+          ./run_unit_tests.sh api_gateway ./app/tests/scenarios/ -s
