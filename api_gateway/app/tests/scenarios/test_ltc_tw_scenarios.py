@@ -24,7 +24,7 @@ def test_upload_required_references():
         'resource': json_dict,
     }
     response = httpx.put('http://fhir_data_manager:8000/api/v1/update/Practitioner', headers=headers, json=payload)
-    print(response.json())
+    print(response.text)
 
     assert response.status_code == 201 or response.status_code == 200
 
