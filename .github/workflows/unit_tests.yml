@@ -13,6 +13,6 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-      - run: cp docker-compose-http.yml docker-compose.yml
-      - run: docker compose up -d --build
+      - run: cp docker-compose-http.yml docker-compose.yml && cp .env.ci .env
+      - run: docker compose up -d --build && sleep 5
       - run: ./run_unit_tests.sh fhir_converter
