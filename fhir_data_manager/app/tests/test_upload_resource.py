@@ -17,6 +17,5 @@ def test_upload_patient_resource_without_meta_profile():
     payload['resource'] = json_dict
 
     response = client.post('/api/v1/upload/Patient', headers=headers, json=payload)
-    print(response.text)
     assert response.status_code == 201
     assert response.json()['message'] == 'Uploading Patient is successful.'
