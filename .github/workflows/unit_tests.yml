@@ -15,5 +15,5 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - run: cp docker-compose-http.yml docker-compose.yml && cp .env.ci .env
       - run: |
-          docker compose build --no-cache && docker compose up -d && sleep 30
+          docker compose build --no-cache && docker compose up -d && sleep 120
           ./run_unit_tests.sh fhir_data_manager ./app/tests/test_upload_resource.py -s
