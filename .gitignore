@@ -3,3 +3,4 @@ __pycache__/
 .pytest_cache
 docker-compose.yml
 fmsa-experiments/
+experiments/exp_plot/

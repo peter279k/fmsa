@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
 
 
-print('RQ1 and RQ2 experimental data analysis is started.')
+print('RQ4 and RQ5 experimental data analysis is started.')
 
 dpi = 300
 fontdict={'size': 14}
@@ -22,26 +22,26 @@ password = 'fmsa_exp'
 
 client = clickhouse_connect.get_client(host=host, username=username, password=password)
 
-rq1_table_name = 'rq1_log_table'
-rq1_exp_sql = f'''
-SELECT * FROM {rq1_table_name} ORDER BY timestamp
+rq4_table_name = 'rq4_log_table'
+rq4_exp_sql = f'''
+SELECT * FROM {rq4_table_name} ORDER BY timestamp
 '''
-rq2_table_name = 'rq2_log_table'
-rq2_exp_sql = f'''
-SELECT * FROM {rq1_table_name} ORDER BY timestamp
+rq5_table_name = 'rq5_log_table'
+rq5_exp_sql = f'''
+SELECT * FROM {rq4_table_name} ORDER BY timestamp
 '''
 
 
-rq1_exp_data = client.query(rq1_exp_sql)
+rq4_exp_data = client.query(rq4_exp_sql)
 timestamps = []
 second = 0
 status_code200 = []
 status_code500 = []
 
-for record in rq1_exp_data.result_rows:
+for record in rq4_exp_data.result_rows:
     timestamp = record[0]
     timestamps += second,
-    if record[-1][0] == '2':
+    if record[2][0] == '2':
         status_code200 += 1,
         status_code500 += 0,
     else:
@@ -51,7 +51,7 @@ for record in rq1_exp_data.result_rows:
     second += 1
 
 
-print('Processing and Drawing the RQ1 data.')
+print('Processing and Drawing the RQ4 data.')
 
 xlabel = 'Timeline (s)'
 ylabel = 'Count'
@@ -60,7 +60,7 @@ with plt.style.context(['science', 'ieee', 'no-latex']):
     ax.xaxis.set_major_locator(MaxNLocator(integer=True))
     ax.yaxis.set_major_locator(MaxNLocator(integer=True))
 
-    ax.set_xlim(0, 60)
+    ax.set_xlim(0, 120)
 
     ax.plot(timestamps, status_code200, label='200', color='blue', ls='-', marker='')
     ax.plot(timestamps, status_code500, label='500', color='orange', ls='-', marker='')
@@ -68,23 +68,23 @@ with plt.style.context(['science', 'ieee', 'no-latex']):
     ax.set_xlabel(xlabel, fontdict=fontdict)
     ax.set_ylabel(ylabel, fontdict=fontdict)
 
-    fig.savefig(f'{plot_dir}/fig_rq1_result.svg', dpi=dpi)
+    fig.savefig(f'{plot_dir}/fig_rq4_result.svg', dpi=dpi)
     plt.close()
 
 
-rq2_table_name = 'rq2_log_table'
-rq2_exp_sql = f'''
-SELECT * FROM {rq2_table_name} ORDER BY timestamp
+rq5_table_name = 'rq5_log_table'
+rq5_exp_sql = f'''
+SELECT * FROM {rq5_table_name} ORDER BY timestamp
 '''
 
-rq2_exp_data = client.query(rq2_exp_sql)
+rq5_exp_data = client.query(rq5_exp_sql)
 timestamps = []
 
 closed_state = []
 half_open_state = []
 open_state = []
 
-for record in rq2_exp_data.result_rows:
+for record in rq5_exp_data.result_rows:
     timestamp = record[0]
     timestamps += timestamp.strftime('%f')[0:3],
     message = record[1].lower()
@@ -101,7 +101,7 @@ for record in rq2_exp_data.result_rows:
         half_open_state += 0,
         open_state += 1,
 
-print('Processing and Drawing the RQ2 data.')
+print('Processing and Drawing the RQ5 data.')
 
 xlabel = 'Timeline (ms)'
 ylabel = 'Count'
@@ -117,8 +117,8 @@ with plt.style.context(['science', 'ieee', 'no-latex']):
     ax.set_xlabel(xlabel, fontdict=fontdict)
     ax.set_ylabel(ylabel, fontdict=fontdict)
 
-    fig.savefig(f'{plot_dir}/fig_rq2_result.svg', dpi=dpi)
+    fig.savefig(f'{plot_dir}/fig_rq5_result.svg', dpi=dpi)
     plt.close()
 
 
-print('RQ1 and RQ2 experimental data analysis is finished.')
+print('RQ4 and RQ5 experimental data analysis is finished.')
