@@ -6,7 +6,7 @@ This experiment is for verifying the microservice has the graceful shutdown feat
 
 - Ensuring all programs or settings are executed in this `experiments` directory.
 
-# RQ1 Setup
+# RQ4 Setup
 
 - Ensuring the `fmsa` microservice architecture is up-and-running successfully.
 - Ensuring the `python-venv` is available.
@@ -17,7 +17,7 @@ This experiment is for verifying the microservice has the graceful shutdown feat
 - Running the `docker compose -f docker-compose-exp.yml up -d` to run the ClickHouse database server.
 - Running the `python -m pytest -s test_graceful_shutdown_rq1.py` to execute the graceful shutdown RQ1 test.
 
-# RQ2 Setup
+# RQ5 Setup
 
 - Ensuring the `fmsa` microservice architecture is up-and-running successfully.
 - Running the `docker compose -f docker-compose-exp.yml up -d` to run the ClickHouse database server.
