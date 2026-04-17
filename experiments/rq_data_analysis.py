@@ -73,46 +73,43 @@ with plt.style.context(['science', 'ieee', 'no-latex']):
 
 
 rq5_table_name = 'rq5_log_table'
+rq5_circuit_table_name = 'rq5_log_table_circuit'
 rq5_exp_sql = f'''
-SELECT * FROM {rq5_table_name} ORDER BY timestamp
+SELECT * FROM {rq5_table_name} ORDER BY timestamp LIMIT 120
+'''
+rq5_exp_circuit_sql = f'''
+SELECT * FROM {rq5_circuit_table_name} ORDER BY timestamp LIMIT 120
 '''
 
 rq5_exp_data = client.query(rq5_exp_sql)
+rq5_cirsuit_exp_data = client.query(rq5_exp_circuit_sql)
 timestamps = []
 
-closed_state = []
-half_open_state = []
-open_state = []
+normal_state = []
+circuit_state = []
+second = 0
 
 for record in rq5_exp_data.result_rows:
-    timestamp = record[0]
-    timestamps += timestamp.strftime('%f')[0:3],
-    message = record[1].lower()
-    if 'closed' in record[1].lower():
-        closed_state += 1,
-        half_open_state += 0,
-        open_state += 0,
-    elif 'half' in record[1].lower():
-        closed_state += 0,
-        half_open_state += 1,
-        open_state += 0,
-    else:
-        closed_state += 0,
-        half_open_state += 0,
-        open_state += 1,
+    timestamps += second,
+    normal_state += int(record[2]),
+    second += 1
+
+for record in rq5_cirsuit_exp_data.result_rows:
+    circuit_state +=  int(record[2][0:3]),
 
 print('Processing and Drawing the RQ5 data.')
 
-xlabel = 'Timeline (ms)'
-ylabel = 'Count'
+xlabel = 'Timeline (s)'
+ylabel = 'HTTP Status Code'
 with plt.style.context(['science', 'ieee', 'no-latex']):
     fig, ax = plt.subplots()
+
     ax.xaxis.set_major_locator(MaxNLocator(integer=True))
     ax.yaxis.set_major_locator(MaxNLocator(integer=True))
+    ax.set_yticks([200, 503])
 
-    ax.bar(timestamps, closed_state, label='closed', color='green')
-    ax.bar(timestamps, half_open_state, label='half open', color='blue')
-    ax.bar(timestamps, open_state, label='open', color='orange')
+    ax.plot(timestamps, normal_state, label='normal', color='blue', ls='-')
+    ax.plot(timestamps, circuit_state, label='open/half-open', color='orange', ls='-')
 
     ax.set_xlabel(xlabel, fontdict=fontdict)
     ax.set_ylabel(ylabel, fontdict=fontdict)

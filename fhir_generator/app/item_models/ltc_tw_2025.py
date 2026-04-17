@@ -12,6 +12,10 @@ class AdverseEventResourceLTC(BaseModel):
 class LocationLTC(BaseModel):
     payload: Dict
 
+class LocationCircuitLTC(BaseModel):
+    payload: Dict
+    resource_name: str
+
 class MedicationAdministrationLTC(BaseModel):
     payload: Dict
 

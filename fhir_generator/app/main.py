@@ -1,4 +1,8 @@
+import os
 import signal
+import datetime
+import clickhouse_connect
+
 from app.routers import *
 
 from fastapi import FastAPI
@@ -38,6 +42,42 @@ app = FastAPI(
     lifespan=lifespan
 )
 
+circuit_breaker_app = FastAPI(
+    title='FHIR Circuit Breaker',
+    description=description,
+    version='1.0'
+)
+
+@circuit_breaker_app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception):
+    host = os.getenv('IP_ADDRESS', '172.17.0.1')
+    client = clickhouse_connect.get_client(host=host, username='fmsa_exp', password='fmsa_exp')
+    table_name = 'rq5_log_table_circuit'
+    columns = ['timestamp', 'message_type', 'message', 'service_name', 'api_path']
+    records = [
+        [
+            datetime.datetime.now(datetime.UTC), 'open/half-open state',
+            f'503: {str(exc)}',
+            'fhir_generator', 'ltc_tw_2025_location_circuit',
+        ],
+    ]
+    client.insert(table_name, records, column_names=columns)
+    client.close()
+
+    return JSONResponse(
+        status_code=503,
+        content={'message': str(exc)},
+    )
+
+circuit_breaker_app.add_middleware(
+    CircuitBreakerMiddleware,
+    circuit_breaker_input=CircuitBreakerInputDto(
+        exception_list=(Exception,),
+        half_open_retry_count=5,
+        half_open_retry_timeout_seconds=60,
+    ),
+)
+'''
 app.add_middleware(
     CircuitBreakerMiddleware,
     circuit_breaker_input=CircuitBreakerInputDto(
@@ -46,6 +86,10 @@ app.add_middleware(
         half_open_retry_timeout_seconds=60,
     ),
 )
+'''
+
+circuit_breaker_app.include_router(location_router)
+app.mount('/circuit', circuit_breaker_app)
 
 app.include_router(claim_router)
 app.include_router(location_router)
