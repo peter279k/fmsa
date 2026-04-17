@@ -19,6 +19,7 @@ This experiment is for verifying the microservice has the graceful shutdown feat
 
 # RQ5 Setup
 
+- **Ensuring the `app.add_middleware` Middleware in `fhir_generator/app/main.py` file will be commented.**
 - Ensuring the `fmsa` microservice architecture is up-and-running successfully.
 - Running the `docker compose -f docker-compose-exp.yml up -d` to run the ClickHouse database server.
 - Running the `run_unit_tests.sh fhir_generator app/tests/ltc_tw_2025/test_ltc_tw_2025_circuit_breaker_pattern_rq5.py -s 172.17.0.1`. And the `172.17.0.1` is the Docker host network address.
@@ -29,6 +30,6 @@ This experiment is for verifying the microservice has the graceful shutdown feat
 
 # RQ Data Analysis
 
-- Once RQ1 and RQ2 completed, we can access experimental data from the ClickHouse database server.
-- We can also draw the plots for RQ1 and RQ2 result via the SciencePlots library.
-- Running the `python rq_data_analysis.py` to draw plots for RQ1 and RQ2.
+- Once RQ3, RQ4 and RQ5 completed, we can access experimental data from the ClickHouse database server.
+- We can also draw the plots for RQ3, RQ4 and RQ5 result via the SciencePlots library.
+- Running the `python rq_data_analysis.py` to draw plots for RQ3, RQ4 and RQ5.
