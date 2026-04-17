@@ -19,6 +19,20 @@ And we developed this architecture to address the current lack of standardized m
 
 - Running the `docker compose up --build` to run the FMSA.
 
+# Docker Swarm Cluster Mode
+
+- Firstly, running the `docker swarm --init --advertise-addr <MANAGER-IP>` command on the Manager node.
+- Running the `docker swarm join --token <TOKEN> <MANAGER-IP>:2377` command on each Worker node.
+- Running the `docker node ls` to check all nodes status in this cluster. The expected output is as follows:
+
+```bash
+ID                            HOSTNAME         STATUS    AVAILABILITY   MANAGER STATUS   ENGINE VERSION
+jsp7dfuhsxx6hx8l2m8jkp987 *   docker-manager   Ready     Active         Leader           29.4.0
+u2zwqgyk0qnyz93ywwc5bcr9b     docker-worker1   Ready     Active                          29.4.0
+5c920sxqo9smmuaburxsxgnur     docker-worker2   Ready     Active                          29.4.0
+5f8tw70zz8f5a2y8c7y688coi     docker-worker3   Ready     Active                          29.4.0
+```
+
 # Docker Stack Deployment
 
 - Before running the `docker stack deploy` command, it should ensure the local Docker image has been built.
@@ -29,7 +43,7 @@ And we developed this architecture to address the current lack of standardized m
 
 **The docker-compose-stack-deploy.yml is only for testing Docker Stack deployment**
 
-# Development server
+# Development server (for Conference)
 
 - The worker server is deployed in the PureVoltage (KVM-based VPS)
   - CPU: 4 cores
