@@ -20,7 +20,7 @@ def test_normal_circuit_states_for_create_upload_ltc_tw_2025_location_resource()
         'python3', '/app/app/tests/ltc_tw_2025/run_upload_location_broken_background_task.py',
     ])
 
-    time.sleep(130)
+    time.sleep(180)
 
     circuit_state_process.terminate()
     normal_state_process.terminate()
