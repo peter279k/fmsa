@@ -1,4 +1,5 @@
 import os
+import httpx
 import signal
 import datetime
 import clickhouse_connect
@@ -72,12 +73,12 @@ async def global_exception_handler(request: Request, exc: Exception):
 circuit_breaker_app.add_middleware(
     CircuitBreakerMiddleware,
     circuit_breaker_input=CircuitBreakerInputDto(
-        exception_list=(Exception,),
+        exception_list=(httpx.HTTPStatusError,),
         half_open_retry_count=5,
         half_open_retry_timeout_seconds=60,
     ),
 )
-'''
+
 app.add_middleware(
     CircuitBreakerMiddleware,
     circuit_breaker_input=CircuitBreakerInputDto(
@@ -86,7 +87,6 @@ app.add_middleware(
         half_open_retry_timeout_seconds=60,
     ),
 )
-'''
 
 circuit_breaker_app.include_router(location_router)
 app.mount('/circuit', circuit_breaker_app)

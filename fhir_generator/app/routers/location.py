@@ -88,7 +88,7 @@ async def generate_ltc_tw_location_circuit(item: LocationCircuitLTC):
             json={'resource': location_resource}
         )
         response.raise_for_status()
-    except Exception as e:
+    except httpx.HTTPStatusError as e:
         status_code = 500
 
         return JSONResponse(
