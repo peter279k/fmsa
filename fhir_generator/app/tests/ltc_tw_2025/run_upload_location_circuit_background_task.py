@@ -71,7 +71,7 @@ while True:
     if state == 'Closed':
         json_dict['resource_name'] = 'OpenState'
         error_counter += 1
-        if error_counter == 5:
+        if error_counter == 6:
             error_counter = 0
             state = 'OpenState'
     elif state == 'OpenState':
@@ -95,8 +95,8 @@ while True:
 
         record = records[0]
         record[0] = str(int(record[0].timestamp()));
-
         state = 'Closed'
+        print(f'State: {",".join(record)}')
     else:
         records = [
             [
@@ -105,5 +105,4 @@ while True:
             ],
         ]
 
-    print(f'Closed state: {",".join(record)}')
     time.sleep(1)

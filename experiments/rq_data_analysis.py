@@ -38,15 +38,19 @@ second = 0
 status_code200 = []
 status_code500 = []
 
+counter2 = 1
+counter5 = 1
 for record in rq4_exp_data.result_rows:
     timestamp = record[0]
     timestamps += second,
     if record[2][0] == '2':
-        status_code200 += 1,
+        status_code200 += counter2,
         status_code500 += 0,
+        counter2 += 1
     else:
         status_code200 += 0,
-        status_code500 += 1,
+        status_code500 += counter5,
+        counter5 += 1
 
     second += 1
 
@@ -54,7 +58,7 @@ for record in rq4_exp_data.result_rows:
 print('Processing and Drawing the RQ4 data.')
 
 xlabel = 'Timeline (s)'
-ylabel = 'Count'
+ylabel = 'Cumulative Count'
 with plt.style.context(['science', 'ieee', 'no-latex']):
     fig, ax = plt.subplots()
     ax.xaxis.set_major_locator(MaxNLocator(integer=True))
@@ -63,7 +67,9 @@ with plt.style.context(['science', 'ieee', 'no-latex']):
     ax.set_xlim(0, 120)
 
     ax.plot(timestamps, status_code200, label='200', color='blue', ls='-', marker='')
-    ax.plot(timestamps, status_code500, label='500', color='orange', ls='-', marker='')
+    ax.plot(timestamps, status_code500, label='503', color='orange', ls='-', marker='')
+
+    ax.legend(title='HTTP Status Code')
 
     ax.set_xlabel(xlabel, fontdict=fontdict)
     ax.set_ylabel(ylabel, fontdict=fontdict)
