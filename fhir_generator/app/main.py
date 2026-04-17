@@ -54,12 +54,17 @@ async def global_exception_handler(request: Request, exc: Exception):
     host = os.getenv('IP_ADDRESS', '172.17.0.1')
     client = clickhouse_connect.get_client(host=host, username='fmsa_exp', password='fmsa_exp')
     table_name = 'rq5_log_table_circuit'
+    service_name = 'ltc_tw_2025_location_circuit'
+    if 'broken' in request.url.path:
+        table_name = 'rq5_log_table_broken'
+        service_name = 'ltc_tw_2025_location_broken'
+
     columns = ['timestamp', 'message_type', 'message', 'service_name', 'api_path']
     records = [
         [
             datetime.datetime.now(datetime.UTC), 'open/half-open state',
             f'503: {str(exc)}',
-            'fhir_generator', 'ltc_tw_2025_location_circuit',
+            'fhir_generator', service_name,
         ],
     ]
     client.insert(table_name, records, column_names=columns)
@@ -78,7 +83,7 @@ circuit_breaker_app.add_middleware(
         half_open_retry_timeout_seconds=60,
     ),
 )
-
+'''
 app.add_middleware(
     CircuitBreakerMiddleware,
     circuit_breaker_input=CircuitBreakerInputDto(
@@ -87,7 +92,7 @@ app.add_middleware(
         half_open_retry_timeout_seconds=60,
     ),
 )
-
+'''
 circuit_breaker_app.include_router(location_router)
 app.mount('/circuit', circuit_breaker_app)
 
