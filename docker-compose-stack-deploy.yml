@@ -8,11 +8,21 @@ services:
       - KEYCLOAK_ADMIN=admin
       - KEYCLOAK_ADMIN_PASSWORD=admin
       - REDIS_PASSWORD=redis
+      - AUTOSCALER_DNSNAME=tasks.ascaler_autoscaler
+      - AUTOSCALER_INTERVAL=120
     depends_on:
       - api_gateway_access_token_storage
       - keycloak_adapter
     volumes:
       - ./api_gateway/:/app/
+    deploy:
+      labels:
+        - "swarm.autoscale=true"
+        - "swarm.autoscale.min=1"
+        - "swarm.autoscale.max=12"
+        - "swarm.autoscale.percentage-max=80%"
+        - "swarm.autoscale.percentage-min=30%"
+        - "swarm.autoscale.decrease-mode=MEDIAN"
 
   api_gateway_access_token_storage:
     image: bitnami/redis:latest
@@ -65,9 +75,19 @@ services:
       - DATABASE_HOST=analysis_db
       - DATABASE_USER=default
       - DATABASE_PASSWORD=analysis_data
+      - AUTOSCALER_DNSNAME=tasks.ascaler_autoscaler
+      - AUTOSCALER_INTERVAL=120
     depends_on:
       - analysis_db
     restart: always
+    deploy:
+      labels:
+        - "swarm.autoscale=true"
+        - "swarm.autoscale.min=1"
+        - "swarm.autoscale.max=12"
+        - "swarm.autoscale.percentage-max=80%"
+        - "swarm.autoscale.percentage-min=30%"
+        - "swarm.autoscale.decrease-mode=MEDIAN"
 
   analysis_db:
     image: bitnami/clickhouse:24
@@ -88,9 +108,19 @@ services:
       - DATABASE_HOST=ioht_db
       - DATABASE_USER=default
       - DATABASE_PASSWORD=ioht_data
+      - AUTOSCALER_DNSNAME=tasks.ascaler_autoscaler
+      - AUTOSCALER_INTERVAL=120
     depends_on:
       - ioht_db
     restart: always
+    deploy:
+      labels:
+        - "swarm.autoscale=true"
+        - "swarm.autoscale.min=1"
+        - "swarm.autoscale.max=12"
+        - "swarm.autoscale.percentage-max=80%"
+        - "swarm.autoscale.percentage-min=30%"
+        - "swarm.autoscale.decrease-mode=MEDIAN"
 
   ioht_db:
     image: bitnami/clickhouse:24
@@ -107,14 +137,36 @@ services:
     command: uvicorn app.main:app --host 0.0.0.0 --workers 4 --port 8000
     volumes:
       - ./fhir_generator/:/app/
+    environment:
+      - AUTOSCALER_DNSNAME=tasks.ascaler_autoscaler
+      - AUTOSCALER_INTERVAL=120
     restart: always
+    deploy:
+      labels:
+        - "swarm.autoscale=true"
+        - "swarm.autoscale.min=1"
+        - "swarm.autoscale.max=12"
+        - "swarm.autoscale.percentage-max=80%"
+        - "swarm.autoscale.percentage-min=30%"
+        - "swarm.autoscale.decrease-mode=MEDIAN"
 
   fhir_converter:
     image: fmsa-fhir_converter
     command: uvicorn app.main:app --host 0.0.0.0 --workers 4 --port 8000
     volumes:
       - ./fhir_converter/:/app/
+    environment:
+      - AUTOSCALER_DNSNAME=tasks.ascaler_autoscaler
+      - AUTOSCALER_INTERVAL=120
     restart: always
+    deploy:
+      labels:
+        - "swarm.autoscale=true"
+        - "swarm.autoscale.min=1"
+        - "swarm.autoscale.max=12"
+        - "swarm.autoscale.percentage-max=80%"
+        - "swarm.autoscale.percentage-min=30%"
+        - "swarm.autoscale.decrease-mode=MEDIAN"
 
   fhir_ig_manager:
     image: fmsa-fhir_ig_manager:latest
@@ -125,9 +177,19 @@ services:
       - FHIR_IG_MANAGER_DB_USER=fhir_ig_manager_username
       - FHIR_IG_MANAGER_DB_PASSWORD=fhir_ig_manager_password
       - FHIR_IG_MANAGER_DB=fhir_ig_manager_db_dev
+      - AUTOSCALER_DNSNAME=tasks.ascaler_autoscaler
+      - AUTOSCALER_INTERVAL=120
     depends_on:
       - fhir_ig_manager_db
     restart: always
+    deploy:
+      labels:
+        - "swarm.autoscale=true"
+        - "swarm.autoscale.min=1"
+        - "swarm.autoscale.max=12"
+        - "swarm.autoscale.percentage-max=80%"
+        - "swarm.autoscale.percentage-min=30%"
+        - "swarm.autoscale.decrease-mode=MEDIAN"
 
   fhir_ig_manager_db:
     image: mongo:7.0.16-jammy
@@ -148,9 +210,19 @@ services:
       - FHIR_PROFILE_MANAGER_DB_USER=fhir_profile_manager_username
       - FHIR_PROFILE_MANAGER_DB_PASSWORD=fhir_profile_manager_password
       - FHIR_PROFILE_MANAGER_DB=fhir_profile_manager_db_dev
+      - AUTOSCALER_DNSNAME=tasks.ascaler_autoscaler
+      - AUTOSCALER_INTERVAL=120
     depends_on:
       - fhir_profile_manager_db
     restart: always
+    deploy:
+      labels:
+        - "swarm.autoscale=true"
+        - "swarm.autoscale.min=1"
+        - "swarm.autoscale.max=12"
+        - "swarm.autoscale.percentage-max=80%"
+        - "swarm.autoscale.percentage-min=30%"
+        - "swarm.autoscale.decrease-mode=MEDIAN"
 
   fhir_profile_manager_db:
     image: mongo:7.0.16-jammy
@@ -176,11 +248,21 @@ services:
       - FHIR_DATA_MANAGER_DB_USER=fhir_data_manager_username
       - FHIR_DATA_MANAGER_DB_PASSWORD=fhir_data_manager_password
       - FHIR_DATA_MANAGER_DB=fhir_data_manager_db_dev
+      - AUTOSCALER_DNSNAME=tasks.ascaler_autoscaler
+      - AUTOSCALER_INTERVAL=120
     depends_on:
       - fhir-server-adapter
       - fhir_server_adapter_postgres
       - fhir_data_manager_db
     restart: always
+    deploy:
+      labels:
+        - "swarm.autoscale=true"
+        - "swarm.autoscale.min=1"
+        - "swarm.autoscale.max=12"
+        - "swarm.autoscale.percentage-max=80%"
+        - "swarm.autoscale.percentage-min=30%"
+        - "swarm.autoscale.decrease-mode=MEDIAN"
 
   fhir_data_manager_db:
     image: mongo:7.0.16-jammy
@@ -218,9 +300,19 @@ services:
       - TERMINOLOGY_MANAGER_DB_USER=terminology_manager_username
       - TERMINOLOGY_MANAGER_DB_PASSWORD=terminology_manager_password
       - TERMINOLOGY_MANAGER_DB=terminology_manager_db_dev
+      - AUTOSCALER_DNSNAME=tasks.ascaler_autoscaler
+      - AUTOSCALER_INTERVAL=120
     depends_on:
       - terminology_manager_db
     restart: always
+    deploy:
+      labels:
+        - "swarm.autoscale=true"
+        - "swarm.autoscale.min=1"
+        - "swarm.autoscale.max=12"
+        - "swarm.autoscale.percentage-max=80%"
+        - "swarm.autoscale.percentage-min=30%"
+        - "swarm.autoscale.decrease-mode=MEDIAN"
 
   terminology_manager_db:
     image: mongo:7.0.16-jammy
