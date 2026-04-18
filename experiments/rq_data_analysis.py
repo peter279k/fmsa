@@ -40,10 +40,10 @@ for record in rq4_exp_data.result_rows:
     timestamps += second,
     if record[2][0] == '2':
         status_code200 += counter2,
-        status_code500 += 0,
+        status_code500 += counter5,
         counter2 += 1
     else:
-        status_code200 += 0,
+        status_code200 += counter2,
         status_code500 += counter5,
         counter5 += 1
 
@@ -116,31 +116,31 @@ for record in rq5_normal_exp_data.result_rows:
     second += 1
     if record[2] == '200':
         normal_state_blue += normal_counter200,
-        normal_state_light_blue += 0,
+        normal_state_light_blue += normal_counter500,
         normal_counter200 += 1
     else:
         normal_state_light_blue += normal_counter500,
-        normal_state_blue += 0,
+        normal_state_blue += normal_counter200,
         normal_counter500 += 1
 
 for record in rq5_circuit_exp_data.result_rows:
     if record[2] == '200':
         circuit_state_yellow += circuit_counter200,
-        circuit_state_light_yellow += 0,
+        circuit_state_light_yellow += circuit_counter500,
         circuit_counter200 += 1
     else:
         circuit_state_light_yellow += circuit_counter500,
-        circuit_state_yellow += 0,
+        circuit_state_yellow += circuit_counter200,
         circuit_counter500 += 1
 
 for record in rq5_broken_exp_data.result_rows:
     if record[2] == '200':
         broken_state_red += broken_counter200,
-        broken_state_light_red += 0,
+        broken_state_light_red += broken_counter500,
         broken_counter200 += 1
     else:
         broken_state_light_red += broken_counter500,
-        broken_state_red += 0,
+        broken_state_red += broken_counter200,
         broken_counter500 += 1
 
 
@@ -157,19 +157,36 @@ with plt.style.context(['science', 'ieee', 'no-latex']):
 
     ax.set_xlim(0, 120)
 
-    ax.plot(timestamps, normal_state_blue, label='200-normal', color='darkblue', ls='-')
-    ax.plot(timestamps, normal_state_light_blue, label='503-normal', color='royalblue', ls='-')
-
-    ax.plot(timestamps, circuit_state_yellow, label='200-circuit', color='orange', ls='-')
-    ax.plot(timestamps, circuit_state_light_yellow, label='503-circuit', color='darkorange', ls='-')
+    ax.plot(timestamps, normal_state_blue, label='200', color='darkblue', ls='-')
+    ax.plot(timestamps, normal_state_light_blue, label='503', color='royalblue', ls='-')
 
     ax.legend(title='HTTP Status Code')
 
     ax.set_xlabel(xlabel, fontdict=fontdict)
     ax.set_ylabel(ylabel, fontdict=fontdict)
 
-    fig.savefig(f'{plot_dir}/fig_rq5_normal_circuit_result.svg', dpi=dpi)
-    fig.savefig(f'{plot_dir}/fig_rq5_normal_circuit_result.png', dpi=dpi)
+    fig.savefig(f'{plot_dir}/fig_rq5_normal_result.svg', dpi=dpi)
+    fig.savefig(f'{plot_dir}/fig_rq5_normal_result.png', dpi=dpi)
+    plt.close()
+
+with plt.style.context(['science', 'ieee', 'no-latex']):
+    fig, ax = plt.subplots()
+
+    ax.xaxis.set_major_locator(MaxNLocator(integer=True))
+    ax.yaxis.set_major_locator(MaxNLocator(integer=True))
+
+    ax.set_xlim(0, 120)
+
+    ax.plot(timestamps, circuit_state_yellow, label='200', color='darkkhaki', ls='-')
+    ax.plot(timestamps, circuit_state_light_yellow, label='503', color='khaki', ls='-')
+
+    ax.legend(title='HTTP Status Code')
+
+    ax.set_xlabel(xlabel, fontdict=fontdict)
+    ax.set_ylabel(ylabel, fontdict=fontdict)
+
+    fig.savefig(f'{plot_dir}/fig_rq5_circuit_result.svg', dpi=dpi)
+    fig.savefig(f'{plot_dir}/fig_rq5_circuit_result.png', dpi=dpi)
     plt.close()
 
 with plt.style.context(['science', 'ieee', 'no-latex']):
