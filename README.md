@@ -33,7 +33,7 @@ u2zwqgyk0qnyz93ywwc5bcr9b     docker-worker1   Ready     Active                 
 5f8tw70zz8f5a2y8c7y688coi     docker-worker3   Ready     Active                          29.4.0
 ```
 
-# Docker Stack Deployment
+# Docker Stack Deployment (Single Cluster)
 
 - Before running the `docker stack deploy` command, it should ensure the local Docker image has been built.
 - If they're not deployed, it should run the `docker compose build` command firstly.
@@ -42,6 +42,13 @@ u2zwqgyk0qnyz93ywwc5bcr9b     docker-worker1   Ready     Active                 
 - Running `docker stack deploy -c docker-compose-stack-deploy.yml fmsa` command to deploy the Docker stack.
 
 **The docker-compose-stack-deploy.yml is only for testing Docker Stack deployment**
+
+# Docker Stack Deployment (Multiple Clusters)
+
+- Running the `docker service create --name registry --publish published=5000,target=5000 registry:2` command to setup the Docker Registry.
+- Running the `docker compose build` to build FMSA Docker image.
+- Running the `docker compose push` to publish Docker images to the registry.
+- Running the `` command to deploy FMSA to the Docker Swarm Clusters.
 
 # Development server (for Conference)
 
@@ -96,6 +103,7 @@ The proof of concept paper is as follows:
 6. Docker stack deployment approach
 
 - https://stackoverflow.com/questions/58666953
+- https://docs.docker.com/engine/swarm/stack-deploy
 
 # Troubleshooting
 
