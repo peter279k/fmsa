@@ -42,20 +42,6 @@ def test_upload_required_references():
 
     assert response.status_code == 201 or response.status_code == 200
 
-    with open('/app/app/tests/scenarios/PractitionerRole-ltc-practitioner-role-nurse-example.json') as f:
-        json_str = f.read()
-
-    json_dict = json.loads(json_str)
-    del json_dict['meta']
-    del json_dict['text']
-
-    payload = {
-        'resource': json_dict,
-    }
-    response = httpx.put('http://fhir_data_manager:8000/api/v1/update/PractitionerRole', headers=headers, json=payload)
-
-    assert response.status_code == 201 or response.status_code == 200
-
     with open('/app/app/tests/scenarios/Organization-ltc-organization-example.json') as f:
         json_str = f.read()
 
@@ -67,6 +53,20 @@ def test_upload_required_references():
         'resource': json_dict,
     }
     response = httpx.put('http://fhir_data_manager:8000/api/v1/update/Organization', headers=headers, json=payload)
+
+    assert response.status_code == 201 or response.status_code == 200
+
+    with open('/app/app/tests/scenarios/PractitionerRole-ltc-practitioner-role-nurse-example.json') as f:
+        json_str = f.read()
+
+    json_dict = json.loads(json_str)
+    del json_dict['meta']
+    del json_dict['text']
+
+    payload = {
+        'resource': json_dict,
+    }
+    response = httpx.put('http://fhir_data_manager:8000/api/v1/update/PractitionerRole', headers=headers, json=payload)
 
     assert response.status_code == 201 or response.status_code == 200
 
