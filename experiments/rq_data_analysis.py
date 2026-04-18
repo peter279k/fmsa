@@ -16,7 +16,7 @@ if os.path.isdir(plot_dir) is False:
     os.mkdir(plot_dir)
 
 
-host = '172.17.0.1'
+host = os.getenv('IP_ADDRESS', '172.17.0.1')
 username = 'fmsa_exp'
 password = 'fmsa_exp'
 
@@ -26,11 +26,6 @@ rq4_table_name = 'rq4_log_table'
 rq4_exp_sql = f'''
 SELECT * FROM {rq4_table_name} ORDER BY timestamp
 '''
-rq5_table_name = 'rq5_log_table'
-rq5_exp_sql = f'''
-SELECT * FROM {rq4_table_name} ORDER BY timestamp
-'''
-
 
 rq4_exp_data = client.query(rq4_exp_sql)
 timestamps = []
@@ -75,52 +70,126 @@ with plt.style.context(['science', 'ieee', 'no-latex']):
     ax.set_ylabel(ylabel, fontdict=fontdict)
 
     fig.savefig(f'{plot_dir}/fig_rq4_result.svg', dpi=dpi)
+    fig.savefig(f'{plot_dir}/fig_rq4_result.png', dpi=dpi)
     plt.close()
 
 
-rq5_table_name = 'rq5_log_table'
+rq5_normal_table_name = 'rq5_log_table'
 rq5_circuit_table_name = 'rq5_log_table_circuit'
-rq5_exp_sql = f'''
-SELECT * FROM {rq5_table_name} ORDER BY timestamp LIMIT 120
+rq5_broken_table_name = 'rq5_log_table_broken'
+
+rq5_normal_exp_sql = f'''
+SELECT * FROM {rq5_normal_table_name} ORDER BY timestamp LIMIT 120
 '''
-rq5_exp_circuit_sql = f'''
+rq5_circuit_exp_sql = f'''
 SELECT * FROM {rq5_circuit_table_name} ORDER BY timestamp LIMIT 120
 '''
+rq5_broken_exp_sql = f'''
+SELECT * FROM {rq5_broken_table_name} ORDER BY timestamp LIMIT 120
+'''
 
-rq5_exp_data = client.query(rq5_exp_sql)
-rq5_cirsuit_exp_data = client.query(rq5_exp_circuit_sql)
+rq5_normal_exp_data = client.query(rq5_normal_exp_sql)
+rq5_circuit_exp_data = client.query(rq5_circuit_exp_sql)
+rq5_broken_exp_data = client.query(rq5_broken_exp_sql)
+
 timestamps = []
 
-normal_state = []
-circuit_state = []
+normal_state_blue = []
+normal_state_light_blue = []
+normal_counter200 = 1
+normal_counter500 = 1
+
+circuit_state_yellow = []
+circuit_state_light_yellow = []
+circuit_counter200 = 1
+circuit_counter500 = 1
+
+broken_state_red = []
+broken_state_light_red = []
+broken_counter200 = 1 
+broken_counter500 = 1
+
 second = 0
 
-for record in rq5_exp_data.result_rows:
+for record in rq5_normal_exp_data.result_rows:
     timestamps += second,
-    normal_state += int(record[2]),
     second += 1
+    if record[2] == '200':
+        normal_state_blue += normal_counter200,
+        normal_state_light_blue += 0,
+        normal_counter200 += 1
+    else:
+        normal_state_light_blue += normal_counter500,
+        normal_state_blue += 0,
+        normal_counter500 += 1
 
-for record in rq5_cirsuit_exp_data.result_rows:
-    circuit_state +=  int(record[2][0:3]),
+for record in rq5_circuit_exp_data.result_rows:
+    if record[2] == '200':
+        circuit_state_yellow += circuit_counter200,
+        circuit_state_light_yellow += 0,
+        circuit_counter200 += 1
+    else:
+        circuit_state_light_yellow += circuit_counter500,
+        circuit_state_yellow += 0,
+        circuit_counter500 += 1
+
+for record in rq5_broken_exp_data.result_rows:
+    if record[2] == '200':
+        broken_state_red += broken_counter200,
+        broken_state_light_red += 0,
+        broken_counter200 += 1
+    else:
+        broken_state_light_red += broken_counter500,
+        broken_state_red += 0,
+        broken_counter500 += 1
+
 
 print('Processing and Drawing the RQ5 data.')
 
 xlabel = 'Timeline (s)'
-ylabel = 'HTTP Status Code'
+ylabel = 'Cumulative Count'
+
 with plt.style.context(['science', 'ieee', 'no-latex']):
     fig, ax = plt.subplots()
 
     ax.xaxis.set_major_locator(MaxNLocator(integer=True))
     ax.yaxis.set_major_locator(MaxNLocator(integer=True))
-    ax.set_yticks([200, 503])
 
-    ax.plot(timestamps, normal_state, label='normal', color='blue', ls='-')
-    ax.plot(timestamps, circuit_state, label='open/half-open', color='orange', ls='-')
+    ax.set_xlim(0, 120)
+
+    ax.plot(timestamps, normal_state_blue, label='200-normal', color='darkblue', ls='-')
+    ax.plot(timestamps, normal_state_light_blue, label='503-normal', color='royalblue', ls='-')
+
+    ax.plot(timestamps, circuit_state_yellow, label='200-circuit', color='orange', ls='-')
+    ax.plot(timestamps, circuit_state_light_yellow, label='503-circuit', color='darkorange', ls='-')
+
+    ax.legend(title='HTTP Status Code')
 
     ax.set_xlabel(xlabel, fontdict=fontdict)
     ax.set_ylabel(ylabel, fontdict=fontdict)
 
-    fig.savefig(f'{plot_dir}/fig_rq5_result.svg', dpi=dpi)
+    fig.savefig(f'{plot_dir}/fig_rq5_normal_circuit_result.svg', dpi=dpi)
+    fig.savefig(f'{plot_dir}/fig_rq5_normal_circuit_result.png', dpi=dpi)
+    plt.close()
+
+with plt.style.context(['science', 'ieee', 'no-latex']):
+    fig, ax = plt.subplots()
+
+    ax.xaxis.set_major_locator(MaxNLocator(integer=True))
+    ax.yaxis.set_major_locator(MaxNLocator(integer=True))
+
+    ax.set_xlim(0, 120)
+
+    ax.plot(timestamps, broken_state_red, label='200', color='darkred', ls='-')
+    ax.plot(timestamps, broken_state_light_red, label='503', color='red', ls='-')
+
+    ax.legend(title='HTTP Status Code')
+
+    ax.set_xlabel(xlabel, fontdict=fontdict)
+    ax.set_ylabel(ylabel, fontdict=fontdict)
+
+    fig.savefig(f'{plot_dir}/fig_rq5_broken_result.svg', dpi=dpi)
+    fig.savefig(f'{plot_dir}/fig_rq5_broken_result.png', dpi=dpi)
     plt.close()
 
 
