@@ -47,6 +47,14 @@ u2zwqgyk0qnyz93ywwc5bcr9b     docker-worker1   Ready     Active                 
 
 - Running the `docker service create --name registry --publish published=5000,target=5000 registry:2` command to setup the Docker Registry.
 - Running the `docker compose build` to build FMSA Docker image.
+- To ensure it can use HTTP to publish image to the private Docker registry, it should run following commands:
+
+```json
+{
+    "insecure-registries": ["<REGISTRY IP>:5000"]
+}
+```
+
 - Running the `docker compose push` to publish Docker images to the registry.
 - Running the `` command to deploy FMSA to the Docker Swarm Clusters.
 
