@@ -1,6 +1,6 @@
 services:
   api_gateway:
-    image: ${REGISTRY_IP}:5000/apigateway
+    image: "${REGISTRY_IP}:5000/fmsa-api-gateway:latest"
     build: ./api_gateway
     command: uvicorn app.main:app --host 0.0.0.0 --workers ${API_GATEWAY_UVICORN_WORKERS} --port 8000
     environment:
@@ -58,7 +58,7 @@ services:
     restart: always
 
   data_analysis_service:
-    image: ${REGISTRY_IP}:5000/dataanalysisservice
+    image: "${REGISTRY_IP}:5000/fmsa-data-analysis-service:latest"
     build: ./data_analysis_service
     command: uvicorn app.main:app --host 0.0.0.0 --workers ${DATA_ANALYSIS_SERVICE_UVICORN_WORKERS} --port 8000
     volumes:
@@ -82,7 +82,7 @@ services:
     restart: always
 
   ioht_data_collector:
-    image: ${REGISTRY_IP}:5000/iohtdatacollector
+    image: "${REGISTRY_IP}:5000/fmsa-ioht-data-collector:latest"
     build: ./ioht_data_collector
     command: uvicorn app.main:app --host 0.0.0.0 --workers ${IOHT_DATA_COLLECTOR_UVICORN_WORKERS} --port 8000
     volumes:
@@ -107,7 +107,7 @@ services:
     restart: always
 
   fhir_generator:
-    image: ${REGISTRY_IP}:5000/fhirgenerator
+    image: "${REGISTRY_IP}:5000/fmsa-fhir-generator:latest"
     build: ./fhir_generator
     command: uvicorn app.main:app --host 0.0.0.0 --workers ${FHIR_GENERATOR_UVICORN_WORKERS} --port 8000
     volumes:
@@ -115,7 +115,7 @@ services:
     restart: always
 
   fhir_converter:
-    image: ${REGISTRY_IP}:5000/fhirconverter
+    image: "${REGISTRY_IP}:5000/fmsa-fhir-converter:latest"
     build: ./fhir_converter
     command: uvicorn app.main:app --host 0.0.0.0 --workers ${FHIR_CONVERTER_UVICORN_WORKERS} --port 8000
     volumes:
@@ -123,7 +123,7 @@ services:
     restart: always
 
   fhir_ig_manager:
-    image: ${REGISTRY_IP}:5000/fhirigmanager
+    image: "${REGISTRY_IP}:5000/fmsa-fhir-ig-manager:latest"
     build: ./fhir_ig_manager
     command: uvicorn app.main:app --host 0.0.0.0 --workers ${FHIR_IG_MANAGER_UVICORN_WORKERS} --port 8000
     volumes:
@@ -147,7 +147,7 @@ services:
     restart: always
 
   fhir_profile_manager:
-    image: ${REGISTRY_IP}:5000/fhirprofilemanager
+    image: "${REGISTRY_IP}:5000/fmsa-fhir-profile-manager:latest"
     build: ./fhir_profile_manager
     command: uvicorn app.main:app --host 0.0.0.0 --workers ${FHIR_PROFILE_MANAGER_UVICORN_WORKERS} --port 8000
     volumes:
@@ -171,7 +171,7 @@ services:
     restart: always
 
   fhir_data_manager:
-    image: ${REGISTRY_IP}:5000/fhirdatamanager
+    image: "${REGISTRY_IP}:5000/fmsa-fhir-data-manager:latest"
     build: ./fhir_data_manager
     command: uvicorn app.main:app --host 0.0.0.0 --workers ${FHIR_DATA_MANAGER_UVICORN_WORKERS} --port 8000
     volumes:
@@ -219,7 +219,7 @@ services:
     restart: always
 
   terminology_manager:
-    image: ${REGISTRY_IP}:5000/terminologymanager
+    image: "${REGISTRY_IP}:5000/fmsa-terminology-manager:latest"
     build: ./terminology_manager
     command: uvicorn app.main:app --host 0.0.0.0 --workers ${TERMINOLOGY_MANAGER_UVICORN_WORKERS} --port 8000
     volumes:
