@@ -19,7 +19,7 @@ def test_upload_required_references():
     payload = {
         'resource': json_dict,
     }
-    response = httpx.put('http://fhir_data_manager:8000/api/v1/update/Practitioner', headers=headers, json=payload)
+    response = httpx.put('http://127.0.0.1:8081/api/v1/update/Practitioner', headers=headers, json=payload)
 
     assert response.status_code == 201 or response.status_code == 200
 
@@ -34,7 +34,7 @@ def test_upload_required_references():
     payload = {
         'resource': json_dict,
     }
-    response = httpx.put('http://fhir_data_manager:8000/api/v1/update/Practitioner', headers=headers, json=payload)
+    response = httpx.put('http://127.0.0.1:8081/api/v1/update/Practitioner', headers=headers, json=payload)
 
     assert response.status_code == 201 or response.status_code == 200
 
@@ -48,7 +48,7 @@ def test_upload_required_references():
     payload = {
         'resource': json_dict,
     }
-    response = httpx.put('http://fhir_data_manager:8000/api/v1/update/Organization', headers=headers, json=payload)
+    response = httpx.put('http://127.0.0.1:8081/api/v1/update/Organization', headers=headers, json=payload)
 
     assert response.status_code == 201 or response.status_code == 200
 
@@ -62,7 +62,7 @@ def test_upload_required_references():
     payload = {
         'resource': json_dict,
     }
-    response = httpx.put('http://fhir_data_manager:8000/api/v1/update/PractitionerRole', headers=headers, json=payload)
+    response = httpx.put('http://127.0.0.1:8081/api/v1/update/PractitionerRole', headers=headers, json=payload)
 
     assert response.status_code == 201 or response.status_code == 200
 
@@ -76,7 +76,7 @@ def test_upload_required_references():
     payload = {
         'resource': json_dict,
     }
-    response = httpx.put('http://fhir_data_manager:8000/api/v1/update/Patient', headers=headers, json=payload)
+    response = httpx.put('http://127.0.0.1:8081/api/v1/update/Patient', headers=headers, json=payload)
 
     assert response.status_code == 201 or response.status_code == 200
 
@@ -90,7 +90,7 @@ def test_upload_required_references():
     payload = {
         'resource': json_dict,
     }
-    response = httpx.put('http://fhir_data_manager:8000/api/v1/update/Practitioner', headers=headers, json=payload)
+    response = httpx.put('http://127.0.0.1:8081/api/v1/update/Practitioner', headers=headers, json=payload)
 
     assert response.status_code == 201 or response.status_code == 200
 
@@ -104,7 +104,7 @@ def test_upload_required_references():
     payload = {
         'resource': json_dict,
     }
-    response = httpx.put('http://fhir_data_manager:8000/api/v1/update/Location', headers=headers, json=payload)
+    response = httpx.put('http://127.0.0.1:8081/api/v1/update/Location', headers=headers, json=payload)
 
     assert response.status_code == 201 or response.status_code == 200
 
