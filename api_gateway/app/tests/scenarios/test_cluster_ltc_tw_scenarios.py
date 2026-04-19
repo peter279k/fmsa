@@ -9,7 +9,7 @@ import secrets
 def test_upload_required_references():
     headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
 
-    with open('/app/app/tests/scenarios/Practitioner-ltc-practitioner-physician-aa12-example.json')as f:
+    with open('./api_gateway/app/tests/scenarios/tests/scenarios/Practitioner-ltc-practitioner-physician-aa12-example.json')as f:
         json_str = f.read()
 
     json_dict = json.loads(json_str)
@@ -24,7 +24,7 @@ def test_upload_required_references():
     assert response.status_code == 201 or response.status_code == 200
 
 
-    with open('/app/app/tests/scenarios/Practitioner-ltc-practitioner-nurse-example.json') as f:
+    with open('./api_gateway/app/tests/scenarios/tests/scenarios/Practitioner-ltc-practitioner-nurse-example.json') as f:
         json_str = f.read()
 
     json_dict = json.loads(json_str)
@@ -38,7 +38,7 @@ def test_upload_required_references():
 
     assert response.status_code == 201 or response.status_code == 200
 
-    with open('/app/app/tests/scenarios/Organization-ltc-organization-example.json') as f:
+    with open('./api_gateway/app/tests/scenarios/tests/scenarios/Organization-ltc-organization-example.json') as f:
         json_str = f.read()
 
     json_dict = json.loads(json_str)
@@ -52,7 +52,7 @@ def test_upload_required_references():
 
     assert response.status_code == 201 or response.status_code == 200
 
-    with open('/app/app/tests/scenarios/PractitionerRole-ltc-practitioner-role-nurse-example.json') as f:
+    with open('./api_gateway/app/tests/scenarios/tests/scenarios/PractitionerRole-ltc-practitioner-role-nurse-example.json') as f:
         json_str = f.read()
 
     json_dict = json.loads(json_str)
@@ -66,7 +66,7 @@ def test_upload_required_references():
 
     assert response.status_code == 201 or response.status_code == 200
 
-    with open('/app/app/tests/scenarios/Patient-ltc-patient-chen-ming-hui.json') as f:
+    with open('./api_gateway/app/tests/scenarios/tests/scenarios/Patient-ltc-patient-chen-ming-hui.json') as f:
         json_str = f.read()
 
     json_dict = json.loads(json_str)
@@ -80,7 +80,7 @@ def test_upload_required_references():
 
     assert response.status_code == 201 or response.status_code == 200
 
-    with open('/app/app/tests/scenarios/Practitioner-ltc-practitioner-example.json') as f:
+    with open('./api_gateway/app/tests/scenarios/tests/scenarios/Practitioner-ltc-practitioner-example.json') as f:
         json_str = f.read()
 
     json_dict = json.loads(json_str)
@@ -94,7 +94,7 @@ def test_upload_required_references():
 
     assert response.status_code == 201 or response.status_code == 200
 
-    with open('/app/app/tests/scenarios/Location-ltc-location-example.json') as f:
+    with open('./api_gateway/app/tests/scenarios/tests/scenarios/Location-ltc-location-example.json') as f:
         json_str = f.read()
 
     json_dict = json.loads(json_str)
@@ -170,7 +170,7 @@ def test_convert_upload_retrieve_observation_scenario1():
         }]
     }
 
-    with open('/app/app/tests/scenarios/Observation-ltc-observation-blood-pressure-example.json', 'r', encoding='utf-8') as f:
+    with open('./api_gateway/app/tests/scenarios/tests/scenarios/Observation-ltc-observation-blood-pressure-example.json', 'r', encoding='utf-8') as f:
         expected_json_str = f.read()
 
     expected_json = json.loads(expected_json_str)
@@ -198,7 +198,7 @@ def test_convert_upload_retrieve_observation_scenario1():
 
 @pytest.mark.dependency(depends=['test_upload_required_references'])
 def test_convert_upload_retrieve_procedure_scenario2():
-    with open('/app/app/tests/scenarios/procedure.json') as f:
+    with open('./api_gateway/app/tests/scenarios/tests/scenarios/procedure.json') as f:
         procedure_data = f.read()
 
     module_name = 'ProcedureLtcConverter'
@@ -263,7 +263,7 @@ def test_convert_upload_retrieve_procedure_scenario2():
 
 @pytest.mark.dependency(depends=['test_upload_required_references'])
 def test_convert_upload_retrieve_medication_administration_data():
-    with open('/app/app/tests/scenarios/medication_administration.json') as f:
+    with open('./api_gateway/app/tests/scenarios/tests/scenarios/medication_administration.json') as f:
         medication_admin_data = f.read()
 
     medication_lists = json.loads(medication_admin_data)['用藥紀錄']
@@ -370,7 +370,7 @@ def test_analyze_upload_retrieve_questionnaire_response_cdr_data():
         'QuestionnaireResponse-ltc-questionnaire-response-cdr-moderate-example.json',
     ]
     for cdr_file in cdr_files:
-        with open(f'/app/app/tests/scenarios/{cdr_file}') as f:
+        with open(f'./api_gateway/app/tests/scenarios/tests/scenarios/{cdr_file}') as f:
             contents = f.read()
             json_data += json.loads(contents),
     payload = {
@@ -409,7 +409,7 @@ def test_analyze_upload_retrieve_questionnaire_response_cdr_data():
 
 @pytest.mark.dependency(depends=['test_upload_required_references'])
 def test_convert_upload_retrieve_location_data():
-    with open('/app/app/tests/scenarios/location.json') as f:
+    with open('./api_gateway/app/tests/scenarios/tests/scenarios/location.json') as f:
         ltc_location_data = f.read()
 
     module_name = 'LocationLtcConverter'
@@ -460,7 +460,7 @@ def test_convert_upload_retrieve_location_data():
 
 @pytest.mark.dependency(depends=['test_upload_required_references'])
 def test_convert_upload_retrieve_adverse_event_data():
-    with open('/app/app/tests/scenarios/adverse_event.json') as f:
+    with open('./api_gateway/app/tests/scenarios/tests/scenarios/adverse_event.json') as f:
         adverse_event_data = f.read()
 
     module_name = 'AdverseEventLtcConverter'
