@@ -57,6 +57,7 @@ u2zwqgyk0qnyz93ywwc5bcr9b     docker-worker1   Ready     Active                 
 }
 ```
 
+- The above insecure registry setting should be configured in Docker Swarm worker and manager nodes.
 - Running the `docker compose push` to publish Docker images to the registry.
 - Running these following commands to deploy FMSA to the Docker Swarm Clusters:
 
