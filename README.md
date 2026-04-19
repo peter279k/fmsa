@@ -45,10 +45,29 @@ u2zwqgyk0qnyz93ywwc5bcr9b     docker-worker1   Ready     Active                 
 
 # Docker Stack Deployment (Multiple Clusters)
 
+- If using the HTTP to expose FMSA, copying the `docker-compose-http-ascaler.yml` to the `docker-compose.yml` file.
+- Configuring the `.env` file and it can refer the `.env.example` file.
 - Running the `docker service create --name registry --publish published=5000,target=5000 registry:2` command to setup the Docker Registry.
 - Running the `docker compose build` to build FMSA Docker image.
+- To ensure it can use HTTP to publish image to the private Docker registry, it should run following commands:
+
+```json
+{
+    "insecure-registries": ["<REGISTRY IP>:5000"]
+}
+```
+
+- The above insecure registry setting should be configured in Docker Swarm worker and manager nodes.
 - Running the `docker compose push` to publish Docker images to the registry.
-- Running the `` command to deploy FMSA to the Docker Swarm Clusters.
+- Running these following commands to deploy FMSA to the Docker Swarm Clusters:
+
+```bash
+set -a
+source .env
+set +a
+
+docker stack deploy --compose-file docker-compose.yml fmsa
+```
 
 # Development server (for Conference)
 
