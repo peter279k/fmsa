@@ -139,8 +139,6 @@ services:
     command: uvicorn app.main:app --host 0.0.0.0 --workers ${FHIR_GENERATOR_UVICORN_WORKERS} --port 8000
     volumes:
       - ./fhir_generator/:/app/
-    environment:
-
     restart: always
     deploy:
       labels:
@@ -157,8 +155,6 @@ services:
     command: uvicorn app.main:app --host 0.0.0.0 --workers ${FHIR_CONVERTER_UVICORN_WORKERS} --port 8000
     volumes:
       - ./fhir_converter/:/app/
-    environment:
-
     restart: always
     deploy:
       labels:
