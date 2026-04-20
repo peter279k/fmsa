@@ -9,6 +9,7 @@ services:
       - KEYCLOAK_ADMIN=${KEYCLOAK_ADMIN}
       - KEYCLOAK_ADMIN_PASSWORD=${KEYCLOAK_ADMIN_PASSWORD}
       - REDIS_PASSWORD=${API_GATEWAY_REDIS_PASSWORD}
+      - AUTOSCALER_INTERVAL=120
     depends_on:
       - api_gateway_access_token_storage
       - keycloak_adapter
@@ -75,6 +76,7 @@ services:
       - DATABASE_HOST=${DATA_ANALYSIS_DATABASE_HOST}
       - DATABASE_USER=${DATA_ANALYSIS_DATABASE_USER}
       - DATABASE_PASSWORD=${DATA_ANALYSIS_DATABASE_PASSWORD}
+      - AUTOSCALER_INTERVAL=120
     depends_on:
       - analysis_db
     restart: always
@@ -107,6 +109,7 @@ services:
       - DATABASE_HOST=${IOHT_DATABASE_HOST}
       - DATABASE_USER=${IOHT_DATABASE_USER}
       - DATABASE_PASSWORD=${IOHT_DATABASE_PASSWORD}
+      - AUTOSCALER_INTERVAL=120
     depends_on:
       - ioht_db
     restart: always
@@ -136,6 +139,8 @@ services:
     command: uvicorn app.main:app --host 0.0.0.0 --workers ${FHIR_GENERATOR_UVICORN_WORKERS} --port 8000
     volumes:
       - ./fhir_generator/:/app/
+    environment:
+      - AUTOSCALER_INTERVAL=120
     restart: always
     deploy:
       labels:
@@ -152,6 +157,8 @@ services:
     command: uvicorn app.main:app --host 0.0.0.0 --workers ${FHIR_CONVERTER_UVICORN_WORKERS} --port 8000
     volumes:
       - ./fhir_converter/:/app/
+    environment:
+      - AUTOSCALER_INTERVAL=120
     restart: always
     deploy:
       labels:
@@ -172,6 +179,7 @@ services:
       - FHIR_IG_MANAGER_DB_USER=${FHIR_IG_MANAGER_DB_USER}
       - FHIR_IG_MANAGER_DB_PASSWORD=${FHIR_IG_MANAGER_DB_PASSWORD}
       - FHIR_IG_MANAGER_DB=${FHIR_IG_MANAGER_DB}
+      - AUTOSCALER_INTERVAL=120
     depends_on:
       - fhir_ig_manager_db
     restart: always
@@ -204,6 +212,7 @@ services:
       - FHIR_PROFILE_MANAGER_DB_USER=${FHIR_PROFILE_MANAGER_DB_USER}
       - FHIR_PROFILE_MANAGER_DB_PASSWORD=${FHIR_PROFILE_MANAGER_DB_PASSWORD}
       - FHIR_PROFILE_MANAGER_DB=${FHIR_PROFILE_MANAGER_DB}
+      - AUTOSCALER_INTERVAL=120
     depends_on:
       - fhir_profile_manager_db
     restart: always
@@ -241,6 +250,7 @@ services:
       - FHIR_DATA_MANAGER_DB_USER=${FHIR_DATA_MANAGER_DB_USER}
       - FHIR_DATA_MANAGER_DB_PASSWORD=${FHIR_DATA_MANAGER_DB_PASSWORD}
       - FHIR_DATA_MANAGER_DB=${FHIR_DATA_MANAGER_DB}
+      - AUTOSCALER_INTERVAL=120
     depends_on:
       - fhir-server-adapter
       - fhir_server_adapter_postgres
@@ -292,6 +302,7 @@ services:
       - TERMINOLOGY_MANAGER_DB_USER=${TERMINOLOGY_MANAGER_DB_USER}
       - TERMINOLOGY_MANAGER_DB_PASSWORD=${TERMINOLOGY_MANAGER_DB_PASSWORD}
       - TERMINOLOGY_MANAGER_DB=${TERMINOLOGY_MANAGER_DB}
+      - AUTOSCALER_INTERVAL=120
     depends_on:
       - terminology_manager_db
     restart: always
