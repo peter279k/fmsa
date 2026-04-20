@@ -14,7 +14,7 @@ services:
       - api_gateway_access_token_storage
       - keycloak_adapter
     volumes:
-      - ./api_gateway/:/app/
+      - ${FMSA_HOME_PATH}/api_gateway/:/app/
     deploy:
       labels:
         - "swarm.autoscale=true"
@@ -76,7 +76,7 @@ services:
     build: ./data_analysis_service
     command: uvicorn app.main:app --host 0.0.0.0 --workers ${DATA_ANALYSIS_SERVICE_UVICORN_WORKERS} --port 8000
     volumes:
-      - ./data_analysis_service/:/app/
+      - ${FMSA_HOME_PATH}/data_analysis_service/:/app/
     environment:
       - DATABASE_HOST=${DATA_ANALYSIS_DATABASE_HOST}
       - DATABASE_USER=${DATA_ANALYSIS_DATABASE_USER}
@@ -113,7 +113,7 @@ services:
     build: ./ioht_data_collector
     command: uvicorn app.main:app --host 0.0.0.0 --workers ${IOHT_DATA_COLLECTOR_UVICORN_WORKERS} --port 8000
     volumes:
-      - ./ioht_data_collector/:/app/
+      - ${FMSA_HOME_PATH}/ioht_data_collector/:/app/
     environment:
       - DATABASE_HOST=${IOHT_DATABASE_HOST}
       - DATABASE_USER=${IOHT_DATABASE_USER}
@@ -151,7 +151,7 @@ services:
     build: ./fhir_generator
     command: uvicorn app.main:app --host 0.0.0.0 --workers ${FHIR_GENERATOR_UVICORN_WORKERS} --port 8000
     volumes:
-      - ./fhir_generator/:/app/
+      - ${FMSA_HOME_PATH}/fhir_generator/:/app/
     restart: always
     deploy:
       labels:
@@ -171,7 +171,7 @@ services:
     build: ./fhir_converter
     command: uvicorn app.main:app --host 0.0.0.0 --workers ${FHIR_CONVERTER_UVICORN_WORKERS} --port 8000
     volumes:
-      - ./fhir_converter/:/app/
+      - ${FMSA_HOME_PATH}/fhir_converter/:/app/
     restart: always
     deploy:
       labels:
@@ -191,7 +191,7 @@ services:
     build: ./fhir_ig_manager
     command: uvicorn app.main:app --host 0.0.0.0 --workers ${FHIR_IG_MANAGER_UVICORN_WORKERS} --port 8000
     volumes:
-      - ./fhir_ig_manager/:/app/
+      - ${FMSA_HOME_PATH}/fhir_ig_manager/:/app/
     environment:
       - FHIR_IG_MANAGER_DB_USER=${FHIR_IG_MANAGER_DB_USER}
       - FHIR_IG_MANAGER_DB_PASSWORD=${FHIR_IG_MANAGER_DB_PASSWORD}
@@ -228,7 +228,7 @@ services:
     build: ./fhir_profile_manager
     command: uvicorn app.main:app --host 0.0.0.0 --workers ${FHIR_PROFILE_MANAGER_UVICORN_WORKERS} --port 8000
     volumes:
-      - ./fhir_profile_manager/:/app/
+      - ${FMSA_HOME_PATH}/fhir_profile_manager/:/app/
     environment:
       - FHIR_PROFILE_MANAGER_DB_USER=${FHIR_PROFILE_MANAGER_DB_USER}
       - FHIR_PROFILE_MANAGER_DB_PASSWORD=${FHIR_PROFILE_MANAGER_DB_PASSWORD}
@@ -265,12 +265,12 @@ services:
     build: ./fhir_data_manager
     command: uvicorn app.main:app --host 0.0.0.0 --workers ${FHIR_DATA_MANAGER_UVICORN_WORKERS} --port 8000
     volumes:
-      - ./fhir_data_manager/app/tests:/app/app/tests
-      - ./fhir_data_manager/app/modules:/app/app/modules
-      - ./fhir_data_manager/app/routers:/app/app/routers
-      - ./fhir_data_manager/app/item_models:/app/app/item_models
-      - ./fhir_data_manager/app/main.py:/app/app/main.py
-      - ./fhir_data_manager/app/__init__.py:/app/app/__init__.py
+      - ${FMSA_HOME_PATH}/fhir_data_manager/app/tests:/app/app/tests
+      - ${FMSA_HOME_PATH}/fhir_data_manager/app/modules:/app/app/modules
+      - ${FMSA_HOME_PATH}/fhir_data_manager/app/routers:/app/app/routers
+      - ${FMSA_HOME_PATH}/fhir_data_manager/app/item_models:/app/app/item_models
+      - ${FMSA_HOME_PATH}/fhir_data_manager/app/main.py:/app/app/main.py
+      - ${FMSA_HOME_PATH}/fhir_data_manager/app/__init__.py:/app/app/__init__.py
     environment:
       - FHIR_DATA_MANAGER_DB_USER=${FHIR_DATA_MANAGER_DB_USER}
       - FHIR_DATA_MANAGER_DB_PASSWORD=${FHIR_DATA_MANAGER_DB_PASSWORD}
@@ -307,7 +307,7 @@ services:
   fhir-server-adapter:
     image: "hapiproject/hapi:v7.6.0"
     volumes:
-      - ./fhir_server_adapter/hapi.application.yml:/app/config/application.yaml:ro
+      - ${FMSA_HOME_PATH}/fhir_server_adapter/hapi.application.yml:/app/config/application.yaml:ro
     depends_on:
       - fhir_server_adapter_postgres
 
@@ -326,7 +326,7 @@ services:
     build: ./terminology_manager
     command: uvicorn app.main:app --host 0.0.0.0 --workers ${TERMINOLOGY_MANAGER_UVICORN_WORKERS} --port 8000
     volumes:
-      - ./terminology_manager/:/app/
+      - ${FMSA_HOME_PATH}/terminology_manager/:/app/
     environment:
       - TERMINOLOGY_MANAGER_DB_USER=${TERMINOLOGY_MANAGER_DB_USER}
       - TERMINOLOGY_MANAGER_DB_PASSWORD=${TERMINOLOGY_MANAGER_DB_PASSWORD}
@@ -365,7 +365,7 @@ services:
       restart_policy:
         condition: on-failure
     volumes:
-      - ./nginx_config.conf:/etc/nginx/conf.d/default.conf
+      - ${FMSA_HOME_PATH}/nginx_config.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - api_gateway
       - data_analysis_service
@@ -387,7 +387,7 @@ services:
       restart_policy:
         condition: on-failure
     volumes:
-      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+      - ${FMSA_HOME_PATH}/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
     depends_on:
       - nginx
 
