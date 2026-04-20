@@ -14,6 +14,14 @@ services:
       - keycloak_adapter
     volumes:
       - ./api_gateway/:/app/
+    deploy:
+      labels:
+        - "swarm.autoscale=true"
+        - "swarm.autoscale.min=1"
+        - "swarm.autoscale.max=12"
+        - "swarm.autoscale.percentage-max=80%"
+        - "swarm.autoscale.percentage-min=30%"
+        - "swarm.autoscale.decrease-mode=MEDIAN"
 
   api_gateway_access_token_storage:
     image: bitnami/redis:latest
@@ -70,6 +78,14 @@ services:
     depends_on:
       - analysis_db
     restart: always
+    deploy:
+      labels:
+        - "swarm.autoscale=true"
+        - "swarm.autoscale.min=1"
+        - "swarm.autoscale.max=12"
+        - "swarm.autoscale.percentage-max=80%"
+        - "swarm.autoscale.percentage-min=30%"
+        - "swarm.autoscale.decrease-mode=MEDIAN"
 
   analysis_db:
     image: clickhouse:25.8
@@ -94,6 +110,14 @@ services:
     depends_on:
       - ioht_db
     restart: always
+    deploy:
+      labels:
+        - "swarm.autoscale=true"
+        - "swarm.autoscale.min=1"
+        - "swarm.autoscale.max=12"
+        - "swarm.autoscale.percentage-max=80%"
+        - "swarm.autoscale.percentage-min=30%"
+        - "swarm.autoscale.decrease-mode=MEDIAN"
 
   ioht_db:
     image: clickhouse:25.8
@@ -113,6 +137,14 @@ services:
     volumes:
       - ./fhir_generator/:/app/
     restart: always
+    deploy:
+      labels:
+        - "swarm.autoscale=true"
+        - "swarm.autoscale.min=1"
+        - "swarm.autoscale.max=12"
+        - "swarm.autoscale.percentage-max=80%"
+        - "swarm.autoscale.percentage-min=30%"
+        - "swarm.autoscale.decrease-mode=MEDIAN"
 
   fhir_converter:
     image: "${REGISTRY_IP}:5000/fmsa-fhir-converter:latest"
@@ -121,6 +153,14 @@ services:
     volumes:
       - ./fhir_converter/:/app/
     restart: always
+    deploy:
+      labels:
+        - "swarm.autoscale=true"
+        - "swarm.autoscale.min=1"
+        - "swarm.autoscale.max=12"
+        - "swarm.autoscale.percentage-max=80%"
+        - "swarm.autoscale.percentage-min=30%"
+        - "swarm.autoscale.decrease-mode=MEDIAN"
 
   fhir_ig_manager:
     image: "${REGISTRY_IP}:5000/fmsa-fhir-ig-manager:latest"
@@ -135,6 +175,14 @@ services:
     depends_on:
       - fhir_ig_manager_db
     restart: always
+    deploy:
+      labels:
+        - "swarm.autoscale=true"
+        - "swarm.autoscale.min=1"
+        - "swarm.autoscale.max=12"
+        - "swarm.autoscale.percentage-max=80%"
+        - "swarm.autoscale.percentage-min=30%"
+        - "swarm.autoscale.decrease-mode=MEDIAN"
 
   fhir_ig_manager_db:
     image: mongo:7.0.16-jammy
@@ -159,6 +207,14 @@ services:
     depends_on:
       - fhir_profile_manager_db
     restart: always
+    deploy:
+      labels:
+        - "swarm.autoscale=true"
+        - "swarm.autoscale.min=1"
+        - "swarm.autoscale.max=12"
+        - "swarm.autoscale.percentage-max=80%"
+        - "swarm.autoscale.percentage-min=30%"
+        - "swarm.autoscale.decrease-mode=MEDIAN"
 
   fhir_profile_manager_db:
     image: mongo:7.0.16-jammy
@@ -190,6 +246,14 @@ services:
       - fhir_server_adapter_postgres
       - fhir_data_manager_db
     restart: always
+    deploy:
+      labels:
+        - "swarm.autoscale=true"
+        - "swarm.autoscale.min=1"
+        - "swarm.autoscale.max=12"
+        - "swarm.autoscale.percentage-max=80%"
+        - "swarm.autoscale.percentage-min=30%"
+        - "swarm.autoscale.decrease-mode=MEDIAN"
 
   fhir_data_manager_db:
     image: mongo:7.0.16-jammy
@@ -231,6 +295,14 @@ services:
     depends_on:
       - terminology_manager_db
     restart: always
+    deploy:
+      labels:
+        - "swarm.autoscale=true"
+        - "swarm.autoscale.min=1"
+        - "swarm.autoscale.max=12"
+        - "swarm.autoscale.percentage-max=80%"
+        - "swarm.autoscale.percentage-min=30%"
+        - "swarm.autoscale.decrease-mode=MEDIAN"
 
   terminology_manager_db:
     image: mongo:7.0.16-jammy
