@@ -23,6 +23,11 @@ services:
         - "swarm.autoscale.percentage-max=80"
         - "swarm.autoscale.percentage-min=30"
         - "swarm.autoscale.decrease-mode=MEDIAN"
+      replicas: 3
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 100M
 
   api_gateway_access_token_storage:
     image: bitnami/redis:latest
@@ -88,6 +93,10 @@ services:
         - "swarm.autoscale.percentage-max=80"
         - "swarm.autoscale.percentage-min=30"
         - "swarm.autoscale.decrease-mode=MEDIAN"
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 50M
 
   analysis_db:
     image: clickhouse:25.8
@@ -121,6 +130,10 @@ services:
         - "swarm.autoscale.percentage-max=80"
         - "swarm.autoscale.percentage-min=30"
         - "swarm.autoscale.decrease-mode=MEDIAN"
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 50M
 
   ioht_db:
     image: clickhouse:25.8
@@ -148,6 +161,10 @@ services:
         - "swarm.autoscale.percentage-max=80"
         - "swarm.autoscale.percentage-min=30"
         - "swarm.autoscale.decrease-mode=MEDIAN"
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 50M
 
   fhir_converter:
     image: "${REGISTRY_IP}:5000/fmsa-fhir-converter:latest"
@@ -164,6 +181,10 @@ services:
         - "swarm.autoscale.percentage-max=80"
         - "swarm.autoscale.percentage-min=30"
         - "swarm.autoscale.decrease-mode=MEDIAN"
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 50M
 
   fhir_ig_manager:
     image: "${REGISTRY_IP}:5000/fmsa-fhir-ig-manager:latest"
@@ -187,6 +208,10 @@ services:
         - "swarm.autoscale.percentage-max=80"
         - "swarm.autoscale.percentage-min=30"
         - "swarm.autoscale.decrease-mode=MEDIAN"
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 50M
 
   fhir_ig_manager_db:
     image: mongo:7.0.16-jammy
@@ -220,6 +245,10 @@ services:
         - "swarm.autoscale.percentage-max=80"
         - "swarm.autoscale.percentage-min=30"
         - "swarm.autoscale.decrease-mode=MEDIAN"
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 50M
 
   fhir_profile_manager_db:
     image: mongo:7.0.16-jammy
@@ -260,6 +289,10 @@ services:
         - "swarm.autoscale.percentage-max=80"
         - "swarm.autoscale.percentage-min=30"
         - "swarm.autoscale.decrease-mode=MEDIAN"
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 50M
 
   fhir_data_manager_db:
     image: mongo:7.0.16-jammy
@@ -310,6 +343,10 @@ services:
         - "swarm.autoscale.percentage-max=80"
         - "swarm.autoscale.percentage-min=30"
         - "swarm.autoscale.decrease-mode=MEDIAN"
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 50M
 
   terminology_manager_db:
     image: mongo:7.0.16-jammy
