@@ -16,6 +16,9 @@ services:
     volumes:
       - ${FMSA_HOME_PATH}/api_gateway/:/app/
     deploy:
+      placement:
+        constraints:
+          - node.role == worker
       labels:
         - "swarm.autoscale=true"
         - "swarm.autoscale.min=1"
@@ -86,6 +89,9 @@ services:
       - analysis_db
     restart: always
     deploy:
+      placement:
+        constraints:
+          - node.role == worker
       labels:
         - "swarm.autoscale=true"
         - "swarm.autoscale.min=1"
@@ -123,6 +129,9 @@ services:
       - ioht_db
     restart: always
     deploy:
+      placement:
+        constraints:
+          - node.role == worker
       labels:
         - "swarm.autoscale=true"
         - "swarm.autoscale.min=1"
@@ -154,6 +163,9 @@ services:
       - ${FMSA_HOME_PATH}/fhir_generator/:/app/
     restart: always
     deploy:
+      placement:
+        constraints:
+          - node.role == worker
       labels:
         - "swarm.autoscale=true"
         - "swarm.autoscale.min=1"
@@ -174,6 +186,9 @@ services:
       - ${FMSA_HOME_PATH}/fhir_converter/:/app/
     restart: always
     deploy:
+      placement:
+        constraints:
+          - node.role == worker
       labels:
         - "swarm.autoscale=true"
         - "swarm.autoscale.min=1"
@@ -201,6 +216,9 @@ services:
       - fhir_ig_manager_db
     restart: always
     deploy:
+      placement:
+        constraints:
+          - node.role == worker
       labels:
         - "swarm.autoscale=true"
         - "swarm.autoscale.min=1"
@@ -238,6 +256,9 @@ services:
       - fhir_profile_manager_db
     restart: always
     deploy:
+      placement:
+        constraints:
+          - node.role == worker
       labels:
         - "swarm.autoscale=true"
         - "swarm.autoscale.min=1"
@@ -282,6 +303,9 @@ services:
       - fhir_data_manager_db
     restart: always
     deploy:
+      placement:
+        constraints:
+          - node.role == worker
       labels:
         - "swarm.autoscale=true"
         - "swarm.autoscale.min=1"
@@ -336,6 +360,9 @@ services:
       - terminology_manager_db
     restart: always
     deploy:
+      placement:
+        constraints:
+          - node.role == worker
       labels:
         - "swarm.autoscale=true"
         - "swarm.autoscale.min=1"
@@ -361,6 +388,9 @@ services:
   nginx:
     image: nginx:latest
     deploy:
+      placement:
+        constraints:
+          - node.role == worker
       replicas: 3
       restart_policy:
         condition: on-failure
@@ -383,6 +413,9 @@ services:
     ports:
       - 8081:8081
     deploy:
+      placement:
+        constraints:
+          - node.role == worker
       replicas: 1
       restart_policy:
         condition: on-failure
