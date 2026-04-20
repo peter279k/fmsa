@@ -9,7 +9,7 @@ services:
       - KEYCLOAK_ADMIN=${KEYCLOAK_ADMIN}
       - KEYCLOAK_ADMIN_PASSWORD=${KEYCLOAK_ADMIN_PASSWORD}
       - REDIS_PASSWORD=${API_GATEWAY_REDIS_PASSWORD}
-      - AUTOSCALER_INTERVAL=60
+
     depends_on:
       - api_gateway_access_token_storage
       - keycloak_adapter
@@ -20,8 +20,8 @@ services:
         - "swarm.autoscale=true"
         - "swarm.autoscale.min=1"
         - "swarm.autoscale.max=12"
-        - "swarm.autoscale.percentage-max=80%"
-        - "swarm.autoscale.percentage-min=30%"
+        - "swarm.autoscale.percentage-max=80"
+        - "swarm.autoscale.percentage-min=30"
         - "swarm.autoscale.decrease-mode=MEDIAN"
 
   api_gateway_access_token_storage:
@@ -76,7 +76,7 @@ services:
       - DATABASE_HOST=${DATA_ANALYSIS_DATABASE_HOST}
       - DATABASE_USER=${DATA_ANALYSIS_DATABASE_USER}
       - DATABASE_PASSWORD=${DATA_ANALYSIS_DATABASE_PASSWORD}
-      - AUTOSCALER_INTERVAL=60
+
     depends_on:
       - analysis_db
     restart: always
@@ -85,8 +85,8 @@ services:
         - "swarm.autoscale=true"
         - "swarm.autoscale.min=1"
         - "swarm.autoscale.max=12"
-        - "swarm.autoscale.percentage-max=80%"
-        - "swarm.autoscale.percentage-min=30%"
+        - "swarm.autoscale.percentage-max=80"
+        - "swarm.autoscale.percentage-min=30"
         - "swarm.autoscale.decrease-mode=MEDIAN"
 
   analysis_db:
@@ -109,7 +109,7 @@ services:
       - DATABASE_HOST=${IOHT_DATABASE_HOST}
       - DATABASE_USER=${IOHT_DATABASE_USER}
       - DATABASE_PASSWORD=${IOHT_DATABASE_PASSWORD}
-      - AUTOSCALER_INTERVAL=60
+
     depends_on:
       - ioht_db
     restart: always
@@ -118,8 +118,8 @@ services:
         - "swarm.autoscale=true"
         - "swarm.autoscale.min=1"
         - "swarm.autoscale.max=12"
-        - "swarm.autoscale.percentage-max=80%"
-        - "swarm.autoscale.percentage-min=30%"
+        - "swarm.autoscale.percentage-max=80"
+        - "swarm.autoscale.percentage-min=30"
         - "swarm.autoscale.decrease-mode=MEDIAN"
 
   ioht_db:
@@ -140,15 +140,15 @@ services:
     volumes:
       - ./fhir_generator/:/app/
     environment:
-      - AUTOSCALER_INTERVAL=60
+
     restart: always
     deploy:
       labels:
         - "swarm.autoscale=true"
         - "swarm.autoscale.min=1"
         - "swarm.autoscale.max=12"
-        - "swarm.autoscale.percentage-max=80%"
-        - "swarm.autoscale.percentage-min=30%"
+        - "swarm.autoscale.percentage-max=80"
+        - "swarm.autoscale.percentage-min=30"
         - "swarm.autoscale.decrease-mode=MEDIAN"
 
   fhir_converter:
@@ -158,15 +158,15 @@ services:
     volumes:
       - ./fhir_converter/:/app/
     environment:
-      - AUTOSCALER_INTERVAL=60
+
     restart: always
     deploy:
       labels:
         - "swarm.autoscale=true"
         - "swarm.autoscale.min=1"
         - "swarm.autoscale.max=12"
-        - "swarm.autoscale.percentage-max=80%"
-        - "swarm.autoscale.percentage-min=30%"
+        - "swarm.autoscale.percentage-max=80"
+        - "swarm.autoscale.percentage-min=30"
         - "swarm.autoscale.decrease-mode=MEDIAN"
 
   fhir_ig_manager:
@@ -179,7 +179,7 @@ services:
       - FHIR_IG_MANAGER_DB_USER=${FHIR_IG_MANAGER_DB_USER}
       - FHIR_IG_MANAGER_DB_PASSWORD=${FHIR_IG_MANAGER_DB_PASSWORD}
       - FHIR_IG_MANAGER_DB=${FHIR_IG_MANAGER_DB}
-      - AUTOSCALER_INTERVAL=60
+
     depends_on:
       - fhir_ig_manager_db
     restart: always
@@ -188,8 +188,8 @@ services:
         - "swarm.autoscale=true"
         - "swarm.autoscale.min=1"
         - "swarm.autoscale.max=12"
-        - "swarm.autoscale.percentage-max=80%"
-        - "swarm.autoscale.percentage-min=30%"
+        - "swarm.autoscale.percentage-max=80"
+        - "swarm.autoscale.percentage-min=30"
         - "swarm.autoscale.decrease-mode=MEDIAN"
 
   fhir_ig_manager_db:
@@ -212,7 +212,7 @@ services:
       - FHIR_PROFILE_MANAGER_DB_USER=${FHIR_PROFILE_MANAGER_DB_USER}
       - FHIR_PROFILE_MANAGER_DB_PASSWORD=${FHIR_PROFILE_MANAGER_DB_PASSWORD}
       - FHIR_PROFILE_MANAGER_DB=${FHIR_PROFILE_MANAGER_DB}
-      - AUTOSCALER_INTERVAL=60
+
     depends_on:
       - fhir_profile_manager_db
     restart: always
@@ -221,8 +221,8 @@ services:
         - "swarm.autoscale=true"
         - "swarm.autoscale.min=1"
         - "swarm.autoscale.max=12"
-        - "swarm.autoscale.percentage-max=80%"
-        - "swarm.autoscale.percentage-min=30%"
+        - "swarm.autoscale.percentage-max=80"
+        - "swarm.autoscale.percentage-min=30"
         - "swarm.autoscale.decrease-mode=MEDIAN"
 
   fhir_profile_manager_db:
@@ -250,7 +250,7 @@ services:
       - FHIR_DATA_MANAGER_DB_USER=${FHIR_DATA_MANAGER_DB_USER}
       - FHIR_DATA_MANAGER_DB_PASSWORD=${FHIR_DATA_MANAGER_DB_PASSWORD}
       - FHIR_DATA_MANAGER_DB=${FHIR_DATA_MANAGER_DB}
-      - AUTOSCALER_INTERVAL=60
+
     depends_on:
       - fhir-server-adapter
       - fhir_server_adapter_postgres
@@ -261,8 +261,8 @@ services:
         - "swarm.autoscale=true"
         - "swarm.autoscale.min=1"
         - "swarm.autoscale.max=12"
-        - "swarm.autoscale.percentage-max=80%"
-        - "swarm.autoscale.percentage-min=30%"
+        - "swarm.autoscale.percentage-max=80"
+        - "swarm.autoscale.percentage-min=30"
         - "swarm.autoscale.decrease-mode=MEDIAN"
 
   fhir_data_manager_db:
@@ -302,7 +302,7 @@ services:
       - TERMINOLOGY_MANAGER_DB_USER=${TERMINOLOGY_MANAGER_DB_USER}
       - TERMINOLOGY_MANAGER_DB_PASSWORD=${TERMINOLOGY_MANAGER_DB_PASSWORD}
       - TERMINOLOGY_MANAGER_DB=${TERMINOLOGY_MANAGER_DB}
-      - AUTOSCALER_INTERVAL=60
+
     depends_on:
       - terminology_manager_db
     restart: always
@@ -311,8 +311,8 @@ services:
         - "swarm.autoscale=true"
         - "swarm.autoscale.min=1"
         - "swarm.autoscale.max=12"
-        - "swarm.autoscale.percentage-max=80%"
-        - "swarm.autoscale.percentage-min=30%"
+        - "swarm.autoscale.percentage-max=80"
+        - "swarm.autoscale.percentage-min=30"
         - "swarm.autoscale.decrease-mode=MEDIAN"
 
   terminology_manager_db:
