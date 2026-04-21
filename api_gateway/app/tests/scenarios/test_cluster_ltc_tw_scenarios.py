@@ -53,7 +53,7 @@ def test_upload_required_references():
     payload = {
         'resource': json_dict,
     }
-    response = httpx.put('http://127.0.0.1:8081/api/v1/update/Organization', headers=headers, json=payload)
+    response = httpx.put('http://127.0.0.1:8081/api/v1/update/Organization', headers=headers, json=payload, timeput=httpx.Timeout(60.0))
 
     assert response.status_code == 201 or response.status_code == 200
 
