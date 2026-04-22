@@ -21,7 +21,7 @@ services:
           - node.role == worker
       labels:
         - "swarm.autoscale=true"
-        - "swarm.autoscale.min=1"
+        - "swarm.autoscale.min=3"
         - "swarm.autoscale.max=12"
         - "swarm.autoscale.percentage-max=80"
         - "swarm.autoscale.percentage-min=30"
@@ -92,9 +92,10 @@ services:
       placement:
         constraints:
           - node.role == worker
+      replicas: 3
       labels:
         - "swarm.autoscale=true"
-        - "swarm.autoscale.min=1"
+        - "swarm.autoscale.min=3"
         - "swarm.autoscale.max=12"
         - "swarm.autoscale.percentage-max=80"
         - "swarm.autoscale.percentage-min=30"
@@ -132,9 +133,10 @@ services:
       placement:
         constraints:
           - node.role == worker
+      replicas: 3
       labels:
         - "swarm.autoscale=true"
-        - "swarm.autoscale.min=1"
+        - "swarm.autoscale.min=3"
         - "swarm.autoscale.max=12"
         - "swarm.autoscale.percentage-max=80"
         - "swarm.autoscale.percentage-min=30"
@@ -166,9 +168,10 @@ services:
       placement:
         constraints:
           - node.role == worker
+      replicas: 3
       labels:
         - "swarm.autoscale=true"
-        - "swarm.autoscale.min=1"
+        - "swarm.autoscale.min=3"
         - "swarm.autoscale.max=12"
         - "swarm.autoscale.percentage-max=80"
         - "swarm.autoscale.percentage-min=30"
@@ -189,9 +192,10 @@ services:
       placement:
         constraints:
           - node.role == worker
+      replicas: 3
       labels:
         - "swarm.autoscale=true"
-        - "swarm.autoscale.min=1"
+        - "swarm.autoscale.min=3"
         - "swarm.autoscale.max=12"
         - "swarm.autoscale.percentage-max=80"
         - "swarm.autoscale.percentage-min=30"
@@ -219,9 +223,10 @@ services:
       placement:
         constraints:
           - node.role == worker
+      replicas: 3
       labels:
         - "swarm.autoscale=true"
-        - "swarm.autoscale.min=1"
+        - "swarm.autoscale.min=3"
         - "swarm.autoscale.max=12"
         - "swarm.autoscale.percentage-max=80"
         - "swarm.autoscale.percentage-min=30"
@@ -259,9 +264,10 @@ services:
       placement:
         constraints:
           - node.role == worker
+      replicas: 3
       labels:
         - "swarm.autoscale=true"
-        - "swarm.autoscale.min=1"
+        - "swarm.autoscale.min=3"
         - "swarm.autoscale.max=12"
         - "swarm.autoscale.percentage-max=80"
         - "swarm.autoscale.percentage-min=30"
@@ -306,9 +312,10 @@ services:
       placement:
         constraints:
           - node.role == worker
+      replicas: 3
       labels:
         - "swarm.autoscale=true"
-        - "swarm.autoscale.min=1"
+        - "swarm.autoscale.min=3"
         - "swarm.autoscale.max=12"
         - "swarm.autoscale.percentage-max=80"
         - "swarm.autoscale.percentage-min=30"
@@ -363,9 +370,10 @@ services:
       placement:
         constraints:
           - node.role == worker
+      replicas: 3
       labels:
         - "swarm.autoscale=true"
-        - "swarm.autoscale.min=1"
+        - "swarm.autoscale.min=3"
         - "swarm.autoscale.max=12"
         - "swarm.autoscale.percentage-max=80"
         - "swarm.autoscale.percentage-min=30"
@@ -416,7 +424,7 @@ services:
       placement:
         constraints:
           - node.role == worker
-      replicas: 1
+      replicas: 3
       restart_policy:
         condition: on-failure
     volumes:
