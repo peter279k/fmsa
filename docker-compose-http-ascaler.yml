@@ -341,6 +341,15 @@ services:
       - ${FMSA_HOME_PATH}/fhir_server_adapter/hapi.application.yml:/app/config/application.yaml:ro
     depends_on:
       - fhir_server_adapter_postgres
+    deploy:
+      placement:
+        constraints:
+          - node.role == worker
+      replicas: 3
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 50M
 
   fhir_server_adapter_postgres:
     image: postgres:14.10-alpine
