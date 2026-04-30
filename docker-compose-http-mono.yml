@@ -348,8 +348,8 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: '18.0'
-          memory: 49152M
+          cpus: '6.0'
+          memory: 16384M
 
   fhir_server_adapter_postgres:
     image: postgres:14.10-alpine
