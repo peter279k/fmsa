@@ -29,8 +29,8 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: '2.0'
-          memory: 100M
+          cpus: '6.0'
+          memory: 300M
 
   api_gateway_access_token_storage:
     image: bitnami/redis:latest
@@ -102,8 +102,8 @@ services:
         - "swarm.autoscale.decrease-mode=MEDIAN"
       resources:
         limits:
-          cpus: '1.0'
-          memory: 50M
+          cpus: '3.0'
+          memory: 150M
 
   analysis_db:
     image: clickhouse:25.8
@@ -143,8 +143,8 @@ services:
         - "swarm.autoscale.decrease-mode=MEDIAN"
       resources:
         limits:
-          cpus: '1.0'
-          memory: 50M
+          cpus: '3.0'
+          memory: 150M
 
   ioht_db:
     image: clickhouse:25.8
@@ -178,8 +178,8 @@ services:
         - "swarm.autoscale.decrease-mode=MEDIAN"
       resources:
         limits:
-          cpus: '1.0'
-          memory: 50M
+          cpus: '3.0'
+          memory: 150M
 
   fhir_converter:
     image: "${REGISTRY_IP}:5000/fmsa-fhir-converter:latest"
@@ -202,8 +202,8 @@ services:
         - "swarm.autoscale.decrease-mode=MEDIAN"
       resources:
         limits:
-          cpus: '1.0'
-          memory: 50M
+          cpus: '3.0'
+          memory: 150M
 
   fhir_ig_manager:
     image: "${REGISTRY_IP}:5000/fmsa-fhir-ig-manager:latest"
@@ -233,8 +233,8 @@ services:
         - "swarm.autoscale.decrease-mode=MEDIAN"
       resources:
         limits:
-          cpus: '1.0'
-          memory: 50M
+          cpus: '3.0'
+          memory: 150M
 
   fhir_ig_manager_db:
     image: mongo:7.0.16-jammy
@@ -274,8 +274,8 @@ services:
         - "swarm.autoscale.decrease-mode=MEDIAN"
       resources:
         limits:
-          cpus: '1.0'
-          memory: 50M
+          cpus: '3.0'
+          memory: 150M
 
   fhir_profile_manager_db:
     image: mongo:7.0.16-jammy
@@ -322,8 +322,8 @@ services:
         - "swarm.autoscale.decrease-mode=MEDIAN"
       resources:
         limits:
-          cpus: '1.0'
-          memory: 50M
+          cpus: '3.0'
+          memory: 150M
 
   fhir_data_manager_db:
     image: mongo:7.0.16-jammy
@@ -346,6 +346,10 @@ services:
         constraints:
           - node.role == worker
       replicas: 1
+      resources:
+        limits:
+          cpus: '18.0'
+          memory: 49152M
 
   fhir_server_adapter_postgres:
     image: postgres:14.10-alpine
@@ -385,8 +389,8 @@ services:
         - "swarm.autoscale.decrease-mode=MEDIAN"
       resources:
         limits:
-          cpus: '1.0'
-          memory: 50M
+          cpus: '3.0'
+          memory: 150M
 
   terminology_manager_db:
     image: mongo:7.0.16-jammy
@@ -404,7 +408,7 @@ services:
       placement:
         constraints:
           - node.role == worker
-      replicas: 1
+      replicas: 3
       restart_policy:
         condition: on-failure
     volumes:
@@ -429,7 +433,7 @@ services:
       placement:
         constraints:
           - node.role == worker
-      replicas: 1
+      replicas: 3
       restart_policy:
         condition: on-failure
     volumes:
