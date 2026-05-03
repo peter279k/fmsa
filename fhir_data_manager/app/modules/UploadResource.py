@@ -16,13 +16,15 @@ class UploadResource:
             response = httpx.put(
                 f"{self.fhir_server_url}/{self.item_dict['resource']['id']}",
                 headers=self.headers,
-                json=resource
+                json=resource,
+                timeout=10
             )
         else:
             response = httpx.post(
                 self.fhir_server_url,
                 headers=self.headers,
-                json=resource
+                json=resource,
+                timeout=10
             )
 
         return response
