@@ -355,6 +355,7 @@ services:
     image: postgres:14.10-alpine
     volumes:
       - fhir_server_adapter_postgres_data:/var/lib/postgresql/data/
+      - ${FHIR_POSTGRES_HOME_PATH}:/etc/postgresql/postgresql.conf
     environment:
       - POSTGRES_USER=${FHIR_DATA_MANAGER_DB_USER}
       - POSTGRES_PASSWORD=${FHIR_DATA_MANAGER_DB_PASSWORD}
