@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -eo pipefail
+
 service_name=$1
 test_dir=$2
 option=$3
