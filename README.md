@@ -1,3 +1,8 @@
+# FMSA
+
+[![Unit Tests](https://github.com/peter279k/fmsa/actions/workflows/unit_tests.yml/badge.svg)](https://github.com/peter279k/fmsa/actions/workflows/unit_tests.yml)
+[![Integration Tests](https://github.com/peter279k/fmsa/actions/workflows/integration_tests.yml/badge.svg)](https://github.com/peter279k/fmsa/actions/workflows/integration_tests.yml)
+
 # Introduction
 
 We proposed the FMSA (FHIR-based Microservice Architecture), a new open-source software architecture designed for medical informatics systems.
