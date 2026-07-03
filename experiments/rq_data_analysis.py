@@ -61,8 +61,8 @@ with plt.style.context(['science', 'ieee', 'no-latex']):
 
     ax.set_xlim(0, 120)
 
-    ax.plot(timestamps, status_code200, label='200', color='blue', ls='-', marker='')
-    ax.plot(timestamps, status_code500, label='503', color='orange', ls='-', marker='')
+    ax.plot(timestamps, status_code200, label='200', color='blue', ls='-', marker='o')
+    ax.plot(timestamps, status_code500, label='503', color='orange', ls='-', marker='^')
 
     ax.legend(title='HTTP Status Code')
 
@@ -106,7 +106,7 @@ circuit_counter500 = 1
 
 broken_state_red = []
 broken_state_light_red = []
-broken_counter200 = 1 
+broken_counter200 = 1
 broken_counter500 = 1
 
 second = 0
@@ -157,8 +157,8 @@ with plt.style.context(['science', 'ieee', 'no-latex']):
 
     ax.set_xlim(0, 120)
 
-    ax.plot(timestamps, normal_state_blue, label='200', color='darkblue', ls='-')
-    ax.plot(timestamps, normal_state_light_blue, label='503', color='royalblue', ls='-')
+    ax.plot(timestamps, normal_state_blue, label='200', color='darkblue', ls='-', marker='o')
+    ax.plot(timestamps, normal_state_light_blue, label='503', color='royalblue', ls='-', marker='^')
 
     ax.legend(title='HTTP Status Code')
 
@@ -177,8 +177,8 @@ with plt.style.context(['science', 'ieee', 'no-latex']):
 
     ax.set_xlim(0, 120)
 
-    ax.plot(timestamps, circuit_state_yellow, label='200', color='darkkhaki', ls='-')
-    ax.plot(timestamps, circuit_state_light_yellow, label='503', color='khaki', ls='-')
+    ax.plot(timestamps, circuit_state_yellow, label='200', color='darkkhaki', ls='-', marker='o')
+    ax.plot(timestamps, circuit_state_light_yellow, label='503', color='khaki', ls='-', marker='^')
 
     ax.legend(title='HTTP Status Code')
 
@@ -197,8 +197,8 @@ with plt.style.context(['science', 'ieee', 'no-latex']):
 
     ax.set_xlim(0, 120)
 
-    ax.plot(timestamps, broken_state_red, label='200', color='darkred', ls='-')
-    ax.plot(timestamps, broken_state_light_red, label='503', color='red', ls='-')
+    ax.plot(timestamps, broken_state_red, label='200', color='darkred', ls='-', marker='o')
+    ax.plot(timestamps, broken_state_light_red, label='503', color='red', ls='-', marker='^')
 
     ax.legend(title='HTTP Status Code')
 
