@@ -61,8 +61,8 @@ with plt.style.context(['science', 'ieee', 'no-latex']):
 
     ax.set_xlim(0, 120)
 
-    ax.plot(timestamps, status_code200, label='200', color='blue', ls='-', marker='o', markevery=10)
-    ax.plot(timestamps, status_code500, label='503', color='orange', ls='-', marker='^', markevery=10)
+    ax.plot(timestamps, status_code200, label='200', color='blue', ls='-', marker='o', markevery=10, markersize=3.5)
+    ax.plot(timestamps, status_code500, label='503', color='orange', ls='-', marker='^', markevery=10, markersize=3.5)
 
     ax.legend(title='HTTP Status Code')
 
