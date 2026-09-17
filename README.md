@@ -141,3 +141,20 @@ The proof of concept paper is as follows:
 
 - https://github.com/hapifhir/hapi-fhir/issues/3276
 - https://github.com/hapifhir/hapi-fhir/issues/4715
+
+# Citation
+
+Please use the following citaion to cite this publication:
+
+```bibtex
+@INPROCEEDINGS{11326732,
+  author={Li, Chun-Sheng and Ma, Shang-Pin and Lin, Tsung-Hsi},
+  booktitle={2025 Second International Conference on Artificial Intelligence for Medicine, Health and Care (AIxMHC)}, 
+  title={FMSA: A Universal Microservice Architecture Based on FHIR Medical Informatics Standard}, 
+  year={2025},
+  volume={},
+  number={},
+  pages={42-49},
+  keywords={Scalability;Microservice architectures;Insurance;Medical services;Data collection;Robustness;Extensibility;Informatics;Standards;Interoperability;microservice;FHIR;Medical Informatics Standard;Healthcare System;Healthcare Service;Medical System;Open Architecture},
+  doi={10.1109/AIxMHC65380.2025.00017}}
+```
