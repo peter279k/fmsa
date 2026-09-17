@@ -1,5 +1,6 @@
 # FMSA
 
+[![DOI](https://zenodo.org/badge/911583704.svg)](https://doi.org/10.5281/zenodo.22804474)
 [![Unit Tests](https://github.com/peter279k/fmsa/actions/workflows/unit_tests.yml/badge.svg)](https://github.com/peter279k/fmsa/actions/workflows/unit_tests.yml)
 [![Integration Tests](https://github.com/peter279k/fmsa/actions/workflows/integration_tests.yml/badge.svg)](https://github.com/peter279k/fmsa/actions/workflows/integration_tests.yml)
 
