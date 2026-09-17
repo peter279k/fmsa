@@ -145,6 +145,21 @@ The proof of concept paper is as follows:
 
 # Citation
 
+If citing this open source project, please use the following citation:
+
+```bibtex
+@software{chun_sheng_li_2026_22804475,
+  author       = {Chun-Sheng, Li},
+  title        = {peter279k/fmsa: Release v1.0.0},
+  month        = sep,
+  year         = 2026,
+  publisher    = {Zenodo},
+  version      = {v1.0.0},
+  doi          = {10.5281/zenodo.22804475},
+  url          = {https://doi.org/10.5281/zenodo.22804475},
+}
+```
+
 Please use the following citaion to cite this publication:
 
 ```bibtex
